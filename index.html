@@ -5,177 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>নুর মোহাম্মদ - অল-ইন-ওয়ান পোর্টফোলিও</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #f0f2f5;
-            color: #333;
-            text-align: center;
-        }
-        header {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            color: white;
-            padding: 25px 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        header h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-        nav {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        nav button {
-            background: #334155;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            cursor: pointer;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        nav button:hover, nav button.btn-active {
-            background: #2563eb;
-            transform: translateY(-2px);
-        }
-        .container {
-            max-width: 850px;
-            margin: 30px auto;
-            padding: 0 15px;
-        }
-        .section {
-            display: none;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            text-align: left;
-        }
-        .active {
-            display: block;
-        }
-        .section h2 {
-            color: #1e293b;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 8px;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f2f5; color: #333; text-align: center; }
+        header { background: linear-gradient(135deg, #1e293b, #0f172a); color: white; padding: 25px 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        header h1 { font-size: 28px; margin-bottom: 5px; }
+        nav { margin-top: 15px; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+        nav button { background: #334155; color: white; border: none; padding: 10px 18px; cursor: pointer; border-radius: 20px; font-size: 14px; font-weight: 600; transition: 0.3s; }
+        nav button:hover, nav button.btn-active { background: #2563eb; }
+        .container { max-width: 850px; margin: 30px auto; padding: 0 15px; }
+        .section { display: none; background: white; padding: 30px; border-radius: 12px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .active { display: block; }
         
-        /* লগইন বক্স ও কার্ড স্টাইল */
-        .auth-card {
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            padding: 25px;
-            background: #f8fafc;
-            max-width: 380px;
-            margin: 20px auto;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
-        .auth-card h3 {
-            margin-bottom: 8px;
-            color: #1e293b;
-        }
-        .auth-card input {
-            width: 100%;
-            padding: 10px 12px;
-            margin: 10px 0;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 14px;
-            outline: none;
-        }
-        .auth-card input:focus {
-            border-color: #2563eb;
-        }
+        /* লগইন বক্স */
+        .auth-card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; background: #f8fafc; max-width: 380px; margin: 20px auto; }
+        .auth-card input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; }
         
-        /* প্রজেক্ট একর্ডিয়ন স্টাইল */
-        .project-card {
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            margin-top: 15px;
-            background: #ffffff;
-            overflow: hidden;
-        }
+        /* প্রজেক্ট একর্ডিয়ন বর্ডার ও হেডার */
+        .project-card { border: 1px solid #cbd5e1; border-radius: 8px; margin-top: 15px; background: #ffffff; overflow: hidden; }
+        .project-header { background: #f1f5f9; padding: 15px 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: background 0.2s; }
+        .project-header:hover { background: #e2e8f0; }
+        .project-content { display: none; padding: 20px; border-top: 1px solid #cbd5e1; background: #fafafa; }
         
-        .project-header {
-            background: #f1f5f9;
-            padding: 15px 20px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #1e293b;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            user-select: none;
-            transition: background 0.2s;
-        }
-        .project-header:hover {
-            background: #e2e8f0;
-        }
-
-        .project-content {
-            display: none;
-            padding: 20px;
-            border-top: 1px solid #cbd5e1;
-            background: #fafafa;
-        }
-
-        .btn-action {
-            display: inline-block;
-            width: 100%;
-            padding: 10px;
-            background-color: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 15px;
-            transition: 0.2s;
-        }
-        .btn-action:hover { background-color: #1d4ed8; }
+        .btn-action { width: 100%; padding: 10px; background-color: #2563eb; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 15px; }
+        .btn-logout { width: auto; padding: 8px 16px; background-color: #ef4444; }
         
-        .btn-logout {
-            width: auto;
-            padding: 8px 16px;
-            background-color: #ef4444;
-            font-size: 14px;
-        }
-        .btn-logout:hover { background-color: #dc2626; }
-        
-        iframe {
-            width: 100%;
-            height: 480px;
-            border: none;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-        .btn-fb {
-            display: inline-block;
-            background-color: #1877F2;
-            color: white;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-        ul { margin-left: 20px; margin-top: 10px; line-height: 1.8; }
+        iframe { width: 100%; height: 480px; border: none; border-radius: 8px; margin-top: 15px; }
         .error-text { color: #ef4444; font-size: 13px; font-weight: bold; margin-top: 8px; text-align: center; }
+        ul { margin-left: 20px; margin-top: 10px; line-height: 1.8; }
+        .btn-fb { display: inline-block; background-color: #1877F2; color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 15px; }
     </style>
 
-    <!-- Firebase Modules -->
+    <!-- Firebase SDK Modules -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -192,6 +52,9 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        
+        // Vercel Live Backend API URL
+        const BACKEND_URL = "https://nur-micro-tech-github-io.vercel.app/api/get-project";
 
         window.loginUser = function() {
             const email = document.getElementById('emailInput').value;
@@ -199,17 +62,11 @@
             const errMsg = document.getElementById('errMsg');
 
             signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    errMsg.innerText = "";
-                })
-                .catch((error) => {
-                    errMsg.innerText = "ভুল ইমেইল অথবা পাসওয়ার্ড!";
-                });
+                .then(() => { errMsg.innerText = ""; })
+                .catch(() => { errMsg.innerText = "ভুল ইমেইল অথবা পাসওয়ার্ড!"; });
         };
 
-        window.logoutUser = function() {
-            signOut(auth);
-        };
+        window.logoutUser = function() { signOut(auth); };
 
         onAuthStateChanged(auth, (user) => {
             const loginBox = document.getElementById('loginBox');
@@ -221,8 +78,43 @@
             } else {
                 loginBox.style.display = "block";
                 protectedProjects.style.display = "none";
+                // লগআউট করলে কন্টেন্ট ও আইফ্রেম ফাঁকা করে দেওয়া
+                document.getElementById('p1-container').innerHTML = "";
             }
         });
+
+        // সিকিউর লোডিং ফাংশন
+        window.loadSecureProject = async function(projectId, containerId) {
+            const container = document.getElementById(containerId);
+            if (container.innerHTML.trim() !== "") return; // অলরেডি লোড থাকলে পুনরায় কল করবে না
+
+            const user = auth.currentUser;
+            if (!user) return;
+
+            container.innerHTML = "<p style='color:#2563eb; font-weight:bold;'>সার্ভার থেকে নিরাপদে ডাটা লোড হচ্ছে...</p>";
+
+            try {
+                // ফায়ারবেসের সিক্রেট Token নেওয়া
+                const token = await user.getIdToken();
+
+                // ব্যাকএন্ডে টোকেনসহ রিকোয়েস্ট
+                const response = await fetch(`${BACKEND_URL}?id=${projectId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    container.innerHTML = `<p>আমার তৈরি প্রথম সিকিউর সার্কিট সিমুলেশন প্রজেক্ট:</p><iframe src="${result.data.iframeUrl}"></iframe>`;
+                } else {
+                    container.innerHTML = `<p style="color:red;">অ্যাক্সেস মেলেনি: ${result.error}</p>`;
+                }
+            } catch (err) {
+                container.innerHTML = `<p style="color:red;">সার্ভার কানেকশনে সমস্যা হয়েছে!</p>`;
+            }
+        };
     </script>
 </head>
 <body>
@@ -230,7 +122,6 @@
     <header>
         <h1>নুর মোহাম্মদ 👋</h1>
         <p>ওয়েব, টেকনোলজি ও প্রজেক্ট হাব</p>
-        
         <nav>
             <button class="nav-btn btn-active" onclick="showSection('home', this)">হোম</button>
             <button class="nav-btn" onclick="showSection('about', this)">আমার সম্পর্কে</button>
@@ -242,66 +133,45 @@
     </header>
 
     <div class="container">
-
         <!-- ১. হোম -->
         <div id="home" class="section active">
             <h2>🏠 স্বাগতম!</h2>
-            <p>আমার ব্যক্তিগত ডিজিটাল স্পেসে আপনাকে স্বাগতম। এই ওয়েবসাইটে আমার কাজের অভিজ্ঞতা, নতুন নতুন প্রজেক্ট এবং ভবিষ্যৎ পরিকল্পনার আপডেট পাবেন।</p>
+            <p>আমার ব্যক্তিগত প্রজেক্ট পোরটফোলিওতে আপনাকে স্বাগতম।</p>
         </div>
 
         <!-- ২. আমার সম্পর্কে -->
         <div id="about" class="section">
             <h2>👨‍💻 আমার সম্পর্কে</h2>
-            <p>আমি নুর মোহাম্মদ। টেকনোলজি, ওয়েব ডেভলপমেন্ট এবং ইলেকট্রনিক্স নিয়ে কাজ করতে আমি পছন্দ করি।</p>
-            <br>
-            <h4>আমার দক্ষতাসমূহ:</h4>
-            <ul>
-                <li>ইলেকট্রনিক্স ও Wokwi সার্কিট সিমুলেশন</li>
-                <li>HTML & CSS দিয়ে ওয়েবসাইট তৈরি</li>
-                <li>নতুন নতুন টেকনোলজি নিয়ে রিসার্চ করা</li>
-            </ul>
+            <p>আমি নুর মোহাম্মদ। টেকনোলজি, ওয়েব ডেভলপমেন্ট এবং ইলেকট্রনিক্স নিয়ে কাজ করতে পছন্দ করি।</p>
         </div>
 
-        <!-- ৩. প্রজেক্ট সেকশন (সিকিউরড) -->
+        <!-- ৩. সিকিউর প্রজেক্ট সেকশন -->
         <div id="projects" class="section">
-            <h2>🤖 প্রজেক্টসমূহ 🔒</h2>
+            <h2>🤖 সিকিউর প্রজেক্টসমূহ 🔒</h2>
             
             <!-- লগইন ফর্ম -->
             <div id="loginBox" class="auth-card">
                 <h3>এডমিন লগইন</h3>
-                <p style="font-size: 13px; color: #64748b; margin-bottom: 10px;">গোপন প্রজেক্টগুলো দেখতে লগইন করুন</p>
                 <input type="email" id="emailInput" placeholder="ইমেইল লিখুন">
                 <input type="password" id="passInput" placeholder="পাসওয়ার্ড লিখুন">
                 <button class="btn-action" onclick="loginUser()">লগইন করুন</button>
                 <div id="errMsg" class="error-text"></div>
             </div>
 
-            <!-- মূল প্রজেক্ট কন্টেন্ট -->
+            <!-- মূল প্রজেক্ট এরিয়া (লগইন করার পর আসবে) -->
             <div id="protectedProjects" style="display: none;">
                 <div style="text-align: right; margin-bottom: 15px;">
                     <button class="btn-action btn-logout" onclick="logoutUser()">🔓 লগআউট করুন</button>
                 </div>
 
-                <!-- প্রজেক্ট-১ -->
+                <!-- প্রজেক্ট-১ (ড্রপডাউন লিস্ট) -->
                 <div class="project-card">
-                    <div class="project-header" onclick="toggleProject('p1', this)">
+                    <div class="project-header" onclick="toggleProject('p1', 'p1-container', 'p1', this)">
                         <span>📦 Project-1: IoT Smart Medicine Box</span>
                         <span class="icon">🔽</span>
                     </div>
                     <div id="p1" class="project-content">
-                        <p>আমার তৈরি প্রথম সিকিউর সার্কিট সিমুলেশন প্রজেক্ট:</p>
-                        <iframe src="https://wokwi.com/projects/469244889301297153/embed"></iframe>
-                    </div>
-                </div>
-
-                <!-- প্রজেক্ট-২ (ভবিষ্যতের নমুনা) -->
-                <div class="project-card">
-                    <div class="project-header" onclick="toggleProject('p2', this)">
-                        <span>⚙️ Project-2: Smart Home Automation</span>
-                        <span class="icon">🔽</span>
-                    </div>
-                    <div id="p2" class="project-content">
-                        <p>এখানে আপনার ২য় প্রজেক্ট আসবে...</p>
+                        <div id="p1-container"></div>
                     </div>
                 </div>
 
@@ -311,47 +181,33 @@
         <!-- ৪. ভবিষ্যৎ প্ল্যান -->
         <div id="plans" class="section">
             <h2>🚀 ভবিষ্যৎ পরিকল্পনা</h2>
-            <p>সামনে আমার যে কাজগুলো করার ইচ্ছা আছে:</p>
-            <ul>
-                <li>আরও অ্যাডভান্সড IoT প্রজেক্ট তৈরি করা।</li>
-                <li>কোডিং শিখে প্রফেশনাল লেভেলের ফুল-স্ট্যাক ওয়েবসাইট বানানো।</li>
-                <li>অন্যদের টেকনোলজি শিখতে সাহায্য করা।</li>
-            </ul>
+            <p>সামনে আরও নতুন নতুন IoT ও ওয়েব প্রজেক্ট তৈরি করার ইচ্ছা আছে।</p>
         </div>
 
         <!-- ৫. গ্যালারি -->
         <div id="gallery" class="section">
             <h2>📸 গ্যালারি</h2>
-            <p>এখানে ভবিষ্যতে তোমার কোনো সুন্দর প্রজেক্টের ছবি বা ব্যক্তিগত ছবি যুক্ত করে রাখতে পারবে।</p>
+            <p>এখানে প্রজেক্টের ছবি যুক্ত করা হবে।</p>
         </div>
 
         <!-- ৬. যোগাযোগ -->
         <div id="contact" class="section">
             <h2>📲 যোগাযোগ</h2>
-            <p>যেকোনো প্রশ্ন, সাহায্য বা প্রজেক্ট সম্পর্কিত বিষয়ে আমার সাথে সরাসরি কানেক্ট হতে পারো:</p>
-            <br>
-            <a href="https://www.facebook.com/musafir.nurm514" target="_blank" class="btn-fb">
-                আমার ফেসবুক প্রোফাইলে যান ➔
-            </a>
+            <a href="https://www.facebook.com/musafir.nurm514" target="_blank" class="btn-fb">আমার ফেসবুক প্রোফাইলে যান ➔</a>
         </div>
-
     </div>
 
     <script>
         function showSection(sectionId, btn) {
-            let sections = document.querySelectorAll('.section');
-            sections.forEach(sec => sec.classList.remove('active'));
-
-            let buttons = document.querySelectorAll('.nav-btn');
-            buttons.forEach(b => b.classList.remove('btn-active'));
-
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('btn-active'));
             document.getElementById(sectionId).classList.add('active');
             btn.classList.add('btn-active');
         }
 
-        // প্রজেক্ট টগল ফাংশন
-        function toggleProject(id, headerElem) {
-            const content = document.getElementById(id);
+        // প্রজেক্ট টগল ও ডাইনামিক সিকিউর লোডিং ফাংশন
+        function toggleProject(contentId, containerId, projectId, headerElem) {
+            const content = document.getElementById(contentId);
             const icon = headerElem.querySelector('.icon');
 
             if (content.style.display === "block") {
@@ -360,9 +216,10 @@
             } else {
                 content.style.display = "block";
                 icon.innerText = "🔼";
+                // ইউজার ক্লিক করলেই কেবল ব্যাকএন্ড থেকে লোড হবে
+                window.loadSecureProject(projectId, containerId);
             }
         }
     </script>
-
 </body>
 </html>
