@@ -9,7 +9,88 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* আপনার সিএসএস কোডগুলো এখানে বসাবেন */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f2f5; color: #333; text-align: center; }
+        header { background: linear-gradient(135deg, #1e293b, #0f172a); color: white; padding: 25px 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        header h1 { font-size: 28px; margin-bottom: 5px; }
+        nav { margin-top: 15px; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+        nav button { background: #334155; color: white; border: none; padding: 10px 18px; cursor: pointer; border-radius: 20px; font-size: 14px; font-weight: 600; transition: 0.3s; }
+        nav button:hover, nav button.btn-active { background: #2563eb; }
+        .container { max-width: 850px; margin: 30px auto; padding: 0 15px; }
+        .section { display: none; background: white; padding: 30px; border-radius: 12px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .active { display: block; }
+        
+        /* লগইন বক্স */
+        .auth-card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; background: #f8fafc; max-width: 380px; margin: 20px auto; }
+        .auth-card input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; }
+        
+        /* প্রজেক্ট একর্ডিয়ন বর্ডার ও হেডার */
+        .project-card { border: 1px solid #cbd5e1; border-radius: 8px; margin-top: 15px; background: #ffffff; overflow: hidden; }
+        .project-header { background: #f1f5f9; padding: 15px 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: background 0.2s; }
+        .project-header:hover { background: #e2e8f0; }
+        .project-content { display: none; padding: 20px; border-top: 1px solid #cbd5e1; background: #fafafa; }
+        
+        .btn-action { width: 100%; padding: 10px; background-color: #2563eb; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 15px; }
+        .btn-logout { width: auto; padding: 8px 16px; background-color: #ef4444; }
+        
+        iframe { width: 100%; height: 480px; border: none; border-radius: 8px; margin-top: 15px; }
+        .error-text { color: #ef4444; font-size: 13px; font-weight: bold; margin-top: 8px; text-align: center; }
+
+        /* সোশ্যাল মিডিয়া বাটন স্টাইল */
+        .social-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+        .btn-social { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px; transition: transform 0.2s, opacity 0.2s; }
+        .btn-social:hover { transform: translateY(-2px); opacity: 0.9; }
+        .btn-facebook { background-color: #1877F2; }
+        .btn-twitter { background-color: #000000; }
+        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .btn-linkedin { background-color: #0A66C2; }
+
+        /* স্টাডি / লাইব্রেরি হাব স্টাইল */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
+        .hub-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.2s; font-weight: 600; }
+        .hub-card:hover { background: #eff6ff; border-color: #2563eb; transform: translateY(-3px); }
+        .hub-card span { font-size: 28px; display: block; margin-bottom: 8px; }
+        .back-btn { background: #64748b; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; margin-bottom: 15px; font-weight: 600; }
+        .resource-box { background: #f1f5f9; padding: 15px; border-radius: 8px; margin-top: 10px; }
+        .resource-box h4 { margin-bottom: 8px; color: #1e293b; }
+
+        /* বিশেষ নোটিশ এবং লাইক বক্স স্টাইল */
+        .author-notice-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid #2563eb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1e3a8a;
+            line-height: 1.6;
+        }
+        .like-container {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-like {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 7px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        .btn-like:hover { background-color: #1d4ed8; }
+
+        /* বইয়ের তালিকা স্টাইল */
+        .book-list { list-style: none; padding: 0; margin-top: 10px; }
+        .book-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 8px; font-size: 14px; font-weight: 500; }
+        .book-item a { background-color: #2563eb; color: white; text-decoration: none; padding: 6px 14px; border-radius: 4px; font-size: 13px; font-weight: 600; transition: background 0.2s; }
+        .book-item a:hover { background-color: #1d4ed8; }
+        .disabled-btn { background-color: #94a3b8 !important; cursor: not-allowed; }
     </style>
 </head>
 <body>
