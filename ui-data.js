@@ -1,7 +1,5 @@
-// ১. সোশ্যাল মিডিয়া লিঙ্কসমূহ ও শিক্ষা হাবের কন্টেন্ট render করা
+// ১. সোশ্যাল মিডিয়া লিঙ্কসমূহ render করার জন্য
 document.addEventListener("DOMContentLoaded", function () {
-    
-    // সোশ্যাল মিডিয়া বাটন
     const socialLinksHTML = `
         <a href="https://www.facebook.com/musafir.nurm514" target="_blank" class="btn-social btn-facebook">📘 Facebook</a>
         <a href="https://twitter.com" target="_blank" class="btn-social btn-twitter">🐦 Twitter (X)</a>
@@ -11,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const socialContainer = document.getElementById("socialLinksContainer");
     if (socialContainer) socialContainer.innerHTML = socialLinksHTML;
 
-    // ২. শিক্ষা হাবের ডাইনামিক ভিউসমূহ (অরিজিনাল নোটিশ ও মতামত অপশনসহ)
+    // ২. শিক্ষা হাবের অতিরিক্ত কন্টেন্ট (অরিজিনাল নোটিশ + লাইক + মতামত পাঠানো)
     const studyViewsHTML = `
         <!-- একাডেমি ক্লাস তালিকা -->
         <div id="academicView" style="display: none; margin-top: 15px;">
@@ -25,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <button class="back-btn" onclick="backToAcademic()">🔙 ক্লাস তালিকায় ফিরুন</button>
             <h3 id="selectedClassTitle"></h3>
             
-            <!-- আপনার অরিজিনাল বিশেষ বার্তা নোটিশ + লাইক + মতামত পাঠাবার বক্স -->
+            <!-- আপনার অরিজিনাল বিশেষ বার্তা নোটিশ (সবসময় দৃশ্যমান) -->
             <div id="writerNoticeBox" class="author-notice-box" style="display: block; margin-top: 15px; background: #eff6ff; border-left: 5px solid #2563eb; padding: 15px; border-radius: 8px;">
                 📢 <strong>বিশেষ বার্তা:</strong> যেসব রাইটারের বই এখানে রাখা হয়েছে, এই বিষয়ে যদি আপনাদের কোনো ব্যক্তিগত মতামত থাকে তবে দয়া করে জানাবেন। যদি আমার এই উদ্যোগটি ভালো লেগে থাকে তবে একটি লাইক দিন। আর যদি লেখক/প্রকাশক বা সংশ্লিষ্ট কারো কাছে এই বিষয়টি অসন্তোষজনক মনে হয়, তবে দয়া করে আমার সাথে যোগাযোগ করে নিষেধ করবেন, আমি সাথে সাথে বইটি সরিয়ে দেবো। এটি কোনো বাণিজ্যিক উদ্দেশ্যে নয়, সম্পূর্ণ শিক্ষার্থীদের সহায়তার উদ্দেশ্যে করা হয়েছে। ধন্যবাদ।
                 
@@ -34,10 +32,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     <span id="likeCountText" style="font-weight: bold; color: #1e293b;">0 Likes</span>
                 </div>
 
-                <!-- আপনার চাহিদামতো নতুন মতামত দেওয়ার অপশন -->
+                <!-- মতামত জানানোর ফিচার -->
                 <div class="feedback-area-box" style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed #bfdbfe;">
                     <strong>💬 আপনার মন্তব্য বা অনুরোধ লিখুন:</strong>
-                    <textarea id="userFeedback" class="feedback-area" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 8px; font-size: 13px;" placeholder="বই সম্পর্কে আপনার মতামত বা পরামর্শ লিখুন..."></textarea>
+                    <textarea id="userFeedback" class="feedback-area" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 8px; font-size: 13px;" placeholder="বই বা রাইটার সম্পর্কে মতামত লিখুন..."></textarea>
                     <button class="btn-feedback" onclick="submitFeedback()" style="background-color: #0284c7; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; margin-top: 6px; cursor: pointer;">মতামত পাঠান</button>
                     <div id="feedbackSuccess" style="color: #16a34a; font-size: 13px; font-weight: bold; margin-top: 5px; display: none;">আপনার মতামত জমা নেওয়া হয়েছে! ধন্যবাদ।</div>
                 </div>
@@ -89,11 +87,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const studyContainer = document.getElementById("studyHubViews");
     if (studyContainer) studyContainer.innerHTML = studyViewsHTML;
 
-    // লাইক সংখ্যা লোড করা
+    // লাইক আপডেট
     loadLikes();
 });
 
-// লাইক ও ফিডব্যাক সংক্রান্ত ফাংশনসমূহ
+// ৩. ড্রাইভের লিঙ্ককে অটোমেটিক /preview লিঙ্কে রূপান্তর করার ফাংশন
+function fixDriveUrl(url) {
+    if (url && url.includes("drive.google.com") && url.includes("/view")) {
+        return url.replace("/view", "/preview");
+    }
+    return url;
+}
+
+// ৪. লাইক ও মতামত ফাংশনালিটি
 let likesCount = parseInt(localStorage.getItem('writerNoticeLikes') || '0');
 
 function loadLikes() {
