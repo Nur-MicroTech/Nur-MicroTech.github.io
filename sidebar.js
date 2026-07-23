@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // ১. সাইডবার ও ৩-বার বাটন CSS ইন্জেক্ট করা
+    // ১. CSS ইন্জেক্ট করা
     const sidebarStyle = document.createElement("style");
     sidebarStyle.innerHTML = `
-        /* ৩-বার বাটন হেডারের বাম পাশে বসানো */
         .menu-toggle-btn {
             position: absolute;
             left: 20px;
@@ -19,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         .menu-toggle-btn:hover { background: #2563eb; }
 
-        /* সাইডবার ড্রয়ার স্টাইল */
         .custom-sidebar {
             height: 100%;
             width: 270px;
@@ -34,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
             z-index: 1000;
             text-align: left;
         }
-
         .custom-sidebar.open { left: 0; }
 
         .sidebar-close-btn {
@@ -47,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         .sidebar-close-btn:hover { color: white; }
 
-        /* সাইডবারের অপশন লিঙ্কসমূহ */
         .custom-sidebar a {
             padding: 14px 25px;
             text-decoration: none;
@@ -64,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
             padding-left: 32px;
         }
 
-        /* ব্যাকগ্রাউন্ড অস্পষ্ট ব্যাকড্রপ (Overlay) */
         .sidebar-overlay {
             display: none;
             position: fixed;
@@ -79,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
     document.head.appendChild(sidebarStyle);
 
-    // ২. ৩-বার বোতামটি হেডারে বসানো
+    // ২. ৩-বার বোতাম
     const header = document.querySelector("header");
     if (header) {
         const toggleBtn = document.createElement("div");
@@ -89,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         header.appendChild(toggleBtn);
     }
 
-    // ৩. সাইডবার এবং ওভারলে HTML বডিতে যুক্ত করা
+    // ৩. সাইডবার HTML
     const sidebarHTML = `
         <div id="customSidebar" class="custom-sidebar">
             <div class="sidebar-close-btn" onclick="window.toggleNavSidebar()"><i class="fa-solid fa-xmark"></i></div>
@@ -106,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.insertAdjacentHTML("beforeend", sidebarHTML);
 });
 
-// ৪. সাইডবার খোলা ও বন্ধ করার ফাংশন
+// ৪. সাইডবার খোলা/বন্ধ করা
 window.toggleNavSidebar = function () {
     const sidebar = document.getElementById("customSidebar");
     const overlay = document.getElementById("sidebarOverlay");
@@ -116,24 +111,70 @@ window.toggleNavSidebar = function () {
     }
 };
 
-// ৫. মূল app.js-এর সাথে সংযোগ বজায় রেখে সেকশন বদলানো
+// ৫. সেকশন পরিবর্তন ও কন্টেন্ট লোড
 window.triggerSection = function (sectionId) {
-    // অরিজিনাল হেডারের বাটনে ক্লিক করার মতো আচরণ সিমুলেট করা
-    const targetNavBtn = document.querySelector(`nav button[onclick*="'${sectionId}'"]`);
-    
-    if (targetNavBtn) {
-        targetNavBtn.click(); // এটি app.js এবং ui-data.js এর সব ডাটা ঠিকমতো লোড করে দেবে
-    } else {
-        // ব্যাকআপ সেকশন টগল (যদি না বাটন পাওয়া যায়)
-        const allSections = document.querySelectorAll('.section');
-        allSections.forEach(sec => sec.classList.remove('active'));
-        const targetSection = document.getElementById(sectionId);
-        if (targetSection) targetSection.classList.add('active');
-        if (typeof showSection === "function") {
-            showSection(sectionId);
-        }
+    const allSections = document.querySelectorAll('.section');
+    allSections.forEach(sec => sec.classList.remove('active'));
+
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.add('active');
     }
 
-    // সাইডবার বন্ধ করা
+    if (sectionId === "studyHub") {
+        window.closeStudyFolder();
+    }
+
     window.toggleNavSidebar();
+};
+
+// ৬. শিক্ষা হাবের ক্যাটাগরি ড্রিল-ডাউন (একাডেমি কন্টেন্ট লোডিং ফিক্স)
+window.openStudyFolder = function (folderId) {
+    const mainCat = document.getElementById("hubMainCategories");
+    const subViewsContainer = document.getElementById("studyHubViews");
+
+    if (mainCat) mainCat.style.display = "none";
+
+    let folderTitle = "বিভাগীয় রিসোর্স";
+    let contentHTML = "";
+
+    if (folderId === 'academicView') {
+        folderTitle = "🏫 একাডেমি (Class 1 - 12)";
+        contentHTML = `
+            <ul class="book-list">
+                <li class="book-item"><span>📘 ক্লাস ৯-১০ গণিত নোটস</span> <a href="#">ডাউনলোড</a></li>
+                <li class="book-item"><span>📕 এইচএসসি পদার্থবিজ্ঞান গাইড</span> <a href="#">ডাউনলোড</a></li>
+            </ul>
+        `;
+    } else if (folderId === 'ieltsView') {
+        folderTitle = "🇬🇧 IELTS প্রিপারেশন";
+        contentHTML = `<p>IELTS স্পিকিং ও রাইটিং ম্যাটেরিয়ালস এখানে উপলব্ধ।</p>`;
+    } else if (folderId === 'islamicView') {
+        folderTitle = "🕌 ইসলামিক বই";
+        contentHTML = `<p>ইসলামিক বই ও বয়ান কালেকশন।</p>`;
+    } else if (folderId === 'literatureView') {
+        folderTitle = "📖 সাহিত্য ও অন্যান্য";
+        contentHTML = `<p>উপন্যাস ও সাহিত্য গ্রন্থ।</p>`;
+    }
+
+    if (subViewsContainer) {
+        subViewsContainer.innerHTML = `
+            <button class="back-btn" onclick="window.closeStudyFolder()">⬅️ ফিরে যান</button>
+            <div class="resource-box">
+                <h4>${folderTitle}</h4>
+                ${contentHTML}
+            </div>
+        `;
+        subViewsContainer.style.display = "block";
+    }
+};
+
+window.closeStudyFolder = function () {
+    const mainCat = document.getElementById("hubMainCategories");
+    const subViewsContainer = document.getElementById("studyHubViews");
+    if (mainCat) mainCat.style.display = "grid";
+    if (subViewsContainer) {
+        subViewsContainer.style.display = "none";
+        subViewsContainer.innerHTML = "";
+    }
 };
