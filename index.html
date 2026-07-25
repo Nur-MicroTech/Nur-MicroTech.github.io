@@ -10,46 +10,150 @@
     
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f0f2f5; color: #333; text-align: center; }
+        body { background-color: #f0f2f5; color: #333; text-align: center; position: relative; min-height: 100vh; }
         
+        /* হেডার স্টাইল */
         header { 
             background: linear-gradient(135deg, #1e293b, #0f172a); 
             color: white; 
-            padding: 25px 15px; 
+            padding: 15px 20px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
-            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 90;
         }
-        header h1 { font-size: 28px; margin-bottom: 5px; }
-        header p { color: #cbd5e1; font-size: 15px; margin-bottom: 15px; }
+
+        .header-title-box {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        header h1 { font-size: 24px; margin-bottom: 2px; }
+        header p { color: #cbd5e1; font-size: 13px; }
         
-        /* নেভিগেশন বার স্টাইল ঠিক করা হয়েছে */
-        header nav { 
-            display: flex !important; 
+        /* ৩-বার (হ্যামবার্গার) মেনু বাটন */
+        .hamburger-btn {
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 20px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 15px;
+        }
+
+        .hamburger-btn:hover {
+            background: #2563eb;
+            border-color: #2563eb;
+            transform: scale(1.05);
+        }
+
+        /* সাইডবার (Off-canvas Drawer) */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(3px);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -290px;
+            width: 280px;
+            height: 100%;
+            background: #0f172a;
+            color: white;
+            z-index: 999;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.3);
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: #1e293b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .sidebar-header h3 {
+            font-size: 17px;
+            color: #f8fafc;
+        }
+
+        .close-sidebar-btn {
+            background: none;
+            border: none;
+            color: #cbd5e1;
+            font-size: 22px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-sidebar-btn:hover {
+            color: #ef4444;
+        }
+
+        .sidebar-menu {
+            padding: 15px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
         }
 
         .nav-btn {
-            background: rgba(255, 255, 255, 0.1);
+            background: transparent;
             color: #cbd5e1;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+            width: 100%;
         }
 
         .nav-btn:hover, .nav-btn.btn-active {
             background: #2563eb;
             color: white;
-            border-color: #2563eb;
             box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
         }
 
+        /* কন্টেইনার ও সেকশন */
         .container { max-width: 950px; margin: 30px auto; padding: 0 15px; }
         
         .section { 
@@ -168,10 +272,30 @@
 </head>
 <body>
 
+    <!-- হেডার বার -->
     <header>
-        <h1>নুর মোহাম্মদ 👋</h1>
-        <p>ওয়েব, টেকনোলজি ও প্রজেক্ট হাব</p>
-        <nav>
+        <!-- ৩-বার (হ্যামবার্গার) বাটন -->
+        <button class="hamburger-btn" onclick="toggleSidebar()" title="মেনু খুলুন">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="header-title-box">
+            <h1>নুর মোহাম্মদ 👋</h1>
+            <p>ওয়েব, টেকনোলজি ও প্রজেক্ট হাব</p>
+        </div>
+
+        <div style="width: 40px;"></div> <!-- ব্যালেন্স রাখার স্পেস -->
+    </header>
+
+    <!-- সাইডবার ওভারলে এবং ড্রয়ার -->
+    <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>📌 মেনু নেভিগেশন</h3>
+            <button class="close-sidebar-btn" onclick="toggleSidebar()">&times;</button>
+        </div>
+        <div class="sidebar-menu">
             <button class="nav-btn btn-active" onclick="showSection('home', this)">🏠 হোম</button>
             <button class="nav-btn" onclick="showSection('about', this)">👨‍💻 আমার সম্পর্কে</button>
             <button class="nav-btn" onclick="showSection('cvHub', this)">📄 স্মার্ট সিভি বিল্ডার</button>
@@ -180,14 +304,14 @@
             <button class="nav-btn" onclick="showSection('plans', this)">🚀 ভবিষ্যৎ প্ল্যান</button>
             <button class="nav-btn" onclick="showSection('gallery', this)">📸 গ্যালারি</button>
             <button class="nav-btn" onclick="showSection('contact', this)">📲 যোগাযোগ</button>
-        </nav>
-    </header>
+        </div>
+    </aside>
 
     <div class="container">
         <!-- ১. হোম -->
         <div id="home" class="section active">
             <h2>🏠 স্বাগতম!</h2>
-            <p>আমার ব্যক্তিগত পোর্টফোলিও এবং প্রজেক্ট হাবে আপনাকে স্বাগতম। উপরের নেভিগেশন বার থেকে যেকোনো ট্যাবে গিয়ে স্মার্ট সিভি প্রস্তুত করতে পারেন বা শিক্ষা উপকরণ দেখতে পারেন।</p>
+            <p>আমার ব্যক্তিগত পোর্টফোলিও এবং প্রজেক্ট হাবে আপনাকে স্বাগতম। বাম পাশের ☰ (৩-বার) মেনু থেকে যেকোনো ট্যাবে গিয়ে স্মার্ট সিভি প্রস্তুত করতে পারেন বা শিক্ষা উপকরণ দেখতে পারেন।</p>
         </div>
 
         <!-- ২. আমার সম্পর্কে -->
@@ -196,7 +320,7 @@
             <p>আমি নুর মোহাম্মদ। টেকনোলজি, ওয়েব ডেভলপমেন্ট এবং IoT (ইন্টারনেট অব থিংস) নিয়ে কাজ করতে পছন্দ করি।</p>
         </div>
 
-        <!-- 📄 ৩. স্মার্ট সিভি ও ক্যারিয়ার হাব -->
+        <!-- ৩. স্মার্ট সিভি ও ক্যারিয়ার হাব -->
         <div id="cvHub" class="section">
             <h2>📄 স্মার্ট সিভি ও ক্যারিয়ার হাব (BD & International Standard)</h2>
             <p style="color: #64748b; margin-bottom: 20px;">আপনার কাঙ্ক্ষিত চাকরির ক্যাটাগরি বেছে নিন এবং ১-ক্লিকে প্রফেশনাল অটো-টেমপ্লেট থেকে সিভি প্রস্তুত করুন:</p>
@@ -285,6 +409,16 @@
 
     <!-- JavaScript logic -->
     <script>
+        // সাইডবার টগল করার ফাংশন
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (sidebar && overlay) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            }
+        }
+
         // সেকশন পরিবর্তন ফাংশন
         function showSection(sectionId, btnElement) {
             // সকল সেকশন হাইড করা
@@ -304,6 +438,14 @@
             // ক্লিক করা বাটনে একটিভ ক্লাস দেওয়া
             if (btnElement) {
                 btnElement.classList.add('btn-active');
+            }
+
+            // সাইডবার অফ করে দেওয়া
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (sidebar && overlay) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
             }
         }
 
