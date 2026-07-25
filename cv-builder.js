@@ -91,11 +91,6 @@ let currentCvState = {
     }
 };
 
-// ডোমের বিষয়সমূহ লোড করার ইনিশিয়ালাইজার
-document.addEventListener("DOMContentLoaded", () => {
-    initCvBuilder();
-});
-
 function initCvBuilder() {
     const root = document.getElementById("cvBuilderRoot");
     if (!root) return;
@@ -105,13 +100,15 @@ function initCvBuilder() {
 // ১. ৬টি ক্যাটাগরি ভিউ রেন্ডার
 function renderCategoriesView() {
     const root = document.getElementById("cvBuilderRoot");
+    if (!root) return;
+
     let html = `
         <div class="grid-container">
     `;
 
     cvCategoriesData.forEach(cat => {
         html += `
-            <div class="hub-card" onclick="selectCvCategory('${cat.id}')">
+            <div class="hub-card" onclick="window.selectCvCategory('${cat.id}')">
                 <span>${cat.icon}</span>
                 <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 5px;">${cat.title}</div>
                 <div style="font-size: 12px; color: #64748b; font-weight: normal; line-height: 1.4;">${cat.description}</div>
@@ -135,7 +132,7 @@ function selectCvCategory(catId) {
     const root = document.getElementById("cvBuilderRoot");
 
     let html = `
-        <button class="back-btn no-print" onclick="renderCategoriesView()">⬅️ ক্যাটাগরি তালিকায় ফিরে যান</button>
+        <button class="back-btn no-print" onclick="window.renderCategoriesView()">⬅️ ক্যাটাগরি তালিকায় ফিরে যান</button>
         <h3 style="color: #0f172a; margin-bottom: 5px;">${category.icon} ${category.title} এর টেমপ্লেটসমূহ</h3>
         <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">আপনার পছন্দসই টেমপ্লেটে ক্লিক করে তথ্য দেওয়া শুরু করুন:</p>
         
@@ -144,7 +141,7 @@ function selectCvCategory(catId) {
 
     category.templates.forEach(tpl => {
         html += `
-            <div class="hub-card" style="border-top: 4px solid ${tpl.color}; text-align: left;" onclick="openCvEditor('${tpl.id}')">
+            <div class="hub-card" style="border-top: 4px solid ${tpl.color}; text-align: left;" onclick="window.openCvEditor('${tpl.id}')">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <span style="font-size: 24px; margin: 0;">📄</span>
                     <span style="background: #f1f5f9; color: #334155; font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 600;">${tpl.badge}</span>
@@ -167,11 +164,10 @@ function openCvEditor(templateId) {
     const root = document.getElementById("cvBuilderRoot");
 
     const isBdClassic = currentCvState.selectedCategory.id === "cat_bd_classic";
-    const isRetail = currentCvState.selectedCategory.id === "cat_service";
 
     let html = `
         <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-            <button class="back-btn" style="margin:0;" onclick="selectCvCategory('${currentCvState.selectedCategory.id}')">⬅️ টেমপ্লেটে ফিরুন</button>
+            <button class="back-btn" style="margin:0;" onclick="window.selectCvCategory('${currentCvState.selectedCategory.id}')">⬅️ টেমপ্লেটে ফিরুন</button>
             <button onclick="window.print()" style="background-color: #16a34a; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
                 🖨️ ১-ক্লিকে PDF ডাউনলোড করুন
             </button>
@@ -183,52 +179,52 @@ function openCvEditor(templateId) {
                 <h3 style="font-size: 16px; color: #0f172a; margin-bottom: 15px; border-bottom: 2px solid #cbd5e1; padding-bottom: 6px;">✏️ তথ্য পরিবর্তন করুন</h3>
                 
                 <label style="font-size: 12px; font-weight: 700; color: #475569;">পূর্ণ নাম:</label>
-                <input type="text" id="cv_fullName" value="${currentCvState.formData.fullName}" oninput="updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
+                <input type="text" id="cv_fullName" value="${currentCvState.formData.fullName}" oninput="window.updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
 
                 <label style="font-size: 12px; font-weight: 700; color: #475569;">কাঙ্ক্ষিত পদ/টাইটেল:</label>
-                <input type="text" id="cv_jobTitle" value="${currentCvState.formData.jobTitle}" oninput="updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
+                <input type="text" id="cv_jobTitle" value="${currentCvState.formData.jobTitle}" oninput="window.updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
 
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <div>
                         <label style="font-size: 12px; font-weight: 700; color: #475569;">ইমেইল:</label>
-                        <input type="text" id="cv_email" value="${currentCvState.formData.email}" oninput="updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
+                        <input type="text" id="cv_email" value="${currentCvState.formData.email}" oninput="window.updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
                     </div>
                     <div>
                         <label style="font-size: 12px; font-weight: 700; color: #475569;">ফোন নম্বর:</label>
-                        <input type="text" id="cv_phone" value="${currentCvState.formData.phone}" oninput="updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
+                        <input type="text" id="cv_phone" value="${currentCvState.formData.phone}" oninput="window.updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
                     </div>
                 </div>
 
                 <label style="font-size: 12px; font-weight: 700; color: #475569;">ঠিকানা:</label>
-                <input type="text" id="cv_address" value="${currentCvState.formData.address}" oninput="updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
+                <input type="text" id="cv_address" value="${currentCvState.formData.address}" oninput="window.updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
 
                 ${isBdClassic ? `
                     <div style="background: #f1f5f9; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
                         <label style="font-size: 12px; font-weight: 700; color: #1e293b;">পিতার নাম:</label>
-                        <input type="text" id="cv_fatherName" value="${currentCvState.formData.fatherName}" oninput="updateCvPreview()" style="width:100%; padding:6px; margin:2px 0 8px 0; border:1px solid #cbd5e1; border-radius:4px;">
+                        <input type="text" id="cv_fatherName" value="${currentCvState.formData.fatherName}" oninput="window.updateCvPreview()" style="width:100%; padding:6px; margin:2px 0 8px 0; border:1px solid #cbd5e1; border-radius:4px;">
 
                         <label style="font-size: 12px; font-weight: 700; color: #1e293b;">মাতার নাম:</label>
-                        <input type="text" id="cv_motherName" value="${currentCvState.formData.motherName}" oninput="updateCvPreview()" style="width:100%; padding:6px; margin:2px 0 8px 0; border:1px solid #cbd5e1; border-radius:4px;">
+                        <input type="text" id="cv_motherName" value="${currentCvState.formData.motherName}" oninput="window.updateCvPreview()" style="width:100%; padding:6px; margin:2px 0 8px 0; border:1px solid #cbd5e1; border-radius:4px;">
 
                         <label style="font-size: 12px; font-weight: 700; color: #1e293b;">এনআইডি / স্মার্ট কার্ড নম্বর:</label>
-                        <input type="text" id="cv_nid" value="${currentCvState.formData.nidOrPassport}" oninput="updateCvPreview()" style="width:100%; padding:6px; margin:2px 0 0 0; border:1px solid #cbd5e1; border-radius:4px;">
+                        <input type="text" id="cv_nid" value="${currentCvState.formData.nidOrPassport}" oninput="window.updateCvPreview()" style="width:100%; padding:6px; margin:2px 0 0 0; border:1px solid #cbd5e1; border-radius:4px;">
                     </div>
                 ` : ''}
 
                 <label style="font-size: 12px; font-weight: 700; color: #475569;">পোর্টফোলিও / গিটহাব লিংক:</label>
-                <input type="text" id="cv_github" value="${currentCvState.formData.githubOrPortfolio}" oninput="updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
+                <input type="text" id="cv_github" value="${currentCvState.formData.githubOrPortfolio}" oninput="window.updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
 
                 <label style="font-size: 12px; font-weight: 700; color: #475569;">ক্যারিয়ার অবজেক্টিভ / সামারি:</label>
-                <textarea id="cv_summary" oninput="updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px; height: 60px;">${currentCvState.formData.summary}</textarea>
+                <textarea id="cv_summary" oninput="window.updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px; height: 60px;">${currentCvState.formData.summary}</textarea>
 
                 <label style="font-size: 12px; font-weight: 700; color: #475569;">দক্ষতা (Skills):</label>
-                <input type="text" id="cv_skills" value="${currentCvState.formData.skills}" oninput="updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
+                <input type="text" id="cv_skills" value="${currentCvState.formData.skills}" oninput="window.updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
 
                 <label style="font-size: 12px; font-weight: 700; color: #475569;">অভিজ্ঞতা ও প্রজেক্টসমূহ:</label>
-                <textarea id="cv_experience" oninput="updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px; height: 80px;">${currentCvState.formData.experience}</textarea>
+                <textarea id="cv_experience" oninput="window.updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px; height: 80px;">${currentCvState.formData.experience}</textarea>
 
                 <label style="font-size: 12px; font-weight: 700; color: #475569;">শিক্ষাগত যোগ্যতা (Education):</label>
-                <textarea id="cv_education" oninput="updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px; height: 80px;">${currentCvState.formData.education}</textarea>
+                <textarea id="cv_education" oninput="window.updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px; height: 80px;">${currentCvState.formData.education}</textarea>
             </div>
 
             <!-- রিয়েল-টাইম সিভি প্রিভিউ (ডানপাশে) -->
@@ -264,7 +260,7 @@ function updateCvPreview() {
     const experience = getVal("cv_experience", currentCvState.formData.experience);
     const education = getVal("cv_education", currentCvState.formData.education);
 
-    const isBdClassic = currentCvState.selectedCategory.id === "cat_bd_classic";
+    const isBdClassic = currentCvState.selectedCategory && currentCvState.selectedCategory.id === "cat_bd_classic";
     const fatherName = getVal("cv_fatherName", currentCvState.formData.fatherName);
     const motherName = getVal("cv_motherName", currentCvState.formData.motherName);
     const nid = getVal("cv_nid", currentCvState.formData.nidOrPassport);
@@ -326,3 +322,15 @@ function updateCvPreview() {
 
     previewArea.innerHTML = cvHtml;
 }
+
+// ফাংশনগুলোকে গ্লোবাল উইন্ডোতে এক্সপোজ করা
+window.initCvBuilder = initCvBuilder;
+window.renderCategoriesView = renderCategoriesView;
+window.selectCvCategory = selectCvCategory;
+window.openCvEditor = openCvEditor;
+window.updateCvPreview = updateCvPreview;
+
+// ইনিশিয়ালাইজ করা
+document.addEventListener("DOMContentLoaded", () => {
+    initCvBuilder();
+});
