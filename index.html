@@ -3,332 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>নুর মোহাম্মদ - IoT & Full-Stack Web Engineer Portfolio</title>
+    <title>নুর মোহাম্মদ - অল-ইন-ওয়ান পোর্টফোলিও</title>
     
-    <!-- Font Awesome Icons -->
+    <!-- Font Awesome (আইকনের জন্য) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* CSS Reset & Variables */
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #0f172a;
-            --bg-light: #f8fafc;
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --accent-green: #16a34a;
-        }
-
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f1f5f9; color: var(--text-dark); min-height: 100vh; position: relative; }
+        body { background-color: #f0f2f5; color: #333; text-align: center; }
         
-        /* হেডার স্টাইল */
         header { 
-            background: linear-gradient(135deg, #0f172a, #1e293b); 
+            background: linear-gradient(135deg, #1e293b, #0f172a); 
             color: white; 
-            padding: 14px 24px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15); 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 25px 15px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+            position: relative;
         }
-
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .header-title h1 { font-size: 20px; font-weight: 700; color: #f8fafc; margin-bottom: 2px; }
-        .header-title p { color: #94a3b8; font-size: 12px; }
-
-        /* ৩-বার (হ্যামবার্গার) দৃশ্যমান মেনু বাটন */
-        .hamburger-btn {
-            background: #2563eb;
-            color: white;
-            border: none;
-            font-size: 18px;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
-        }
-
-        .hamburger-btn:hover {
-            background: #1d4ed8;
-            transform: translateY(-1px);
-        }
-
-        .hamburger-btn i {
-            font-size: 20px;
-        }
-
-        /* সাইডবার (Off-canvas Drawer) */
-        .sidebar-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 998;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .sidebar-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -300px;
-            width: 290px;
-            height: 100%;
-            background: #0f172a;
-            color: white;
-            z-index: 999;
-            box-shadow: 4px 0 25px rgba(0,0,0,0.3);
-            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .sidebar.active {
-            left: 0;
-        }
-
-        .sidebar-header {
-            padding: 20px;
-            background: #1e293b;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #334155;
-        }
-
-        .sidebar-header h3 {
-            font-size: 16px;
-            color: #f8fafc;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .close-sidebar-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: #cbd5e1;
-            font-size: 18px;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
+        header h1 { font-size: 28px; margin-bottom: 5px; }
+        header p { color: #cbd5e1; font-size: 15px; margin-bottom: 15px; }
+        
+        /* নেভিগেশন বার স্টাইল ঠিক করা হয়েছে */
+        header nav { 
+            display: flex !important; 
             justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .close-sidebar-btn:hover {
-            background: #ef4444;
-            color: white;
-        }
-
-        .sidebar-menu {
-            padding: 16px 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            overflow-y: auto;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
         }
 
         .nav-btn {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.1);
             color: #cbd5e1;
-            border: none;
-            padding: 12px 16px;
-            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
             cursor: pointer;
             font-size: 14px;
             font-weight: 600;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.2s ease;
-            width: 100%;
+            transition: all 0.3s ease;
         }
 
         .nav-btn:hover, .nav-btn.btn-active {
             background: #2563eb;
             color: white;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            border-color: #2563eb;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
         }
 
-        .nav-btn i {
-            font-size: 16px;
-            width: 20px;
-            text-align: center;
-        }
-
-        /* কন্টেইনার ও সেকশন Layout */
-        .container { max-width: 1000px; margin: 30px auto; padding: 0 16px; }
+        .container { max-width: 950px; margin: 30px auto; padding: 0 15px; }
         
         .section { 
             display: none; 
             background: #ffffff; 
-            padding: 32px; 
-            border-radius: 16px; 
+            padding: 35px; 
+            border-radius: 12px; 
             text-align: left; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04); 
-            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
         }
         .section.active { display: block !important; }
+        .section h2 { font-size: 22px; color: #0f172a; margin-bottom: 12px; }
         
-        /* হোম পেজ থিম ডিজাইন */
-        .hero-banner {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            color: white;
-            padding: 35px 30px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(34, 197, 94, 0.15);
-            border: 1px solid rgba(34, 197, 94, 0.4);
-            color: #4ade80;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .hero-title {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 8px;
-            color: #f8fafc;
-        }
-
-        .hero-subtitle {
-            font-size: 15px;
-            color: #cbd5e1;
-            line-height: 1.6;
-            max-width: 700px;
-            margin-bottom: 20px;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary-action {
-            background: #2563eb;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: none;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .btn-primary-action:hover { background: #1d4ed8; }
-
-        .btn-secondary-action {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .btn-secondary-action:hover { background: rgba(255, 255, 255, 0.2); }
-
-        /* হোম ফিচার গ্রিড */
-        .home-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .feature-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 22px;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-3px);
-            border-color: #2563eb;
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.08);
-        }
-
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            background: #eff6ff;
-            color: #2563eb;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            margin-bottom: 14px;
-        }
-
-        .feature-card h3 {
-            font-size: 17px;
-            color: #0f172a;
-            margin-bottom: 6px;
-        }
-
-        .feature-card p {
-            font-size: 13px;
-            color: #64748b;
-            line-height: 1.5;
-        }
-
-        /* নোটিশ এবং মতামত বক্স */
+        /* নোটিশ এবং লাইক/মতামত বক্স */
         .author-notice-box {
             background: #eff6ff;
             border: 1px solid #bfdbfe;
@@ -359,6 +94,7 @@
         }
         .btn-like:hover { background-color: #1d4ed8; }
 
+        /* মতামত বক্স ডিজাইন */
         .feedback-area-box {
             margin-top: 15px;
             padding-top: 12px;
@@ -389,35 +125,39 @@
         .btn-feedback:hover { background-color: #0369a1; }
         .feedback-msg { color: #16a34a; font-size: 13px; font-weight: bold; margin-top: 5px; display: none; }
 
-        /* লগইন ও সিকিউর প্রজেক্ট */
+        /* লগইন বক্স */
         .auth-card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; background: #f8fafc; max-width: 380px; margin: 20px auto; }
         .auth-card input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; }
+        
         .project-card { border: 1px solid #cbd5e1; border-radius: 8px; margin-top: 15px; background: #ffffff; overflow: hidden; }
-        .project-header { background: #f1f5f9; padding: 15px 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
-        .project-content { padding: 20px; border-top: 1px solid #cbd5e1; background: #fafafa; }
+        .project-header { background: #f1f5f9; padding: 15px 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: background 0.2s; }
+        .project-header:hover { background: #e2e8f0; }
+        .project-content { display: none; padding: 20px; border-top: 1px solid #cbd5e1; background: #fafafa; }
         
         .btn-action { width: 100%; padding: 10px; background-color: #2563eb; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 15px; }
         .btn-logout { width: auto; padding: 8px 16px; background-color: #ef4444; }
+        
+        iframe { width: 100%; height: 480px; border: none; border-radius: 8px; margin-top: 15px; }
+        .error-text { color: #ef4444; font-size: 13px; font-weight: bold; margin-top: 8px; text-align: center; }
 
-        /* সোশ্যাল লিংকস */
-        .social-links { display: flex; justify-content: flex-start; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
-        .btn-social { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; color: white !important; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px; transition: transform 0.2s; }
-        .btn-social:hover { transform: translateY(-2px); }
+        /* সোশ্যাল মিডিয়া বাটন স্টাইল */
+        .social-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+        .btn-social { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; color: white !important; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px; transition: transform 0.2s, opacity 0.2s; }
+        .btn-social:hover { transform: translateY(-2px); opacity: 0.9; }
         .btn-facebook { background-color: #1877F2; }
         .btn-twitter { background-color: #000000; }
         .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .btn-linkedin { background-color: #0A66C2; }
-        .btn-github { background-color: #24292e; }
 
-        /* গ্রিড কন্টেইনার */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 20px; }
+        /* স্টাডি / লাইব্রেরি হাব স্টাইল */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 20px; }
         .hub-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 22px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.2s; font-weight: 600; }
         .hub-card:hover { background: #eff6ff; border-color: #2563eb; transform: translateY(-3px); box-shadow: 0 4px 12px rgba(37,99,235,0.1); }
         .hub-card span { font-size: 32px; display: block; margin-bottom: 10px; }
         .back-btn { background: #64748b; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-bottom: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
         .back-btn:hover { background: #475569; }
 
-        /* প্রিন্ট সিভি */
+        /* প্রিন্ট রুলস সিভি ডাউনলোডের জন্য */
         @media print {
             body * { visibility: hidden; }
             #cvPreviewArea, #cvPreviewArea * { visibility: visible; }
@@ -428,138 +168,37 @@
 </head>
 <body>
 
-    <!-- হেডার বার -->
     <header>
-        <div class="header-brand">
-            <!-- ৩-বার (হ্যামবার্গার) দৃশ্যমান মেনু বাটন -->
-            <button class="hamburger-btn" onclick="toggleSidebar()" title="মেনু খুলুন">
-                <i class="fa-solid fa-bars"></i>
-                <span>☰ মেনু</span>
-            </button>
-            <div class="header-title">
-                <h1>নুর মোহাম্মদ 👋</h1>
-                <p>IoT, Full-Stack Web & Career Hub</p>
-            </div>
-        </div>
-
-        <div style="font-size: 13px; color: #cbd5e1; display: flex; align-items: center; gap: 6px;">
-            <span style="height: 8px; width: 8px; background: #22c55e; border-radius: 50%; display: inline-block;"></span>
-            <span>অনলাইন</span>
-        </div>
+        <h1>নুর মোহাম্মদ 👋</h1>
+        <p>ওয়েব, টেকনোলজি ও প্রজেক্ট হাব</p>
+        <nav>
+            <button class="nav-btn btn-active" onclick="showSection('home', this)">🏠 হোম</button>
+            <button class="nav-btn" onclick="showSection('about', this)">👨‍💻 আমার সম্পর্কে</button>
+            <button class="nav-btn" onclick="showSection('cvHub', this)">📄 স্মার্ট সিভি বিল্ডার</button>
+            <button class="nav-btn" onclick="showSection('studyHub', this)">📚 জ্ঞান ও শিক্ষা হাব</button>
+            <button class="nav-btn" onclick="showSection('projects', this)">🔒 সিকিউর প্রজেক্ট</button>
+            <button class="nav-btn" onclick="showSection('plans', this)">🚀 ভবিষ্যৎ প্ল্যান</button>
+            <button class="nav-btn" onclick="showSection('gallery', this)">📸 গ্যালারি</button>
+            <button class="nav-btn" onclick="showSection('contact', this)">📲 যোগাযোগ</button>
+        </nav>
     </header>
 
-    <!-- সাইডবার ড্রয়ার ও ওভারলে -->
-    <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
-
-    <aside id="sidebar" class="sidebar">
-        <div class="sidebar-header">
-            <h3><i class="fa-solid fa-compass"></i> নেভিগেশন মেনু</h3>
-            <button class="close-sidebar-btn" onclick="toggleSidebar()">&times;</button>
-        </div>
-        <div class="sidebar-menu">
-            <button class="nav-btn btn-active" onclick="showSection('home', this)">
-                <i class="fa-solid fa-house"></i> 🏠 হোম (Overview)
-            </button>
-            <button class="nav-btn" onclick="showSection('about', this)">
-                <i class="fa-solid fa-user-gear"></i> 👨‍💻 আমার সম্পর্কে
-            </button>
-            <button class="nav-btn" onclick="showSection('cvHub', this)">
-                <i class="fa-solid fa-file-invoice"></i> 📄 স্মার্ট সিভি বিল্ডার
-            </button>
-            <button class="nav-btn" onclick="showSection('studyHub', this)">
-                <i class="fa-solid fa-book-bookmark"></i> 📚 ডিজিটাল বই ও নোটস
-            </button>
-            <button class="nav-btn" onclick="showSection('projects', this)">
-                <i class="fa-solid fa-shield-halved"></i> 🔒 সিকিউর প্রজেক্ট
-            </button>
-            <button class="nav-btn" onclick="showSection('plans', this)">
-                <i class="fa-solid fa-rocket"></i> 🚀 ভবিষ্যৎ পরিকল্পনা
-            </button>
-            <button class="nav-btn" onclick="showSection('gallery', this)">
-                <i class="fa-solid fa-images"></i> 📸 গ্যালারি
-            </button>
-            <button class="nav-btn" onclick="showSection('contact', this)">
-                <i class="fa-solid fa-address-book"></i> 📲 যোগাযোগ
-            </button>
-        </div>
-    </aside>
-
-    <!-- মূল কন্টেন্ট কন্টেইনার -->
     <div class="container">
-        
-        <!-- ১. হোম (ওয়েলকাম ও ফিচার ড্যাশবোর্ড) -->
+        <!-- ১. হোম -->
         <div id="home" class="section active">
-            <div class="hero-banner">
-                <div class="hero-badge">
-                    <span style="height: 6px; width: 6px; background: #4ade80; border-radius: 50%;"></span>
-                    IoT & Embedded Systems Engineer
-                </div>
-                <h1 class="hero-title">স্বাগতম! আমি নুর মোহাম্মদ</h1>
-                <p class="hero-subtitle">
-                    আমি বি.এসসি ইন EEE/CSE গ্র্যাজুয়েট। স্মার্ট IoT হার্ডওয়্যার, এনার্জি ম্যানেজমেন্ট, ক্লাউড কানেক্টিভিটি (Firebase) এবং আধুনিক Next.js/React ওয়েব অ্যাপ্লিকেশন নিয়ে কাজ করি।
-                </p>
-                <div class="hero-actions">
-                    <button class="btn-primary-action" onclick="showSection('cvHub')">
-                        <i class="fa-solid fa-file-arrow-down"></i> স্মার্ট সিভি তৈরি করুন
-                    </button>
-                    <button class="btn-secondary-action" onclick="showSection('projects')">
-                        <i class="fa-solid fa-microchip"></i> প্রজেক্টসমূহ দেখুন
-                    </button>
-                </div>
-            </div>
-
-            <h2 style="font-size: 20px; color: #0f172a; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-cubes" style="color: #2563eb;"></i> ওয়েবসাইট ফিচারসমূহ
-            </h2>
-
-            <div class="home-grid">
-                <div class="feature-card" onclick="showSection('cvHub')">
-                    <div class="feature-icon"><i class="fa-solid fa-id-card"></i></div>
-                    <h3>📄 প্রফেশনাল সিভি বিল্ডার</h3>
-                    <p>BD Traditional, IT/Engineering, Sales এবং Academic ক্যাটাগরির প্রস্তুতকৃত অটো-সিভি তৈরি ও ১-ক্লিকে PDF ডাউনলোড করুন।</p>
-                </div>
-
-                <div class="feature-card" onclick="showSection('studyHub')">
-                    <div class="feature-icon"><i class="fa-solid fa-book-open"></i></div>
-                    <h3>📚 জ্ঞান ও পাঠ্য হাব</h3>
-                    <p>Class 1-12 টেক্সটবুক, IELTS প্রিপারেশন গাইড, ইসলামিক বই ও মুক্ত সাহিত্য রিসোর্স সহজে ডাউনলোড ও রিড করুন।</p>
-                </div>
-
-                <div class="feature-card" onclick="showSection('projects')">
-                    <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
-                    <h3>⚡ IoT Smart Energy System</h3>
-                    <p>Arduino R4 WiFi, ACS712 কারেন্ট সেন্সর, ক্লাউড সিঙ্ক এবং ML Demand Forecasting সমৃদ্ধ বিএসসি ডিফেন্স প্রজেক্ট।</p>
-                </div>
-
-                <div class="feature-card" onclick="showSection('contact')">
-                    <div class="feature-icon"><i class="fa-solid fa-paper-plane"></i></div>
-                    <h3>📲 সরাসরি যোগাযোগ</h3>
-                    <p>সোশ্যাল মিডিয়া প্ল্যাটফর্ম, ইমেইল বা সরাসরি মেসেজের মাধ্যমে নতুন প্রোজেক্ট অথবা চাকরির প্রস্তাব পাঠান।</p>
-                </div>
-            </div>
+            <h2>🏠 স্বাগতম!</h2>
+            <p>আমার ব্যক্তিগত পোর্টফোলিও এবং প্রজেক্ট হাবে আপনাকে স্বাগতম। উপরের নেভিগেশন বার থেকে যেকোনো ট্যাবে গিয়ে স্মার্ট সিভি প্রস্তুত করতে পারেন বা শিক্ষা উপকরণ দেখতে পারেন।</p>
         </div>
 
         <!-- ২. আমার সম্পর্কে -->
         <div id="about" class="section">
-            <h2 style="margin-bottom: 15px;"><i class="fa-solid fa-user-tie"></i>👨‍💻 আমার সম্পর্কে</h2>
-            <p style="line-height: 1.7; color: #334155; margin-bottom: 20px;">
-                আমি <b>নুর মোহাম্মদ</b>। ইলেকট্রিক্যাল ও টেকনোলজির মেলবন্ধনে উদ্ভাবনী প্রজেক্ট তৈরি করা আমার আগ্রহের মূল জায়গা। বিশেষভাবে হার্ডওয়্যার কারেন্ট/পাওয়ার মনিটরিং, ক্লাউড অটোমেশন, মেশিন লার্নিং প্রিডিকশন এবং ফ্রন্টএন্ড ওয়েব ডেভেলপমেন্টে আমার প্র্যাকটিক্যাল অভিজ্ঞতা রয়েছে।
-            </p>
-
-            <div style="background: #f8fafc; padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0;">
-                <h3 style="font-size: 16px; color: #0f172a; margin-bottom: 10px;">📌 কারিগরি দক্ষতা (Technical Skills):</h3>
-                <ul style="padding-left: 20px; line-height: 1.8; color: #475569; font-size: 14px;">
-                    <li><b>Hardware & IoT:</b> Arduino UNO R4 WiFi, ACS712 Sensors, Relay Isolation, Circuit Prototyping.</li>
-                    <li><b>Cloud & Backend:</b> Firebase Realtime Database, REST APIs, JSON Data Sync.</li>
-                    <li><b>Web Development:</b> HTML5, CSS3, JavaScript (ES6+), React.js, Next.js, Tailwind CSS.</li>
-                    <li><b>Data Analysis & ML:</b> Python, Random Forest Classifier (Demand Forecasting).</li>
-                </ul>
-            </div>
+            <h2>👨‍💻 আমার সম্পর্কে</h2>
+            <p>আমি নুর মোহাম্মদ। টেকনোলজি, ওয়েব ডেভলপমেন্ট এবং IoT (ইন্টারনেট অব থিংস) নিয়ে কাজ করতে পছন্দ করি।</p>
         </div>
 
-        <!-- ৩. স্মার্ট সিভি ও ক্যারিয়ার হাব -->
+        <!-- 📄 ৩. স্মার্ট সিভি ও ক্যারিয়ার হাব -->
         <div id="cvHub" class="section">
-            <h2 style="margin-bottom: 8px;"><i class="fa-solid fa-file-invoice"></i> 📄 স্মার্ট সিভি ও ক্যারিয়ার হাব</h2>
+            <h2>📄 স্মার্ট সিভি ও ক্যারিয়ার হাব (BD & International Standard)</h2>
             <p style="color: #64748b; margin-bottom: 20px;">আপনার কাঙ্ক্ষিত চাকরির ক্যাটাগরি বেছে নিন এবং ১-ক্লিকে প্রফেশনাল অটো-টেমপ্লেট থেকে সিভি প্রস্তুত করুন:</p>
 
             <div id="cvBuilderRoot"></div>
@@ -581,17 +220,17 @@
                 </div>
             </div>
 
-            <h2 style="margin-bottom: 12px;"><i class="fa-solid fa-book"></i> 📚 ডিজিটাল জ্ঞান ও শিক্ষা হাব</h2>
-            <p style="color: #64748b; margin-bottom: 15px;">এখানে সব ধরণের বই, লেকচার নোটস ও পাঠ্যসামগ্রী রয়েছে:</p>
+            <h2>📚 ডিজিটাল জ্ঞান ও শিক্ষা হাব</h2>
+            <p>এখানে সব ধরণের বই, লেকচার নোটস ও পাঠ্যসামগ্রী রয়েছে:</p>
 
             <div id="hubMainCategories" class="grid-container">
-                <div class="hub-card" onclick="openStudyFolder('academic')"><span>🏫</span> একাডেমি (Class 1 - 12)</div>
-                <div class="hub-card" onclick="openStudyFolder('ielts')"><span>🇬🇧</span> IELTS প্রিপারেশন</div>
-                <div class="hub-card" onclick="openStudyFolder('islamic')"><span>🕌</span> ইসলামিক বই</div>
-                <div class="hub-card" onclick="openStudyFolder('literature')"><span>📖</span> সাহিত্য ও অন্যান্য</div>
+                <div class="hub-card" onclick="openStudyFolder('academicView')"><span>🏫</span> একাডেমি (Class 1 - 12)</div>
+                <div class="hub-card" onclick="openStudyFolder('ieltsView')"><span>🇬🇧</span> IELTS প্রিপারেশন</div>
+                <div class="hub-card" onclick="openStudyFolder('islamicView')"><span>🕌</span> ইসলামিক বই</div>
+                <div class="hub-card" onclick="openStudyFolder('literatureView')"><span>📖</span> সাহিত্য ও অন্যান্য</div>
             </div>
 
-            <div id="studyHubDetailView" style="margin-top: 20px;"></div>
+            <div id="studyHubViews"></div>
         </div>
 
         <!-- ৫. সিকিউর প্রজেক্ট সেকশন -->
@@ -599,11 +238,11 @@
             <h2>🤖 সিকিউর প্রজেক্টসমূহ 🔒</h2>
             
             <div id="loginBox" class="auth-card">
-                <h3 style="margin-bottom: 10px; font-size: 16px;">এডমিন লগইন</h3>
-                <input type="email" id="emailInput" placeholder="ইমেইল (demo: admin@dev.com)">
-                <input type="password" id="passInput" placeholder="পাসওয়ার্ড (demo: 123456)">
+                <h3>এডমিন লগইন</h3>
+                <input type="email" id="emailInput" placeholder="ইমেইল লিখুন">
+                <input type="password" id="passInput" placeholder="পাসওয়ার্ড লিখুন">
                 <button class="btn-action" onclick="loginUser()">লগইন করুন</button>
-                <div id="errMsg" style="color: #ef4444; font-size: 13px; font-weight: bold; margin-top: 8px; text-align: center;"></div>
+                <div id="errMsg" class="error-text"></div>
             </div>
 
             <div id="protectedProjects" style="display: none;">
@@ -612,14 +251,12 @@
                 </div>
 
                 <div class="project-card">
-                    <div class="project-header" onclick="toggleProjectContent('p1')">
-                        <span>📦 Project-1: IoT Smart Energy & Theft Detection System</span>
-                        <span>🔽</span>
+                    <div class="project-header" onclick="toggleProject('p1', 'p1-container', 'p1', this)">
+                        <span>📦 Project-1: IoT Smart Energy & Medicine System</span>
+                        <span class="icon">🔽</span>
                     </div>
                     <div id="p1" class="project-content">
-                        <p style="font-size: 14px; line-height: 1.6; color: #334155;">
-                            <b>বিবরণ:</b> Arduino UNO R4 WiFi এবং ACS712 সেন্সরের সমন্বয়ে তৈরি লাইভ এনার্জি মনিটরিং ও অপচয়/চুরি ডিটেকশন প্রজেক্ট। এতে লাইভ অটো-কাটঅফ রিলে ও মেশিন লার্নিং (Random Forest) ব্যবহৃত হয়েছে।
-                        </p>
+                        <div id="p1-container"></div>
                     </div>
                 </div>
             </div>
@@ -627,83 +264,50 @@
 
         <!-- ৬. ভবিষ্যৎ প্ল্যান -->
         <div id="plans" class="section">
-            <h2 style="margin-bottom: 12px;"><i class="fa-solid fa-rocket"></i> 🚀 ভবিষ্যৎ পরিকল্পনা</h2>
-            <ul style="line-height: 1.8; color: #334155; padding-left: 20px;">
-                <li>স্মার্ট গ্রিড (Smart Grid) এবং অটোমেটেড পাওয়ার সাবস্টেশন কন্ট্রোল সিস্টেম ডেভেলপ করা।</li>
-                <li>IoT এম্বেডেড ডিভাইসে Edge AI প্রয়োগ করে দ্রুত এনোমালি ডিটেকশন বাস্তবায়ন করা।</li>
-                <li>শিল্পকারখানার জন্য এনার্জি ম্যানেজমেন্ট ড্যাশবোর্ড তৈরি করা।</li>
-            </ul>
+            <h2>🚀 ভবিষ্যৎ পরিকল্পনা</h2>
+            <p>সামনে আরও নতুন নতুন IoT, AI ও আধুনিক ওয়েব প্রজেক্ট তৈরি করার পরিকল্পনা রয়েছে।</p>
         </div>
 
         <!-- ৭. গ্যালারি -->
         <div id="gallery" class="section">
-            <h2 style="margin-bottom: 12px;"><i class="fa-solid fa-images"></i> 📸 প্রজেক্ট গ্যালারি</h2>
-            <p style="color: #64748b;">ল্যাব টেস্ট এবং প্রজেক্টের ছবিসমূহ:</p>
-            <div class="grid-container" style="margin-top: 15px;">
-                <div style="background: #e2e8f0; height: 160px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #64748b;">⚡ Hardware Prototype Circuit</div>
-                <div style="background: #e2e8f0; height: 160px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #64748b;">💻 Live Cloud Dashboard</div>
-            </div>
+            <h2>📸 গ্যালারি</h2>
+            <p>এখানে প্রজেক্টের ছবি ও ল্যাব অ্যাক্টিভিটি যুক্ত করা হবে।</p>
         </div>
 
         <!-- ৮. যোগাযোগ -->
         <div id="contact" class="section">
-            <h2 style="margin-bottom: 12px;"><i class="fa-solid fa-paper-plane"></i> 📲 সামাজিক যোগাযোগ ও কানেক্ট</h2>
-            <p style="color: #64748b; margin-bottom: 15px;">আমার সাথে যুক্ত হতে বা প্রশ্ন করতে পারেন:</p>
+            <h2>📲 সামাজিক যোগাযোগ মাধ্যমে যুক্ত হন</h2>
+            <p>আমার সাথে যেকোনো সামাজিক মাধ্যমে যোগাযোগ করতে পারেন:</p>
 
-            <div class="social-links">
-                <a href="https://facebook.com" target="_blank" class="btn-social btn-facebook"><i class="fa-brands fa-facebook"></i> Facebook</a>
-                <a href="https://linkedin.com" target="_blank" class="btn-social btn-linkedin"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-                <a href="https://github.com" target="_blank" class="btn-social btn-github"><i class="fa-brands fa-github"></i> GitHub</a>
-            </div>
+            <div class="social-links" id="socialLinksContainer"></div>
         </div>
     </div>
 
-    <!-- JavaScript Logic (Self-Contained) -->
+    <!-- JavaScript logic -->
     <script>
-        // ১. সাইডবার ড্রয়ার টগল
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            if (sidebar && overlay) {
-                sidebar.classList.toggle('active');
-                overlay.classList.toggle('active');
-            }
-        }
-
-        // ২. সেকশন পরিবর্তন
+        // সেকশন পরিবর্তন ফাংশন
         function showSection(sectionId, btnElement) {
+            // সকল সেকশন হাইড করা
             const sections = document.querySelectorAll('.section');
             sections.forEach(sec => sec.classList.remove('active'));
 
+            // সকল নেভিগেশন বাটনের একটিভ ক্লাস রিমুভ করা
             const navBtns = document.querySelectorAll('.nav-btn');
             navBtns.forEach(btn => btn.classList.remove('btn-active'));
 
+            // টার্গেট সেকশন শো করা
             const target = document.getElementById(sectionId);
             if (target) {
                 target.classList.add('active');
             }
 
+            // ক্লিক করা বাটনে একটিভ ক্লাস দেওয়া
             if (btnElement) {
                 btnElement.classList.add('btn-active');
             }
-
-            // সাইডবার বন্ধ করা
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            if (sidebar && overlay) {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-            }
-
-            // সিভি সেকশন চালু হলে সিভি বিল্ডার ইনিশিয়ালাইজ করা
-            if (sectionId === 'cvHub' && typeof initCvBuilder === 'function') {
-                initCvBuilder();
-            }
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ৩. নোটিশ ও ফিডব্যাক
+        // নোটিশ লাইক ও মতামত হ্যান্ডলিং
         let likes = parseInt(localStorage.getItem('noticeLikes') || '0');
         document.getElementById('likeCount').innerText = likes;
 
@@ -725,220 +329,12 @@
                 setTimeout(() => { msg.style.display = "none"; }, 4000);
             }
         }
-
-        // ৪. সিকিউর প্রজেক্ট লগইন
-        function loginUser() {
-            const email = document.getElementById("emailInput").value;
-            const pass = document.getElementById("passInput").value;
-            const errMsg = document.getElementById("errMsg");
-
-            if (email === "admin@dev.com" && pass === "123456") {
-                document.getElementById("loginBox").style.display = "none";
-                document.getElementById("protectedProjects").style.display = "block";
-                errMsg.innerText = "";
-            } else {
-                errMsg.innerText = "ভুল ইমেইল বা পাসওয়ার্ড! (Demo: admin@dev.com / 123456)";
-            }
-        }
-
-        function logoutUser() {
-            document.getElementById("loginBox").style.display = "block";
-            document.getElementById("protectedProjects").style.display = "none";
-        }
-
-        function toggleProjectContent(id) {
-            const el = document.getElementById(id);
-            if (el) {
-                el.style.display = el.style.display === "none" ? "block" : "none";
-            }
-        }
-
-        // ৫. স্টাডি হাব ডিটেইলস ফোল্ডার
-        function openStudyFolder(type) {
-            const container = document.getElementById("studyHubDetailView");
-            let content = "";
-
-            if (type === 'academic') {
-                content = `
-                    <button class="back-btn" onclick="closeStudyFolder()">⬅️ ফিরে যান</button>
-                    <h3>🏫 একাডেমি (Class 1 - 12)</h3>
-                    <ul style="margin-top: 10px; line-height: 2;">
-                        <li>📘 NCTB Class 10 Physics Book (PDF)</li>
-                        <li>📘 Class 12 Higher Math Lecture Notes</li>
-                    </ul>
-                `;
-            } else if (type === 'ielts') {
-                content = `
-                    <button class="back-btn" onclick="closeStudyFolder()">⬅️ ফিরে যান</button>
-                    <h3>🇬🇧 IELTS প্রিপারেশন গাইড</h3>
-                    <ul style="margin-top: 10px; line-height: 2;">
-                        <li>📙 Cambridge IELTS 18 Academic with Answers</li>
-                        <li>📙 Official Vocabulary for IELTS</li>
-                    </ul>
-                `;
-            } else {
-                content = `
-                    <button class="back-btn" onclick="closeStudyFolder()">⬅️ ফিরে যান</button>
-                    <h3>📖 ডিজিটাল লাইব্রেরি উপকরণ</h3>
-                    <p>রিসোর্স লোড হচ্ছে...</p>
-                `;
-            }
-            container.innerHTML = content;
-        }
-
-        function closeStudyFolder() {
-            document.getElementById("studyHubDetailView").innerHTML = "";
-        }
-
-        /* --- CV Builder Engine --- */
-        const cvCategoriesData = [
-            {
-                id: "cat_tech",
-                title: "Engineering & IT",
-                icon: "💻",
-                description: "Software Engineer, EEE/IoT, Civil/Mechanical",
-                templates: [
-                    { id: "tech_ats_1", name: "ATS Tech Grid", badge: "ATS-Friendly", color: "#2563eb" },
-                    { id: "tech_portfolio_2", name: "Project Portfolio Focus", badge: "GitHub Linked", color: "#0d9488" }
-                ]
-            },
-            {
-                id: "cat_bd_classic",
-                title: "BD Traditional / Govt / Bank",
-                icon: "🏛️",
-                description: "Govt Job Application, Traditional Business Groups",
-                templates: [
-                    { id: "bd_classic_1", name: "BD Standard Tabular CV", badge: "NID & Personal Details", color: "#15803d" }
-                ]
-            }
-        ];
-
-        let currentCvState = {
-            selectedCategory: null,
-            selectedTemplate: null,
-            formData: {
-                fullName: "নুর মোহাম্মদ",
-                jobTitle: "IoT & Full-Stack Web Engineer",
-                email: "contact@noormohammad.dev",
-                phone: "+880 1700-000000",
-                address: "ঢাকা, বাংলাদেশ",
-                nidOrPassport: "1998XXXXXXXXXXXXX",
-                fatherName: "মোঃ আব্দুল মজিদ",
-                motherName: "মোসাম্মাৎ রহিমা বেগম",
-                summary: "উদ্ভাবনী প্রযুক্তি, IoT সিস্টেম এবং আধুনিক ওয়েব অ্যাপ্লিকেশন তৈরিতে আগ্রহী বিএসসি গ্র্যাজুয়েট প্রকৌশলী।",
-                experience: "• IoT Smart Energy System (বিএসসি ফাইনাল প্রজেক্ট)\n• ওয়েব ও আইওটি ফ্রিল্যান্স ডেভেলপমেন্ট।",
-                education: "• বি.এসসি ইন ইইই / সিএসই - আতিশ দীপঙ্কর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয় (ADUST)",
-                skills: "Arduino R4 WiFi, ACS712 Sensors, Firebase, Next.js, React, Tailwind CSS, Python"
-            }
-        };
-
-        function initCvBuilder() {
-            const root = document.getElementById("cvBuilderRoot");
-            if (!root) return;
-            renderCategoriesView();
-        }
-
-        function renderCategoriesView() {
-            const root = document.getElementById("cvBuilderRoot");
-            if (!root) return;
-
-            let html = `<div class="grid-container">`;
-            cvCategoriesData.forEach(cat => {
-                html += `
-                    <div class="hub-card" onclick="selectCvCategory('${cat.id}')">
-                        <span>${cat.icon}</span>
-                        <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 5px;">${cat.title}</div>
-                        <div style="font-size: 12px; color: #64748b;">${cat.description}</div>
-                    </div>
-                `;
-            });
-            html += `</div>`;
-            root.innerHTML = html;
-        }
-
-        function selectCvCategory(catId) {
-            const category = cvCategoriesData.find(c => c.id === catId);
-            if (!category) return;
-
-            currentCvState.selectedCategory = category;
-            const root = document.getElementById("cvBuilderRoot");
-
-            let html = `
-                <button class="back-btn no-print" onclick="renderCategoriesView()">⬅️ ক্যাটাগরিতে ফিরুন</button>
-                <h3 style="color: #0f172a; margin-bottom: 15px;">${category.icon} ${category.title} এর টেমপ্লেটসমূহ</h3>
-                <div class="grid-container">
-            `;
-
-            category.templates.forEach(tpl => {
-                html += `
-                    <div class="hub-card" style="border-top: 4px solid ${tpl.color}; text-align: left;" onclick="openCvEditor('${tpl.id}')">
-                        <h4 style="color: #0f172a; font-size: 15px;">${tpl.name}</h4>
-                        <p style="font-size: 12px; color: #64748b; margin-top: 5px;">ক্লিক করে সিভি এডিট করুন ➡️</p>
-                    </div>
-                `;
-            });
-
-            html += `</div>`;
-            root.innerHTML = html;
-        }
-
-        function openCvEditor(templateId) {
-            const template = currentCvState.selectedCategory.templates.find(t => t.id === templateId);
-            currentCvState.selectedTemplate = template;
-            const root = document.getElementById("cvBuilderRoot");
-
-            let html = `
-                <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <button class="back-btn" style="margin:0;" onclick="selectCvCategory('${currentCvState.selectedCategory.id}')">⬅️ ফিরুন</button>
-                    <button onclick="window.print()" style="background: #16a34a; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer;">🖨️ PDF প্রপ্রিন্ট / ডাউনলোড</button>
-                </div>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                    <div class="no-print" style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                        <h4 style="margin-bottom: 10px;">✏️ তথ্য কাস্টমাইজ করুন</h4>
-                        <label style="font-size: 11px; font-weight: bold;">নাম:</label>
-                        <input type="text" id="cv_fullName" value="${currentCvState.formData.fullName}" oninput="updateCvPreview()" style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #cbd5e1; border-radius:4px;">
-                        
-                        <label style="font-size: 11px; font-weight: bold;">পদবি:</label>
-                        <input type="text" id="cv_jobTitle" value="${currentCvState.formData.jobTitle}" oninput="updateCvPreview()" style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #cbd5e1; border-radius:4px;">
-                        
-                        <label style="font-size: 11px; font-weight: bold;">ফোন:</label>
-                        <input type="text" id="cv_phone" value="${currentCvState.formData.phone}" oninput="updateCvPreview()" style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #cbd5e1; border-radius:4px;">
-                        
-                        <label style="font-size: 11px; font-weight: bold;">দক্ষতা (Skills):</label>
-                        <input type="text" id="cv_skills" value="${currentCvState.formData.skills}" oninput="updateCvPreview()" style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #cbd5e1; border-radius:4px;">
-                    </div>
-
-                    <div id="cvPreviewArea" style="background: white; border: 1px solid #cbd5e1; padding: 20px; border-radius: 8px;">
-                        <!-- ডাইনামিক প্রিভিউ -->
-                    </div>
-                </div>
-            `;
-
-            root.innerHTML = html;
-            updateCvPreview();
-        }
-
-        function updateCvPreview() {
-            const previewArea = document.getElementById("cvPreviewArea");
-            if (!previewArea) return;
-
-            const name = document.getElementById("cv_fullName") ? document.getElementById("cv_fullName").value : currentCvState.formData.fullName;
-            const title = document.getElementById("cv_jobTitle") ? document.getElementById("cv_jobTitle").value : currentCvState.formData.jobTitle;
-            const phone = document.getElementById("cv_phone") ? document.getElementById("cv_phone").value : currentCvState.formData.phone;
-            const skills = document.getElementById("cv_skills") ? document.getElementById("cv_skills").value : currentCvState.formData.skills;
-
-            previewArea.innerHTML = `
-                <div style="font-family: Arial, sans-serif;">
-                    <h2 style="color: #2563eb; margin-bottom: 2px;">${name}</h2>
-                    <p style="font-weight: bold; color: #475569; font-size: 14px;">${title}</p>
-                    <p style="font-size: 12px; color: #64748b; margin-top: 4px;">📞 ${phone} | ✉️ contact@noormohammad.dev</p>
-                    <hr style="margin: 12px 0; border: 0; border-top: 1px solid #e2e8f0;">
-                    <h4 style="color: #0f172a; font-size: 13px;">KEY SKILLS</h4>
-                    <p style="font-size: 12px; color: #334155;">${skills}</p>
-                </div>
-            `;
-        }
     </script>
+
+    <!-- External Script Files -->
+    <script src="ui-data.js"></script>
+    <script type="module" src="app.js"></script>
+    <script src="sidebar.js"></script>
+    <script src="cv-builder.js"></script>
 </body>
 </html>
