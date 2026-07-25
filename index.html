@@ -447,6 +447,11 @@
                 sidebar.classList.remove('active');
                 overlay.classList.remove('active');
             }
+
+            // যদি সিভি সেকশনে ক্লিক করা হয় তবে সিভি ইঞ্জিনের রেন্ডারিং নিশ্চিত করা
+            if (sectionId === 'cvHub' && typeof window.initCvBuilder === 'function') {
+                window.initCvBuilder();
+            }
         }
 
         // নোটিশ লাইক ও মতামত হ্যান্ডলিং
