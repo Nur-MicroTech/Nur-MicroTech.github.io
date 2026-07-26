@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <a href="javascript:void(0)" onclick="window.triggerNav('plans')">🚀 ভবিষ্যৎ প্ল্যান</a>
             <a href="javascript:void(0)" onclick="window.triggerNav('gallery')">📸 গ্যালারি</a>
             <a href="javascript:void(0)" onclick="window.triggerNav('contact')">📲 যোগাযোগ</a>
+            <a href="javascript:void(0)" onclick="window.triggerNav('cvBuilder')">📄 CV Builder</a>
         </div>
         <div id="sidebarOverlay" class="sidebar-overlay" onclick="window.toggleNavSidebar()"></div>
     `;
