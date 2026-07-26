@@ -508,7 +508,8 @@
 
     <!-- GEMINI AI CHATBOT SCRIPT -->
     <script>
-        const API_KEY = "AQ.Ab8RN6KEHAPJVcs7STU3p0LqkdU2zveuymAYYqWqRVNKxioWtA"; 
+        // এখানে আপনার Google Cloud-এর সঠিক API Key বসানো হয়েছে
+        const API_KEY = "AIzaSyBVffsc5UWmE586KPLbXvO51NbOu0RSVdU"; 
 
         const toggleBtn = document.getElementById('chat-toggle-btn');
         const closeBtn = document.getElementById('chat-close-btn');
@@ -550,11 +551,11 @@
                 } else if (data.error) {
                     loadingDiv.innerText = "API Error: " + data.error.message;
                 } else {
-                    loadingDiv.innerText = "API Response-এ সমস্যা হয়েছে। Key ঠিক আছে কি না দেখুন।";
+                    loadingDiv.innerText = "API Response-এ সমস্যা হয়েছে। Key ঠিক আছে কি না দেখুন।";
                 }
             } catch (error) {
                 console.error(error);
-                loadingDiv.innerText = "দুঃখিত, কানেকশনে কোনো সমস্যা হয়েছে।";
+                loadingDiv.innerText = "দুঃখিত, কানেকশনে কোনো সমস্যা হয়েছে।";
             }
         }
 
