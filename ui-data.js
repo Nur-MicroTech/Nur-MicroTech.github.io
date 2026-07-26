@@ -147,103 +147,14 @@ window.submitFeedback = function() {
     }
 })();
 
-// Dynamic Style Inject
-const cvStyle = document.createElement('style');
-cvStyle.innerHTML = `
-    .cv-page {
-        width: 210mm;
-        min-height: 297mm;
-        background: #ffffff;
-        margin: 0 auto 20px auto;
-        box-shadow: 0 0 10px rgba(0,0,0,0.15);
-        display: flex;
-        box-sizing: border-box;
-        border-radius: 8px;
-        overflow: hidden;
-        border: 1px solid #cbd5e1;
-        font-family: 'Segoe UI', Arial, sans-serif;
-    }
-    .cv-sidebar {
-        width: 35%;
-        background-color: #e2e8f0;
-        padding: 25px 15px;
-        box-sizing: border-box;
-        text-align: left;
-    }
-    .cv-main {
-        width: 65%;
-        padding: 30px 20px;
-        box-sizing: border-box;
-        text-align: left;
-    }
-    .cv-photo-box {
-        width: 130px;
-        height: 150px;
-        margin: 0 auto 20px auto;
-        border: 3px solid #ffffff;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        position: relative;
-        background: #cbd5e1;
-    }
-    .cv-photo-box img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    .cv-photo-input {
-        position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        opacity: 0; cursor: pointer;
-    }
-    .cv-title-left {
-        color: #0284c7;
-        font-size: 14px;
-        font-weight: bold;
-        border-bottom: 2px solid #0284c7;
-        padding-bottom: 3px;
-        margin-top: 20px;
-        margin-bottom: 10px;
-        text-transform: uppercase;
-    }
-    .cv-title-main {
-        color: #1e293b;
-        font-size: 18px;
-        font-weight: bold;
-        border-bottom: 2px solid #cbd5e1;
-        padding-bottom: 4px;
-        margin-top: 15px;
-        margin-bottom: 10px;
-    }
-    .cv-editable {
-        outline: none;
-        padding: 2px 4px;
-        border: 1px dashed transparent;
-        transition: 0.2s;
-    }
-    .cv-editable:hover, .cv-editable:focus {
-        border-color: #2563eb;
-        background-color: #eff6ff;
-        border-radius: 4px;
-    }
-    .cv-list {
-        padding-left: 18px;
-        margin: 5px 0;
-    }
-    .cv-list li {
-        margin-bottom: 5px;
-        font-size: 13px;
-        color: #334155;
-    }
-`;
-document.head.appendChild(cvStyle);
-
-// Group Dynamic Data Structure with Multiple Templates & Dummy Info
+// Group Dynamic Data Structure with Template-1, Template-2 Naming
 const cvGroupsData = {
     groupA: {
         title: "Group A: Engineering & Tech",
         templates: [
-            { id: "groupA_tp1", name: "📐 Engineering Two-Page Standard Template", render: () => getGroupATemplate1() },
-            { id: "groupA_tp2", name: "💻 Modern Software & Technical Single-Page", render: () => getGroupATemplate2() }
+            { id: "groupA_tp1", name: "📄 Template-1 (2-Page Professional)", render: () => getGroupATemplate1() },
+            { id: "groupA_tp2", name: "📄 Template-2 (Modern Single-Page)", render: () => getGroupATemplate2() },
+            { id: "groupA_tp3", name: "📄 Template-3 (Compact Technical)", render: () => getGroupATemplate3() }
         ]
     }
 };
@@ -270,7 +181,7 @@ window.openCvSubCategories = function(groupKey) {
     group.templates.forEach((tpl) => {
         const card = document.createElement('div');
         card.className = 'hub-card';
-        card.innerHTML = `<span>📑</span> ${tpl.name}`;
+        card.innerHTML = `<span>📂</span> ${tpl.name}`;
         card.onclick = () => renderSelectedCv(tpl.render());
         listContainer.appendChild(card);
     });
@@ -307,7 +218,7 @@ window.downloadCV = function() {
     const element = document.getElementById('cvTemplateContainer');
     const opt = {
         margin: 0,
-        filename: 'My_Professional_CV.pdf',
+        filename: 'My_CV.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -320,7 +231,7 @@ window.downloadCV = function() {
     }
 };
 
-// Template 1 HTML Definition (Dummy Hints Used)
+// Template 1 Definition (Realistic Sample Data)
 function getGroupATemplate1() {
     return `
         <div class="cv-page" id="cvPage1">
@@ -329,57 +240,68 @@ function getGroupATemplate1() {
                     <img id="userCvPhoto" src="https://via.placeholder.com/130x150?text=Upload+Photo" alt="Profile Photo">
                     <input type="file" class="cv-photo-input" accept="image/*" onchange="uploadCvPhoto(event)">
                 </div>
-                <h2 class="cv-editable" contenteditable="true" style="color: #0284c7; font-size: 16px; text-align: center;">[YOUR FULL NAME]</h2>
+                <h2 class="cv-editable" contenteditable="true" style="color: #d97706; font-size: 16px; text-align: center;">MD. ARIFUL ISLAM</h2>
                 
                 <div class="cv-title-left">CONTACT</div>
                 <p class="cv-editable" contenteditable="true" style="font-size: 12px; color: #0f172a; line-height: 1.5;">
-                    <strong>Address:</strong><br>[House/Road No, Area, City]<br>
-                    <strong>Phone:</strong><br>[+8801XXXXXXXXX]<br>
-                    <strong>Email:</strong><br>[your.email@example.com]<br>
-                    <strong>LinkedIn:</strong><br>[linkedin.com/in/username]
+                    <strong>Address:</strong><br>House #12, Road #05, Dhanmondi, Dhaka-1205.<br>
+                    <strong>Phone:</strong><br>+880 1700-000000<br>
+                    <strong>Email:</strong><br>ariful.engr@example.com<br>
+                    <strong>LinkedIn:</strong><br>linkedin.com/in/ariful-demo
                 </p>
 
                 <div class="cv-title-left">BASIC KNOWLEDGE</div>
                 <p class="cv-editable" contenteditable="true" style="font-size: 12px; color: #0f172a; line-height: 1.5;">
-                    AutoCAD 2D, MS Office Suite, Web Development, Technical Documentation & Project Estimation.
+                    Efficient in AutoCAD 2D, Microsoft Office, Project Estimation, BoQ Preparation, and Site Management.
                 </p>
 
                 <div class="cv-title-left">LANGUAGE SKILLS</div>
                 <ul class="cv-list cv-editable" contenteditable="true" style="font-size: 12px;">
                     <li><strong>Bengali:</strong> Native / Fluent</li>
-                    <li><strong>English:</strong> Professional Working Proficiency</li>
+                    <li><strong>English:</strong> Professional Proficiency</li>
                 </ul>
             </div>
 
             <div class="cv-main">
                 <div class="cv-title-main">Current Objective</div>
                 <p class="cv-editable" contenteditable="true" style="font-size: 13px; color: #334155; line-height: 1.5;">
-                    To secure a challenging engineering position where I can utilize my technical knowledge, project management skills, and analytical expertise to contribute to organizational growth.
+                    Achieving a dynamic and challenging job where I can use my technical and interpersonal skills, creativity, and academic learning in order to develop my career as well as contribute to the welfare of the organization.
                 </p>
 
                 <div class="cv-title-main">Skill Highlights</div>
                 <div style="display: flex; justify-content: space-between;">
                     <ul class="cv-list cv-editable" contenteditable="true" style="width: 48%;">
                         <li>Project Management</li>
-                        <li>Structural / Technical Analysis</li>
-                        <li>Estimation & BoQ Preparation</li>
+                        <li>Site Operations & Planning</li>
+                        <li>Estimation & Budgeting</li>
                     </ul>
                     <ul class="cv-list cv-editable" contenteditable="true" style="width: 48%;">
-                        <li>Site & Operations Supervision</li>
-                        <li>Resource Planning</li>
-                        <li>Team Coordination</li>
+                        <li>Store & Inventory Control</li>
+                        <li>BoQ (Bill of Quantity)</li>
+                        <li>Team Leadership</li>
                     </ul>
                 </div>
 
                 <div class="cv-title-main">Experience</div>
+                
                 <div style="margin-bottom: 15px;">
-                    <strong class="cv-editable" contenteditable="true" style="font-size: 14px; color: #0f172a;">[Job Title / Designation]</strong> 
-                    <span class="cv-editable" contenteditable="true" style="font-size: 12px; color: #64748b;"> – [Start Date] to [Present/End Date]</span><br>
-                    <em class="cv-editable" contenteditable="true" style="font-size: 13px; color: #2563eb;">[Company Name, Location]</em>
+                    <strong class="cv-editable" contenteditable="true" style="font-size: 14px; color: #0f172a;">Assistant Engineer</strong> 
+                    <span class="cv-editable" contenteditable="true" style="font-size: 12px; color: #64748b;"> – Jan 2022 to Present</span><br>
+                    <em class="cv-editable" contenteditable="true" style="font-size: 13px; color: #2563eb;">ABC Engineering & Properties Ltd., Dhaka.</em>
                     <ul class="cv-list cv-editable" contenteditable="true">
-                        <li>Prepare technical BoQ, MOQ, and project cost estimations.</li>
-                        <li>Monitor daily operations and coordinate with multi-disciplinary teams.</li>
-                        <li>Ensure project quality control and compliance with specifications.</li>
+                        <li>Prepare construction project Bill of Quantities (BOQ) and Material Quantities (MOQ).</li>
+                        <li>Determine project requirements, material specifications, and vendor quotations.</li>
+                        <li>Coordinate with senior engineers to ensure smooth project progress.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <strong class="cv-editable" contenteditable="true" style="font-size: 14px; color: #0f172a;">Site Engineer</strong> 
+                    <span class="cv-editable" contenteditable="true" style="font-size: 12px; color: #64748b;"> – Feb 2020 to Dec 2021</span><br>
+                    <em class="cv-editable" contenteditable="true" style="font-size: 13px; color: #2563eb;">XYZ Builders & Developers, Dhaka.</em>
+                    <ul class="cv-list cv-editable" contenteditable="true">
+                        <li>Supervised site activities and maintained project progress reports.</li>
+                        <li>Managed project store and material distribution efficiently.</li>
                     </ul>
                 </div>
             </div>
@@ -389,49 +311,57 @@ function getGroupATemplate1() {
             <div class="cv-sidebar">
                 <div class="cv-title-left">HOBBIES</div>
                 <ul class="cv-list cv-editable" contenteditable="true" style="font-size: 12px;">
-                    <li>Reading Tech Blogs</li>
+                    <li>Reading Tech Magazines</li>
                     <li>Travelling</li>
+                    <li>Photography</li>
                 </ul>
 
                 <div class="cv-title-left">REFERENCE</div>
                 <p class="cv-editable" contenteditable="true" style="font-size: 12px; color: #0f172a; line-height: 1.5;">
-                    <strong>[Referee Name]</strong><br>
-                    [Designation], [Company Name]<br>
-                    <strong>Phone:</strong> [+8801XXXXXXXXX]
+                    <strong>Md. Kamrul Hasan</strong><br>
+                    Project Director<br>
+                    ABC Engineering Ltd.<br>
+                    <strong>Mob:</strong> +880 1800-000000
                 </p>
             </div>
 
             <div class="cv-main">
                 <div class="cv-title-main">Education Qualification</div>
                 <div class="cv-editable" contenteditable="true" style="font-size: 13px; line-height: 1.6; margin-bottom: 15px;">
-                    <strong>Bachelor of Science in [Engineering Field]</strong><br>
-                    [University Name] | <em>Passing Year: [Year]</em>
+                    <strong>B.Sc in Civil / Computer Engineering</strong><br>
+                    Dhaka International University | <em>Passing Year: 2020</em>
+                </div>
+                <div class="cv-editable" contenteditable="true" style="font-size: 13px; line-height: 1.6; margin-bottom: 15px;">
+                    <strong>Diploma in Engineering</strong><br>
+                    Dhaka Polytechnic Institute (BTEB)<br>
+                    Passing Year: 2016 | <em>Result: 3.45 (Out of 4.00)</em>
                 </div>
 
                 <div class="cv-title-main">Personal Information</div>
                 <table style="width: 100%; font-size: 13px; color: #1e293b; border-collapse: collapse;">
-                    <tr><td style="padding: 3px 0;"><strong>Name:</strong></td><td class="cv-editable" contenteditable="true">[Your Full Name]</td></tr>
-                    <tr><td style="padding: 3px 0;"><strong>Father's Name:</strong></td><td class="cv-editable" contenteditable="true">[Father's Name]</td></tr>
-                    <tr><td style="padding: 3px 0;"><strong>Mother's Name:</strong></td><td class="cv-editable" contenteditable="true">[Mother's Name]</td></tr>
-                    <tr><td style="padding: 3px 0;"><strong>Date of Birth:</strong></td><td class="cv-editable" contenteditable="true">[DD/MM/YYYY]</td></tr>
-                    <tr><td style="padding: 3px 0;"><strong>Nationality:</strong></td><td class="cv-editable" contenteditable="true">Bangladeshi</td></tr>
+                    <tr><td style="padding: 3px 0;"><strong>Name:</strong></td><td class="cv-editable" contenteditable="true">Md. Ariful Islam</td></tr>
+                    <tr><td style="padding: 3px 0;"><strong>Father's Name:</strong></td><td class="cv-editable" contenteditable="true">Md. Rafiqul Islam</td></tr>
+                    <tr><td style="padding: 3px 0;"><strong>Mother's Name:</strong></td><td class="cv-editable" contenteditable="true">Mst. Rahima Begum</td></tr>
+                    <tr><td style="padding: 3px 0;"><strong>Present Address:</strong></td><td class="cv-editable" contenteditable="true">House #12, Road #05, Dhanmondi, Dhaka-1205</td></tr>
+                    <tr><td style="padding: 3px 0;"><strong>Permanent Address:</strong></td><td class="cv-editable" contenteditable="true">Village: Sadar, P.O: Sadar, District: Bogura</td></tr>
+                    <tr><td style="padding: 3px 0;"><strong>Date of Birth:</strong></td><td class="cv-editable" contenteditable="true">10th October, 1996</td></tr>
+                    <tr><td style="padding: 3px 0;"><strong>Religion & Nationality:</strong></td><td class="cv-editable" contenteditable="true">Islam | Bangladeshi</td></tr>
                 </table>
+
+                <p class="cv-editable" contenteditable="true" style="font-size: 11px; color: #64748b; margin-top: 30px; font-style: italic;">
+                    I do hereby declare that all information provided above is accurate to the best of my knowledge.
+                </p>
             </div>
         </div>
     `;
 }
 
-// Template 2 Placeholder (Template 2 Option for Group A)
+// Placeholder Functions for Template 2 & 3
 function getGroupATemplate2() {
-    return `
-        <div class="cv-page">
-            <div class="cv-main" style="width: 100%;">
-                <h1 class="cv-editable" contenteditable="true" style="color: #0284c7; text-align: center;">[YOUR NAME - TEMPLATE 2]</h1>
-                <p style="text-align: center;" class="cv-editable" contenteditable="true">Software / Tech Specialist Template Layout</p>
-                <hr>
-                <div class="cv-title-main">Technical Profile</div>
-                <p class="cv-editable" contenteditable="true">এখানের ফরম্যাটটি সিঙ্গল পেজ টেকনিক্যাল সিভি কাস্টমাইজেশনের জন্য।</p>
-            </div>
-        </div>
-    `;
+    return `<div class="cv-page"><div class="cv-main" style="width:100%;"><h2>Template-2 (কাজ চলছে...)</h2></div></div>`;
+}
+
+function getGroupATemplate3() {
+    return `<div class="cv-page"><div class="cv-main" style="width:100%;"><h2>Template-3 (কাজ চলছে...)</h2></div></div>`;
+}
 }
