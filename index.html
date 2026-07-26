@@ -15,42 +15,16 @@
         header { 
             background: linear-gradient(135deg, #1e293b, #0f172a); 
             color: white; 
-            padding: 25px 15px; 
+            padding: 30px 15px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
             position: relative;
         }
         header h1 { font-size: 28px; margin-bottom: 5px; }
-        header p { color: #cbd5e1; font-size: 15px; margin-bottom: 15px; }
+        header p { color: #cbd5e1; font-size: 15px; }
         
-        /* নেভিগেশন বার স্টাইল ঠিক করা হয়েছে */
-        header nav { 
-            display: flex !important; 
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
+        header nav { display: none !important; }
 
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: #cbd5e1;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .nav-btn:hover, .nav-btn.btn-active {
-            background: #2563eb;
-            color: white;
-            border-color: #2563eb;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
-        }
-
-        .container { max-width: 950px; margin: 30px auto; padding: 0 15px; }
+        .container { max-width: 850px; margin: 30px auto; padding: 0 15px; }
         
         .section { 
             display: none; 
@@ -63,7 +37,7 @@
         .section.active { display: block !important; }
         .section h2 { font-size: 22px; color: #0f172a; margin-bottom: 12px; }
         
-        /* নোটিশ এবং লাইক/মতামত বক্স */
+        /* আপনার অরিজিনাল নোটিশ এবং লাইক/মতামত বক্স */
         .author-notice-box {
             background: #eff6ff;
             border: 1px solid #bfdbfe;
@@ -150,20 +124,18 @@
         .btn-linkedin { background-color: #0A66C2; }
 
         /* স্টাডি / লাইব্রেরি হাব স্টাইল */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 20px; }
-        .hub-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 22px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.2s; font-weight: 600; }
-        .hub-card:hover { background: #eff6ff; border-color: #2563eb; transform: translateY(-3px); box-shadow: 0 4px 12px rgba(37,99,235,0.1); }
-        .hub-card span { font-size: 32px; display: block; margin-bottom: 10px; }
-        .back-btn { background: #64748b; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-bottom: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
-        .back-btn:hover { background: #475569; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
+        .hub-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.2s; font-weight: 600; }
+        .hub-card:hover { background: #eff6ff; border-color: #2563eb; transform: translateY(-3px); }
+        .hub-card span { font-size: 28px; display: block; margin-bottom: 8px; }
+        .back-btn { background: #64748b; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; margin-bottom: 15px; font-weight: 600; }
+        .resource-box { background: #f1f5f9; padding: 15px; border-radius: 8px; margin-top: 10px; }
+        .resource-box h4 { margin-bottom: 8px; color: #1e293b; }
 
-        /* প্রিন্ট রুলস সিভি ডাউনলোডের জন্য */
-        @media print {
-            body * { visibility: hidden; }
-            #cvPreviewArea, #cvPreviewArea * { visibility: visible; }
-            #cvPreviewArea { position: absolute; left: 0; top: 0; width: 100%; padding: 0; margin: 0; }
-            .no-print { display: none !important; }
-        }
+        .book-list { list-style: none; padding: 0; margin-top: 10px; }
+        .book-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 8px; font-size: 14px; font-weight: 500; }
+        .book-item a { background-color: #2563eb; color: white; text-decoration: none; padding: 6px 14px; border-radius: 4px; font-size: 13px; font-weight: 600; transition: background 0.2s; }
+        .book-item a:hover { background-color: #1d4ed8; }
     </style>
 </head>
 <body>
@@ -172,14 +144,13 @@
         <h1>নুর মোহাম্মদ 👋</h1>
         <p>ওয়েব, টেকনোলজি ও প্রজেক্ট হাব</p>
         <nav>
-            <button class="nav-btn btn-active" onclick="showSection('home', this)">🏠 হোম</button>
-            <button class="nav-btn" onclick="showSection('about', this)">👨‍💻 আমার সম্পর্কে</button>
-            <button class="nav-btn" onclick="showSection('cvHub', this)">📄 স্মার্ট সিভি বিল্ডার</button>
-            <button class="nav-btn" onclick="showSection('studyHub', this)">📚 জ্ঞান ও শিক্ষা হাব</button>
-            <button class="nav-btn" onclick="showSection('projects', this)">🔒 সিকিউর প্রজেক্ট</button>
-            <button class="nav-btn" onclick="showSection('plans', this)">🚀 ভবিষ্যৎ প্ল্যান</button>
-            <button class="nav-btn" onclick="showSection('gallery', this)">📸 গ্যালারি</button>
-            <button class="nav-btn" onclick="showSection('contact', this)">📲 যোগাযোগ</button>
+            <button class="nav-btn btn-active" onclick="showSection('home', this)">হোম</button>
+            <button class="nav-btn" onclick="showSection('about', this)">আমার সম্পর্কে</button>
+            <button class="nav-btn" onclick="showSection('projects', this)">প্রজেক্টসমূহ</button>
+            <button class="nav-btn" onclick="showSection('studyHub', this)">জ্ঞান ও শিক্ষা হাব 📚</button>
+            <button class="nav-btn" onclick="showSection('plans', this)">ভবিষ্যৎ প্ল্যান</button>
+            <button class="nav-btn" onclick="showSection('gallery', this)">গ্যালারি</button>
+            <button class="nav-btn" onclick="showSection('contact', this)">যোগাযোগ</button>
         </nav>
     </header>
 
@@ -187,53 +158,16 @@
         <!-- ১. হোম -->
         <div id="home" class="section active">
             <h2>🏠 স্বাগতম!</h2>
-            <p>আমার ব্যক্তিগত পোর্টফোলিও এবং প্রজেক্ট হাবে আপনাকে স্বাগতম। উপরের নেভিগেশন বার থেকে যেকোনো ট্যাবে গিয়ে স্মার্ট সিভি প্রস্তুত করতে পারেন বা শিক্ষা উপকরণ দেখতে পারেন।</p>
+            <p>আমার ব্যক্তিগত প্রজেক্ট পোর্টফোলিওতে আপনাকে স্বাগতম।</p>
         </div>
 
         <!-- ২. আমার সম্পর্কে -->
         <div id="about" class="section">
             <h2>👨‍💻 আমার সম্পর্কে</h2>
-            <p>আমি নুর মোহাম্মদ। টেকনোলজি, ওয়েব ডেভলপমেন্ট এবং IoT (ইন্টারনেট অব থিংস) নিয়ে কাজ করতে পছন্দ করি।</p>
+            <p>আমি নুর মোহাম্মদ। টেকনোলজি, ওয়েব ডেভলপমেন্ট এবং ইলেকট্রনিক্স নিয়ে কাজ করতে পছন্দ করি।</p>
         </div>
 
-        <!-- 📄 ৩. স্মার্ট সিভি ও ক্যারিয়ার হাব -->
-        <div id="cvHub" class="section">
-            <h2>📄 স্মার্ট সিভি ও ক্যারিয়ার হাব (BD & International Standard)</h2>
-            <p style="color: #64748b; margin-bottom: 20px;">আপনার কাঙ্ক্ষিত চাকরির ক্যাটাগরি বেছে নিন এবং ১-ক্লিকে প্রফেশনাল অটো-টেমপ্লেট থেকে সিভি প্রস্তুত করুন:</p>
-
-            <div id="cvBuilderRoot"></div>
-        </div>
-
-        <!-- ৪. জ্ঞান ও শিক্ষা হাব -->
-        <div id="studyHub" class="section">
-            <div class="author-notice-box">
-                <b>📌 নোটিশ:</b> এখানে উল্লেখিত সকল ডিজিটাল বই এবং পাঠ্য উপকরণ বিভিন্ন উন্মুক্ত উৎস থেকে সংগ্রহ করা হয়েছে।
-                <div class="like-container">
-                    <button class="btn-like" onclick="likeNotice()">👍 পছন্দ হয়েছে (<span id="likeCount">0</span>)</button>
-                </div>
-
-                <div class="feedback-area-box">
-                    <b>💬 আপনার মূল্যবান মতামত বা অনুরোধ লিখুন:</b>
-                    <textarea id="userFeedback" class="feedback-area" placeholder="কোন বই বা নোটসের প্রয়োজন থাকলে মতামত লিখুন..."></textarea>
-                    <button class="btn-feedback" onclick="submitFeedback()">মতামত পাঠান</button>
-                    <div id="feedbackSuccess" class="feedback-msg">আপনার মতামত জমা নেওয়া হয়েছে! ধন্যবাদ।</div>
-                </div>
-            </div>
-
-            <h2>📚 ডিজিটাল জ্ঞান ও শিক্ষা হাব</h2>
-            <p>এখানে সব ধরণের বই, লেকচার নোটস ও পাঠ্যসামগ্রী রয়েছে:</p>
-
-            <div id="hubMainCategories" class="grid-container">
-                <div class="hub-card" onclick="openStudyFolder('academicView')"><span>🏫</span> একাডেমি (Class 1 - 12)</div>
-                <div class="hub-card" onclick="openStudyFolder('ieltsView')"><span>🇬🇧</span> IELTS প্রিপারেশন</div>
-                <div class="hub-card" onclick="openStudyFolder('islamicView')"><span>🕌</span> ইসলামিক বই</div>
-                <div class="hub-card" onclick="openStudyFolder('literatureView')"><span>📖</span> সাহিত্য ও অন্যান্য</div>
-            </div>
-
-            <div id="studyHubViews"></div>
-        </div>
-
-        <!-- ৫. সিকিউর প্রজেক্ট সেকশন -->
+        <!-- ৩. সিকিউর প্রজেক্ট সেকশন -->
         <div id="projects" class="section">
             <h2>🤖 সিকিউর প্রজেক্টসমূহ 🔒</h2>
             
@@ -252,7 +186,7 @@
 
                 <div class="project-card">
                     <div class="project-header" onclick="toggleProject('p1', 'p1-container', 'p1', this)">
-                        <span>📦 Project-1: IoT Smart Energy & Medicine System</span>
+                        <span>📦 Project-1: IoT Smart Medicine Box</span>
                         <span class="icon">🔽</span>
                     </div>
                     <div id="p1" class="project-content">
@@ -262,51 +196,67 @@
             </div>
         </div>
 
-        <!-- ৬. ভবিষ্যৎ প্ল্যান -->
+        <!-- ৪. জ্ঞান ও শিক্ষা হাব -->
+        <div id="studyHub" class="section">
+            
+            <!-- অরিজিনাল লেখকদের নোটিশ ও পছন্দ বাটন -->
+            <div class="author-notice-box">
+                <b>📌 নোটিশ:</b> এখানে উল্লেখিত সকল ডিজিটাল বই এবং পাঠ্য উপকরণ বিভিন্ন উন্মুক্ত উৎস থেকে সংগ্রহ করা হয়েছে। সকল কৃতিত্ব মূল লেখক ও প্রকাশকদের।
+                <div class="like-container">
+                    <button class="btn-like" onclick="likeNotice()">👍 পছন্দ হয়েছে (<span id="likeCount">0</span>)</button>
+                </div>
+
+                <!-- আপনার চাওয়া মতামত জানানোর অপশন -->
+                <div class="feedback-area-box">
+                    <b>💬 আপনার মূল্যবান মতামত বা অনুরোধ লিখুন:</b>
+                    <textarea id="userFeedback" class="feedback-area" placeholder="কোন বই বা নোটসের প্রয়োজন থাকলে মতামত লিখুন..."></textarea>
+                    <button class="btn-feedback" onclick="submitFeedback()">মতামত পাঠান</button>
+                    <div id="feedbackSuccess" class="feedback-msg">আপনার মতামত জমা নেওয়া হয়েছে! ধন্যবাদ।</div>
+                </div>
+            </div>
+
+            <h2>📚 ডিজিটাল জ্ঞান ও শিক্ষা হাব</h2>
+            <p>এখানে সব ধরণের বই, লেকচার নোটস ও ক্লাস রেকর্ড সুসংগঠিত রয়েছে:</p>
+
+            <!-- অরিজিনাল ক্যাটাগরি -->
+            <div id="hubMainCategories" class="grid-container">
+                <div class="hub-card" onclick="openStudyFolder('academicView')"><span>🏫</span> একাডেমি (Class 1 - 12)</div>
+                <div class="hub-card" onclick="openStudyFolder('ieltsView')"><span>🇬🇧</span> IELTS প্রিপারেশন</div>
+                <div class="hub-card" onclick="openStudyFolder('islamicView')"><span>🕌</span> ইসলামিক বই</div>
+                <div class="hub-card" onclick="openStudyFolder('literatureView')"><span>📖</span> সাহিত্য ও অন্যান্য</div>
+            </div>
+
+            <!-- ui-data.js থেকে বই লোড হওয়ার জায়গা -->
+            <div id="studyHubViews"></div>
+        </div>
+
+        <!-- ৫. ভবিষ্যৎ প্ল্যান -->
         <div id="plans" class="section">
             <h2>🚀 ভবিষ্যৎ পরিকল্পনা</h2>
-            <p>সামনে আরও নতুন নতুন IoT, AI ও আধুনিক ওয়েব প্রজেক্ট তৈরি করার পরিকল্পনা রয়েছে।</p>
+            <p>সামনে আরও নতুন নতুন IoT ও ওয়েব প্রজেক্ট তৈরি করার ইচ্ছা আছে।</p>
         </div>
 
-        <!-- ৭. গ্যালারি -->
+        <!-- ৬. গ্যালারি -->
         <div id="gallery" class="section">
             <h2>📸 গ্যালারি</h2>
-            <p>এখানে প্রজেক্টের ছবি ও ল্যাব অ্যাক্টিভিটি যুক্ত করা হবে।</p>
+            <p>এখানে প্রজেক্টের ছবি যুক্ত করা হবে।</p>
         </div>
 
-        <!-- ৮. যোগাযোগ -->
+        <!-- ৭. যোগাযোগ -->
         <div id="contact" class="section">
             <h2>📲 সামাজিক যোগাযোগ মাধ্যমে যুক্ত হন</h2>
-            <p>আমার সাথে যেকোনো সামাজিক মাধ্যমে যোগাযোগ করতে পারেন:</p>
+            <p>আমার সাথে যেকোনো সামাজিক মাধ্যমে যুক্ত হতে পারেন:</p>
 
             <div class="social-links" id="socialLinksContainer"></div>
         </div>
     </div>
 
-    <!-- JavaScript logic -->
+    <!-- JavaScript Files -->
+    <script src="ui-data.js"></script>
+    <script type="module" src="app.js"></script>
+    <script src="sidebar.js"></script>
+
     <script>
-        // সেকশন পরিবর্তন ফাংশন
-        function showSection(sectionId, btnElement) {
-            // সকল সেকশন হাইড করা
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(sec => sec.classList.remove('active'));
-
-            // সকল নেভিগেশন বাটনের একটিভ ক্লাস রিমুভ করা
-            const navBtns = document.querySelectorAll('.nav-btn');
-            navBtns.forEach(btn => btn.classList.remove('btn-active'));
-
-            // টার্গেট সেকশন শো করা
-            const target = document.getElementById(sectionId);
-            if (target) {
-                target.classList.add('active');
-            }
-
-            // ক্লিক করা বাটনে একটিভ ক্লাস দেওয়া
-            if (btnElement) {
-                btnElement.classList.add('btn-active');
-            }
-        }
-
         // নোটিশ লাইক ও মতামত হ্যান্ডলিং
         let likes = parseInt(localStorage.getItem('noticeLikes') || '0');
         document.getElementById('likeCount').innerText = likes;
@@ -320,7 +270,7 @@
         function submitFeedback() {
             const input = document.getElementById("userFeedback");
             const msg = document.getElementById("feedbackSuccess");
-            if (input && input.value.trim() !== "") {
+            if (input.value.trim() !== "") {
                 let feedbacks = JSON.parse(localStorage.getItem("siteFeedbacks") || "[]");
                 feedbacks.push(input.value);
                 localStorage.setItem("siteFeedbacks", JSON.stringify(feedbacks));
@@ -330,24 +280,5 @@
             }
         }
     </script>
-<!-- নেভিগেশন বার / টপ মেনু (অন্যান্য ট্যাবের সাথে) -->
-<button class="nav-btn" onclick="showTab('cv-builder')">
-    📄 স্মার্ট সিভি বিল্ডার
-</button>
-
-<!-- মোবাইল ড্রয়ার মেনুতেও (যদি থাকে) -->
-<button class="mobile-nav-btn" onclick="showTab('cv-builder')">
-    📄 স্মার্ট সিভি বিল্ডার
-</button>
-
-<!-- সিভি বিল্ডারের জন্য কনটেইনার সেকশন -->
-<section id="cv-builder" class="tab-content" style="display: none;">
-    <div id="cvBuilderRoot"></div>
-</section> 
-    <!-- External Script Files -->
-    <script src="ui-data.js"></script>
-    <script type="module" src="app.js"></script>
-    <script src="sidebar.js"></script>
-    <script src="cv-builder.js"></script>
 </body>
 </html>
