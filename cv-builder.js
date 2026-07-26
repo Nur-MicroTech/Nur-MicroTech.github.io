@@ -3,7 +3,7 @@
  * Developed for Noor Mohammad's Portfolio Hub
  */
 
-// ৬টি প্রধান জব ক্যাটাগরি এবং প্রতিটি ক্যাটাগরির ২-৩টি করে টেমপ্লেট ডাটা
+// ৬টি প্রধান জব ক্যাটাগরি এবং প্রতিটি ক্যাটাগরির প্রস্তুত টেমপ্লেট ডাটা
 const cvCategoriesData = [
     {
         id: "cat_tech",
@@ -84,35 +84,36 @@ let currentCvState = {
         motherName: "মোসাম্মাৎ রহিমা বেগম",
         maritalStatus: "অবিবাহিত",
         githubOrPortfolio: "github.com/noormohammad",
-        summary: "উদ্ভাবনী প্রযুক্তি, IoT সিস্টেম এবং আধুনিক ওয়েব অ্যাপ্লিকেশন তৈরিতে আগ্রহী বিএসসি গ্র্যাজুয়েট প্রকৌশলী।",
+        summary: "উদ্ভাবনী প্রযুক্তি, IoT সিস্টেম এবং আধুনিক ওয়েব অ্যাপ্লিকেশন তৈরিতে আগ্রহী বিএসসি গ্র্যাজুয়েট প্রকৌশলী।",
         experience: "• IoT Smart Energy System (বিএসসি ফাইনাল প্রজেক্ট) - রিয়েল-টাইম ক্লাউড মনিটরিং ও মেশিন লার্নিং ব্যবহার করে বিদ্যুৎ চুরি ডিটেকশন প্রজেক্ট সম্পন্ন।\n• ওয়েব ও আইওটি ফ্রিল্যান্স ডেভেলপমেন্ট।",
         education: "• বি.এসসি ইন ইইই / সিএসই - আতিশ দীপঙ্কর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয় (ADUST) [২০২৬]\n• এইচ.এসসি - ঢাকা বোর্ড",
         skills: "Arduino R4 WiFi, ACS712 Sensors, Firebase, Next.js, React, Tailwind CSS, Python, C/C++"
     }
 };
 
+// ১. সিভি বিল্ডার প্রারম্ভিক ফাংশন (ট্যাবে ক্লিক করলে কল হবে)
 function initCvBuilder() {
-    const root = document.getElementById("cvBuilderRoot");
-    if (!root) return;
     renderCategoriesView();
 }
 
-// ১. ৬টি ক্যাটাগরি ভিউ রেন্ডার
+// ২. ৬টি ক্যাটাগরি রেন্ডার
 function renderCategoriesView() {
     const root = document.getElementById("cvBuilderRoot");
     if (!root) return;
 
     let html = `
+        <h2 style="color: #0f172a; margin-bottom: 8px;">📄 স্মার্ট সিভি বিল্ডার</h2>
+        <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">আপনার পছন্দের ক্যাটাগরি বেছে নিয়ে প্রফেশনাল সিভি তৈরি করুন:</p>
         <div class="grid-container">
     `;
 
     cvCategoriesData.forEach(cat => {
         html += `
             <div class="hub-card" onclick="window.selectCvCategory('${cat.id}')">
-                <span>${cat.icon}</span>
-                <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 5px;">${cat.title}</div>
+                <span style="font-size: 28px;">${cat.icon}</span>
+                <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin: 8px 0 5px 0;">${cat.title}</div>
                 <div style="font-size: 12px; color: #64748b; font-weight: normal; line-height: 1.4;">${cat.description}</div>
-                <div style="margin-top: 10px; font-size: 11px; background: #e0f2fe; color: #0369a1; padding: 4px 8px; border-radius: 12px; display: inline-block; font-weight: 600;">
+                <div style="margin-top: 12px; font-size: 11px; background: #e0f2fe; color: #0369a1; padding: 4px 8px; border-radius: 12px; display: inline-block; font-weight: 600;">
                     ${cat.templates.length} টি প্রস্তুত টেমপ্লেট
                 </div>
             </div>
@@ -123,7 +124,7 @@ function renderCategoriesView() {
     root.innerHTML = html;
 }
 
-// ২. ক্যাটাগরি সিলেক্ট করার পর টেমপ্লেট তালিকা
+// ৩. নির্দিষ্ট ক্যাটাগরির টেমপ্লেটসমূহ দেখানো
 function selectCvCategory(catId) {
     const category = cvCategoriesData.find(c => c.id === catId);
     if (!category) return;
@@ -132,9 +133,9 @@ function selectCvCategory(catId) {
     const root = document.getElementById("cvBuilderRoot");
 
     let html = `
-        <button class="back-btn no-print" onclick="window.renderCategoriesView()">⬅️ ক্যাটাগরি তালিকায় ফিরে যান</button>
+        <button class="back-btn no-print" onclick="window.renderCategoriesView()" style="margin-bottom: 15px;">⬅️ ক্যাটাগরি তালিকায় ফিরে যান</button>
         <h3 style="color: #0f172a; margin-bottom: 5px;">${category.icon} ${category.title} এর টেমপ্লেটসমূহ</h3>
-        <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">আপনার পছন্দসই টেমপ্লেটে ক্লিক করে তথ্য দেওয়া শুরু করুন:</p>
+        <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">পছন্দসই টেমপ্লেটে ক্লিক করে এডিট শুরু করুন:</p>
         
         <div class="grid-container">
     `;
@@ -147,7 +148,7 @@ function selectCvCategory(catId) {
                     <span style="background: #f1f5f9; color: #334155; font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 600;">${tpl.badge}</span>
                 </div>
                 <h4 style="color: #0f172a; font-size: 15px; margin-bottom: 6px;">${tpl.name}</h4>
-                <p style="font-size: 12px; color: #64748b;">ক্লিক করে তৈরি করুন ➡️</p>
+                <p style="font-size: 12px; color: #64748b; margin: 0;">ক্লিক করে তৈরি করুন ➡️</p>
             </div>
         `;
     });
@@ -156,25 +157,24 @@ function selectCvCategory(catId) {
     root.innerHTML = html;
 }
 
-// ৩. লাইভ সিভি এডিটর ও ফর্ম ভিউ
+// ৪. লাইভ সিভি এডিটর
 function openCvEditor(templateId) {
     const template = currentCvState.selectedCategory.templates.find(t => t.id === templateId);
     currentCvState.selectedTemplate = template;
     
     const root = document.getElementById("cvBuilderRoot");
-
     const isBdClassic = currentCvState.selectedCategory.id === "cat_bd_classic";
 
     let html = `
         <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
             <button class="back-btn" style="margin:0;" onclick="window.selectCvCategory('${currentCvState.selectedCategory.id}')">⬅️ টেমপ্লেটে ফিরুন</button>
             <button onclick="window.print()" style="background-color: #16a34a; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-                🖨️ ১-ক্লিকে PDF ডাউনলোড করুন
+                🖨️ ১-ক্লিকে PDF ডাউনলোড করুন
             </button>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
-            <!-- ইনপুট ফর্ম (বামপাশে) -->
+            <!-- ইনপুট ফর্ম -->
             <div class="no-print" style="background: #f8fafc; padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0;">
                 <h3 style="font-size: 16px; color: #0f172a; margin-bottom: 15px; border-bottom: 2px solid #cbd5e1; padding-bottom: 6px;">✏️ তথ্য পরিবর্তন করুন</h3>
                 
@@ -214,7 +214,7 @@ function openCvEditor(templateId) {
                 <label style="font-size: 12px; font-weight: 700; color: #475569;">পোর্টফোলিও / গিটহাব লিংক:</label>
                 <input type="text" id="cv_github" value="${currentCvState.formData.githubOrPortfolio}" oninput="window.updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px;">
 
-                <label style="font-size: 12px; font-weight: 700; color: #475569;">ক্যারিয়ার অবজেক্টিভ / সামারি:</label>
+                <label style="font-size: 12px; font-weight: 700; color: #475569;">ক্যারিয়ার অবজেক্টিভ / সামারি:</label>
                 <textarea id="cv_summary" oninput="window.updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px; height: 60px;">${currentCvState.formData.summary}</textarea>
 
                 <label style="font-size: 12px; font-weight: 700; color: #475569;">দক্ষতা (Skills):</label>
@@ -227,9 +227,8 @@ function openCvEditor(templateId) {
                 <textarea id="cv_education" oninput="window.updateCvPreview()" style="width:100%; padding:8px; margin:4px 0 12px 0; border:1px solid #cbd5e1; border-radius:6px; height: 80px;">${currentCvState.formData.education}</textarea>
             </div>
 
-            <!-- রিয়েল-টাইম সিভি প্রিভিউ (ডানপাশে) -->
+            <!-- লাইভ প্রিভিউ -->
             <div style="background: white; border: 1px solid #cbd5e1; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" id="cvPreviewArea">
-                <!-- ডাইনামিকভাবে রেন্ডার হবে -->
             </div>
         </div>
     `;
@@ -238,12 +237,11 @@ function openCvEditor(templateId) {
     updateCvPreview();
 }
 
-// ৪. রিয়েলটাইমে আপডেট প্রিভিউ
+// ৫. রিয়েলটাইম প্রিভিউ আপডেট
 function updateCvPreview() {
     const previewArea = document.getElementById("cvPreviewArea");
     if (!previewArea) return;
 
-    // ইনপুট ভ্যালু রিড
     const getVal = (id, fallback) => {
         const el = document.getElementById(id);
         return el ? el.value : fallback;
@@ -269,7 +267,6 @@ function updateCvPreview() {
 
     let cvHtml = `
         <div style="font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; line-height: 1.5;">
-            <!-- হেডার সেকশন -->
             <div style="border-bottom: 2px solid ${accentColor}; padding-bottom: 12px; margin-bottom: 15px;">
                 <h1 style="color: ${accentColor}; font-size: 24px; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">${name}</h1>
                 <div style="font-size: 14px; font-weight: 600; color: #475569; margin-top: 2px;">${title}</div>
@@ -282,13 +279,11 @@ function updateCvPreview() {
                 </div>
             </div>
 
-            <!-- ক্যারিয়ার উদ্দেশ্য -->
             <div style="margin-bottom: 15px;">
                 <h4 style="color: ${accentColor}; font-size: 13px; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; margin-bottom: 6px;">Career Objective</h4>
                 <p style="font-size: 12.5px; color: #334155; margin: 0;">${summary}</p>
             </div>
 
-            <!-- বিডি ক্লাসিক টেবিল থাকলে -->
             ${isBdClassic ? `
                 <div style="margin-bottom: 15px;">
                     <h4 style="color: ${accentColor}; font-size: 13px; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; margin-bottom: 6px;">Personal Details (BD Standard)</h4>
@@ -300,19 +295,16 @@ function updateCvPreview() {
                 </div>
             ` : ''}
 
-            <!-- দক্ষতা -->
             <div style="margin-bottom: 15px;">
                 <h4 style="color: ${accentColor}; font-size: 13px; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; margin-bottom: 6px;">Key Skills & Expertise</h4>
                 <div style="font-size: 12.5px; color: #334155;">${skills}</div>
             </div>
 
-            <!-- অভিজ্ঞতা ও প্রজেক্ট -->
             <div style="margin-bottom: 15px;">
                 <h4 style="color: ${accentColor}; font-size: 13px; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; margin-bottom: 6px;">Experience & Key Projects</h4>
                 <div style="font-size: 12px; color: #334155; white-space: pre-line;">${experience}</div>
             </div>
 
-            <!-- শিক্ষা -->
             <div style="margin-bottom: 15px;">
                 <h4 style="color: ${accentColor}; font-size: 13px; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; margin-bottom: 6px;">Education & Qualifications</h4>
                 <div style="font-size: 12px; color: #334155; white-space: pre-line;">${education}</div>
@@ -323,14 +315,9 @@ function updateCvPreview() {
     previewArea.innerHTML = cvHtml;
 }
 
-// ফাংশনগুলোকে গ্লোবাল উইন্ডোতে এক্সপোজ করা
+// ফাংশন এক্সপোর্ট
 window.initCvBuilder = initCvBuilder;
 window.renderCategoriesView = renderCategoriesView;
 window.selectCvCategory = selectCvCategory;
 window.openCvEditor = openCvEditor;
 window.updateCvPreview = updateCvPreview;
-
-// ইনিশিয়ালাইজ করা
-document.addEventListener("DOMContentLoaded", () => {
-    initCvBuilder();
-});
