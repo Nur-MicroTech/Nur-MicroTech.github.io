@@ -330,7 +330,20 @@
             }
         }
     </script>
+<!-- নেভিগেশন বার / টপ মেনু (অন্যান্য ট্যাবের সাথে) -->
+<button class="nav-btn" onclick="showTab('cv-builder')">
+    📄 স্মার্ট সিভি বিল্ডার
+</button>
 
+<!-- মোবাইল ড্রয়ার মেনুতেও (যদি থাকে) -->
+<button class="mobile-nav-btn" onclick="showTab('cv-builder')">
+    📄 স্মার্ট সিভি বিল্ডার
+</button>
+
+<!-- সিভি বিল্ডারের জন্য কনটেইনার সেকশন -->
+<section id="cv-builder" class="tab-content" style="display: none;">
+    <div id="cvBuilderRoot"></div>
+</section> 
     <!-- External Script Files -->
     <script src="ui-data.js"></script>
     <script type="module" src="app.js"></script>
