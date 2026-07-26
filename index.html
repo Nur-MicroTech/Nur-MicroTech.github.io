@@ -251,6 +251,48 @@
         </div>
     </div>
 
+    <!-- HTML Navigation Header এ এই বাটনটি যোগ করুন -->
+<button class="nav-btn" onclick="showSection('cvBuilder', this)">CV Builder 📄</button>
+
+<!-- Container এর ভেতরে এই নতুন Section-টি যুক্ত করুন -->
+<div id="cvBuilder" class="section">
+    <h2>📄 অনলাইন ফ্রি সি ভি বিল্ডার</h2>
+    <p>আপনার পছন্দের ক্যাটাগরি বেছে নিয়ে সহজেই এডিটেবল সি ভি তৈরি ও ডাউনলোড করুন:</p>
+
+    <!-- ৬টি ক্যাটাগরির গ্রিড -->
+    <div class="grid-container" id="cvCategoryGrid">
+        <div class="hub-card" onclick="openCvCategory('groupA')">
+            <span>⚙️</span> Group A: Engineering & Tech
+        </div>
+        <div class="hub-card" onclick="openCvCategory('groupB')">
+            <span>💼</span> Group B: Corporate & Office
+        </div>
+        <div class="hub-card" onclick="openCvCategory('groupC')">
+            <span>🛒</span> Group C: Service & Retail
+        </div>
+        <div class="hub-card" onclick="openCvCategory('groupD')">
+            <span>🎓</span> Group D: Education & Academia
+        </div>
+        <div class="hub-card" onclick="openCvCategory('groupE')">
+            <span>🏛️</span> Group E: BD Traditional & Govt
+        </div>
+        <div class="hub-card" onclick="openCvCategory('groupF')">
+            <span>🎨</span> Group F: Creative & Media
+        </div>
+    </div>
+
+    <!-- CV এডিটর ও টেমপ্লেট ভিউ -->
+    <div id="cvEditorView" style="display: none; margin-top: 20px;">
+        <button class="back-btn" onclick="backToCvGrid()">🔙 ক্যাটাগরি তালিকায় ফিরুন</button>
+        <button class="btn-action" style="width: auto; background-color: #16a34a; float: right;" onclick="downloadCV()">📥 PDF ডাউনলোড করুন</button>
+        
+        <div style="clear: both; margin-bottom: 15px;"></div>
+
+        <!-- টেমপ্লেটের কন্টেইনার -->
+        <div id="cvTemplateContainer"></div>
+    </div>
+</div>
+    
     <!-- JavaScript Files -->
     <script src="ui-data.js"></script>
     <script type="module" src="app.js"></script>
