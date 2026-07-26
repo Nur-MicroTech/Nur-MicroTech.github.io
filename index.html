@@ -251,29 +251,26 @@
         </div>
     </div>
 
-    <!-- HTML Navigation Header এ এই বাটনটি যোগ করুন -->
-<button class="nav-btn" onclick="showSection('cvBuilder', this)">CV Builder 📄</button>
-
-<!-- Container এর ভেতরে এই নতুন Section-টি যুক্ত করুন -->
+   <!-- CV Builder Section Starts -->
 <div id="cvBuilder" class="section">
     <h2>📄 অনলাইন ফ্রি সি ভি বিল্ডার</h2>
-    <p>আপনার পছন্দের ক্যাটাগরি বেছে নিয়ে সহজেই এডিটেবল সি ভি তৈরি ও ডাউনলোড করুন:</p>
+    <p>আপনার পছন্দের ক্যাটাগরি এবং টেমপ্লেট বেছে নিয়ে এডিট ও ডাউনলোড করুন:</p>
 
-    <!-- ৬টি ক্যাটাগরির গ্রিড -->
+    <!-- Step 1: Category Selection Grid -->
     <div class="grid-container" id="cvCategoryGrid">
-        <div class="hub-card" onclick="openCvCategory('groupA')">
+        <div class="hub-card" onclick="openCvSubCategories('groupA')">
             <span>⚙️</span> Group A: Engineering & Tech
         </div>
-        <div class="hub-card" onclick="openCvCategory('groupB')">
+        <div class="hub-card" onclick="openCvSubCategories('groupB')">
             <span>💼</span> Group B: Corporate & Office
         </div>
-        <div class="hub-card" onclick="openCvCategory('groupC')">
+        <div class="hub-card" onclick="openCvSubCategories('groupC')">
             <span>🛒</span> Group C: Service & Retail
         </div>
-        <div class="hub-card" onclick="openCvCategory('groupD')">
+        <div class="hub-card" onclick="openCvSubCategories('groupD')">
             <span>🎓</span> Group D: Education & Academia
         </div>
-        <div class="hub-card" onclick="openCvCategory('groupE')">
+        <div class="hub-card" onclick="openCvSubCategories('groupE')">
             <span>🏛️</span> Group E: BD Traditional & Govt
         </div>
         <div class="hub-card" onclick="openCvCategory('groupF')">
@@ -281,17 +278,29 @@
         </div>
     </div>
 
-    <!-- CV এডিটর ও টেমপ্লেট ভিউ -->
+    <!-- Step 2: Multiple Templates Selection View (Same Group Multiple CV Option) -->
+    <div id="cvSubCategoryView" style="display: none; margin-top: 20px;">
+        <button class="back-btn" onclick="backToCvCategoryGrid()">🔙 ক্যাটাগরি তালিকায় ফিরুন</button>
+        <h3 id="selectedCategoryTitle" style="margin-top: 15px; color: #1e293b;"></h3>
+        <p>নিচে থেকে আপনার পছন্দের ডিজাইনটি বেছে নিন:</p>
+        
+        <div class="grid-container" id="templateListGrid">
+            <!-- Dynamic Template Cards will appear here -->
+        </div>
+    </div>
+
+    <!-- Step 3: Editor & Download View -->
     <div id="cvEditorView" style="display: none; margin-top: 20px;">
-        <button class="back-btn" onclick="backToCvGrid()">🔙 ক্যাটাগরি তালিকায় ফিরুন</button>
+        <button class="back-btn" onclick="backToSubCategory()">🔙 টেমপ্লেট তালিকায় ফিরুন</button>
         <button class="btn-action" style="width: auto; background-color: #16a34a; float: right;" onclick="downloadCV()">📥 PDF ডাউনলোড করুন</button>
         
         <div style="clear: both; margin-bottom: 15px;"></div>
 
-        <!-- টেমপ্লেটের কন্টেইনার -->
+        <!-- Rendered CV Template -->
         <div id="cvTemplateContainer"></div>
     </div>
 </div>
+<!-- CV Builder Section Ends -->
     
     <!-- JavaScript Files -->
     <script src="ui-data.js"></script>
