@@ -136,16 +136,28 @@
         .book-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 8px; font-size: 14px; font-weight: 500; }
         .book-item a { background-color: #2563eb; color: white; text-decoration: none; padding: 6px 14px; border-radius: 4px; font-size: 13px; font-weight: 600; transition: background 0.2s; }
         .book-item a:hover { background-color: #1d4ed8; }
-        /* FOOTER BANNER STYLES */
+      
+/* CLEAN WHITE BANNER STYLES */
 .bd-footer-banner {
     width: 100%;
-    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    background-color: #ffffff; /* সাদা ব্যাকগ্রাউন্ড */
     position: relative;
-    padding-top: 30px;
-    margin-top: 50px;
+    padding-top: 20px;
+    margin-top: 40px;
     overflow: hidden;
-    text-align: center;
-    border-top: 1px solid #334155;
+    border-top: 1px solid #e2e8f0; /* হালকা গ্রে বর্ডার */
+}
+
+.bd-landscape-svg {
+    width: 100%;
+    height: 90px;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .bd-landscape-svg {
+        height: 60px;
+    }
 }
 
 .bd-banner-content {
@@ -220,14 +232,52 @@
         <div id="home" class="section active">
             <h2>🏠 স্বাগতম!</h2>
             <p>আমার ব্যক্তিগত প্রজেক্ট পোর্টফোলিওতে আপনাকে স্বাগতম।</p>
-            <!-- BANGLADESH THEME FOOTER BANNER -->
+            <!-- CLEAN WHITE SILHOUETTE FOOTER BANNER -->
 <div class="bd-footer-banner">
-    <div class="bd-banner-content">
-        <div class="bd-flag-badge">
-            <span class="bd-circle"></span>
-            <span>Crafted with ❤️ in Bangladesh</span>
-        </div>
-        <p class="bd-subtext">বাংলাদেশের ডিজিটাল প্রফেশনালদের জন্য নিবেদিত</p>
+    <svg class="bd-landscape-svg" viewBox="0 0 1200 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ground Line -->
+        <rect x="0" y="94" width="1200" height="6" fill="#475569"/>
+        
+        <!-- Left Side: Village & Nature (Birds, Trees, Shapla) -->
+        <g fill="#475569">
+            <!-- Birds -->
+            <path d="M80 30 Q85 20 90 30 Q95 20 100 30 Q95 25 90 32 Q85 25 80 30 Z" opacity="0.7"/>
+            <path d="M110 20 Q114 12 118 20 Q122 12 126 20 Q122 16 118 22 Q114 16 110 20 Z" opacity="0.6"/>
+            <path d="M140 35 Q144 28 148 35 Q152 28 156 35 Q152 31 148 37 Q144 31 140 35 Z" opacity="0.7"/>
+
+            <!-- Trees & Water Lilies -->
+            <circle cx="50" cy="65" r="20"/>
+            <rect x="47" y="70" width="6" height="24"/>
+            <circle cx="80" cy="72" r="14"/>
+            <rect x="78" y="76" width="4" height="18"/>
+            
+            <!-- Shapla Silhouette -->
+            <path d="M130 94 C126 84, 130 78, 134 78 C138 78, 142 84, 138 94 Z"/>
+            <path d="M134 94 C130 86, 134 81, 134 81 C134 81, 138 86, 134 94 Z"/>
+            
+            <circle cx="165" cy="60" r="22"/>
+            <rect x="162" y="65" width="6" height="29"/>
+        </g>
+
+        <!-- Right Side: City Skyline & National Monument -->
+        <g fill="#475569">
+            <!-- National Monument (Sriti Shoudho Silhouette) -->
+            <polygon points="900,94 920,30 940,94"/>
+            <polygon points="908,94 920,45 932,94" fill="#ffffff"/>
+            <polygon points="914,94 920,60 926,94" fill="#475569"/>
+
+            <!-- City Buildings -->
+            <rect x="960" y="50" width="18" height="44"/>
+            <rect x="982" y="35" width="25" height="59"/>
+            <rect x="1012" y="20" width="30" height="74"/>
+            <rect x="1046" y="42" width="22" height="52"/>
+            <rect x="1072" y="58" width="18" height="36"/>
+            
+            <!-- Palm Trees on Right Edge -->
+            <path d="M1120 94 Q1125 75 1130 60 Q1120 55 1110 58 M1130 60 Q1140 53 1145 60 M1130 60 Q1133 48 1125 45 M1130 60 Q1137 47 1143 47" stroke="#475569" stroke-width="2.5" fill="none"/>
+        </g>
+    </svg>
+</div>
     </div>
 
     <!-- SILHOUETTE VECTOR LANDSCAPE -->
