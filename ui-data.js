@@ -150,7 +150,7 @@ window.submitFeedback = function() {
 })();
 
 // ==========================================
-// 2. INJECT ESSENTIAL CSS STYLES FOR CV
+// 2. INJECT EXACT CSS STYLES matching THE IMAGE
 // ==========================================
 const cvStyle = document.createElement('style');
 cvStyle.innerHTML = `
@@ -162,32 +162,35 @@ cvStyle.innerHTML = `
         box-shadow: 0 0 10px rgba(0,0,0,0.15);
         display: flex;
         box-sizing: border-box;
-        border-radius: 8px;
+        border-radius: 20px;
+        border: 2px solid #2b4c7e;
         overflow: hidden;
-        border: 1px solid #cbd5e1;
-        font-family: 'Segoe UI', Arial, sans-serif;
+        font-family: Arial, sans-serif;
+        position: relative;
     }
     .cv-sidebar {
-        width: 35%;
-        background-color: #f1f5f9;
+        width: 32%;
+        background-color: #cbdcf0;
         padding: 25px 15px;
         box-sizing: border-box;
         text-align: left;
+        border-bottom-right-radius: 80px;
+        position: relative;
     }
     .cv-main {
-        width: 65%;
+        width: 68%;
         padding: 30px 20px;
         box-sizing: border-box;
         text-align: left;
     }
     .cv-photo-box {
-        width: 130px;
-        height: 150px;
-        margin: 0 auto 20px auto;
+        width: 120px;
+        height: 140px;
+        margin: 0 auto 15px auto;
         border: 3px solid #ffffff;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        box-shadow: 0 3px 6px rgba(0,0,0,0.2);
         position: relative;
-        background: #cbd5e1;
+        background: #ffffff;
     }
     .cv-photo-box img {
         width: 100%;
@@ -200,43 +203,54 @@ cvStyle.innerHTML = `
         opacity: 0; cursor: pointer;
     }
     .cv-title-left {
-        color: #0284c7;
-        font-size: 14px;
+        color: #d97706;
+        font-size: 13px;
         font-weight: bold;
-        border-bottom: 2px solid #0284c7;
-        padding-bottom: 3px;
-        margin-top: 20px;
-        margin-bottom: 10px;
+        margin-top: 18px;
+        margin-bottom: 5px;
         text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     .cv-title-main {
-        color: #1e293b;
+        color: #475569;
         font-size: 18px;
         font-weight: bold;
-        border-bottom: 2px solid #cbd5e1;
-        padding-bottom: 4px;
+        border-bottom: 1.5px solid #cbd5e1;
+        padding-bottom: 3px;
         margin-top: 15px;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
     .cv-editable {
         outline: none;
-        padding: 2px 4px;
+        padding: 2px;
         border: 1px dashed transparent;
         transition: 0.2s;
     }
     .cv-editable:hover, .cv-editable:focus {
         border-color: #2563eb;
         background-color: #eff6ff;
-        border-radius: 4px;
+        border-radius: 3px;
     }
     .cv-list {
-        padding-left: 18px;
-        margin: 5px 0;
+        padding-left: 15px;
+        margin: 3px 0;
     }
     .cv-list li {
-        margin-bottom: 5px;
-        font-size: 13px;
-        color: #334155;
+        margin-bottom: 4px;
+        font-size: 11px;
+        color: #1e293b;
+        line-height: 1.3;
+    }
+    .sig-box {
+        margin-top: 15px;
+        position: relative;
+        display: inline-block;
+    }
+    .sig-img {
+        width: 100px;
+        height: 40px;
+        object-fit: contain;
+        display: block;
     }
 `;
 document.head.appendChild(cvStyle);
@@ -248,7 +262,7 @@ const cvGroupsData = {
     groupA: {
         title: "Group A: Engineering & Tech",
         templates: [
-            { id: "groupA_tp1", name: "📄 Template-1 (2-Page Professional)", render: () => getGroupATemplate1() },
+            { id: "groupA_tp1", name: "📄 Template-1 (2-Page Exact Replica)", render: () => getGroupATemplate1() },
             { id: "groupA_tp2", name: "📄 Template-2 (Modern Single-Page)", render: () => getGroupATemplate2() },
             { id: "groupA_tp3", name: "📄 Template-3 (Compact Technical)", render: () => getGroupATemplate3() }
         ]
@@ -313,11 +327,22 @@ window.uploadCvPhoto = function(event) {
     }
 };
 
+window.uploadSignature = function(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        const output = document.getElementById('userSignatureImg');
+        if (output) output.src = reader.result;
+    };
+    if (event.target.files && event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]);
+    }
+};
+
 window.downloadCV = function() {
     const element = document.getElementById('cvTemplateContainer');
     const opt = {
         margin: 0,
-        filename: 'My_Professional_CV.pdf',
+        filename: 'MD_REZANUZZAMAN_CV.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -331,127 +356,173 @@ window.downloadCV = function() {
 };
 
 // ==========================================
-// 5. TEMPLATE DEFINITIONS WITH REALISTIC DATA
+// 5. EXACT REPLICA OF THE IMAGE TEMPLATE
 // ==========================================
 function getGroupATemplate1() {
     return `
+        <!-- PAGE 1 -->
         <div class="cv-page" id="cvPage1">
             <div class="cv-sidebar">
                 <div class="cv-photo-box">
-                    <img id="userCvPhoto" src="https://via.placeholder.com/130x150?text=Upload+Photo" alt="Profile Photo">
+                    <img id="userCvPhoto" src="https://via.placeholder.com/120x140?text=Photo" alt="Profile Photo">
                     <input type="file" class="cv-photo-input" accept="image/*" onchange="uploadCvPhoto(event)">
                 </div>
-                <h2 class="cv-editable" contenteditable="true" style="color: #d97706; font-size: 16px; text-align: center;">MD. ARIFUL ISLAM</h2>
+                
+                <h3 class="cv-editable" contenteditable="true" style="color: #d97706; font-size: 13px; text-align: center; margin-bottom: 15px; font-weight: bold;">MD. REZANUZZAMAN</h3>
                 
                 <div class="cv-title-left">CONTACT</div>
-                <p class="cv-editable" contenteditable="true" style="font-size: 12px; color: #0f172a; line-height: 1.5;">
-                    <strong>Address:</strong><br>House #12, Road #05, Dhanmondi, Dhaka-1205.<br>
-                    <strong>Phone:</strong><br>+880 1700-000000<br>
-                    <strong>Email:</strong><br>ariful.engr@example.com<br>
-                    <strong>LinkedIn:</strong><br>linkedin.com/in/ariful-demo
+                <p class="cv-editable" contenteditable="true" style="font-size: 11px; color: #0f172a; line-height: 1.4;">
+                    <strong>Address:</strong><br>
+                    1/23, Block-B, Humayun Road,<br>Mohammadpur, Dhaka.<br>
+                    <strong>Phone:</strong><br>
+                    +8801711092592<br>
+                    <strong>Email:</strong><br>
+                    <span style="color: #2563eb; text-decoration: underline;">rapon.engr@gmail.com</span><br>
+                    <strong>LinkedIn:</strong><br>
+                    <span style="color: #2563eb; font-size: 10px;">https://www.linkedin.com/in/rezanuzzaman-rapon-224780191</span>
                 </p>
 
                 <div class="cv-title-left">BASIC KNOWLEDGE</div>
-                <p class="cv-editable" contenteditable="true" style="font-size: 12px; color: #0f172a; line-height: 1.5;">
-                    Efficient in AutoCAD 2D, Microsoft Office, Project Estimation, BoQ Preparation, and Site Management.
+                <p class="cv-editable" contenteditable="true" style="font-size: 11px; color: #0f172a; line-height: 1.4;">
+                    Efficient in AutoCAD 2D, Microsoft Word, Excel, Access, Power Point, Adobe Photoshop, Web design, Internet & Email Browsing etc.
                 </p>
 
                 <div class="cv-title-left">LANGUAGE SKILLS</div>
-                <ul class="cv-list cv-editable" contenteditable="true" style="font-size: 12px;">
-                    <li><strong>Bengali:</strong> Native / Fluent</li>
-                    <li><strong>English:</strong> Professional Proficiency</li>
-                </ul>
+                <p class="cv-editable" contenteditable="true" style="font-size: 11px; color: #0f172a; line-height: 1.4;">
+                    Excellent fluence in speaking and writing in <strong>Bengali</strong>.<br><br>
+                    Moderate fluence in speaking and writing in <strong>English</strong>.
+                </p>
             </div>
 
             <div class="cv-main">
                 <div class="cv-title-main">Current Objective</div>
-                <p class="cv-editable" contenteditable="true" style="font-size: 13px; color: #334155; line-height: 1.5;">
-                    Achieving a dynamic and challenging job where I can use my technical and interpersonal skills, creativity, and academic learning in order to develop my career as well as contribute to the welfare of the organization.
+                <p class="cv-editable" contenteditable="true" style="font-size: 11px; color: #334155; line-height: 1.4;">
+                    Achieving a dynamic and challenging job where I can use my technical and interpersonal skills, creativity and above all my learning experiences in order to develop my career as well as to contribute in the welfare of the organization.
                 </p>
 
                 <div class="cv-title-main">Skill Highlights</div>
                 <div style="display: flex; justify-content: space-between;">
                     <ul class="cv-list cv-editable" contenteditable="true" style="width: 48%;">
                         <li>Project Management</li>
-                        <li>Site Operations & Planning</li>
-                        <li>Estimation & Budgeting</li>
+                        <li>Strong decision maker</li>
+                        <li>Estimation</li>
                     </ul>
                     <ul class="cv-list cv-editable" contenteditable="true" style="width: 48%;">
-                        <li>Store & Inventory Control</li>
+                        <li>Store Management</li>
                         <li>BoQ (Bill of Quantity)</li>
-                        <li>Team Leadership</li>
+                        <li>Team working and communication</li>
                     </ul>
                 </div>
 
                 <div class="cv-title-main">Experience</div>
                 
-                <div style="margin-bottom: 15px;">
-                    <strong class="cv-editable" contenteditable="true" style="font-size: 14px; color: #0f172a;">Assistant Engineer</strong> 
-                    <span class="cv-editable" contenteditable="true" style="font-size: 12px; color: #64748b;"> – Jan 2022 to Present</span><br>
-                    <em class="cv-editable" contenteditable="true" style="font-size: 13px; color: #2563eb;">ABC Engineering & Properties Ltd., Dhaka.</em>
+                <div style="margin-bottom: 12px;">
+                    <strong class="cv-editable" contenteditable="true" style="font-size: 12px; color: #0f172a;">Junior Executive of BoQ</strong> 
+                    <span class="cv-editable" contenteditable="true" style="font-size: 11px; color: #475569;">– 28 August, 2020 to Continue</span><br>
+                    <strong class="cv-editable" contenteditable="true" style="font-size: 11px; color: #0f172a;">Credence Housing Ltd.</strong>, <span class="cv-editable" contenteditable="true" style="font-size: 11px; color: #475569;">House-15, Road-13/A, Dhanmondi, Dhaka.</span>
                     <ul class="cv-list cv-editable" contenteditable="true">
-                        <li>Prepare construction project Bill of Quantities (BOQ) and Material Quantities (MOQ).</li>
-                        <li>Determine project requirements, material specifications, and vendor quotations.</li>
-                        <li>Coordinate with senior engineers to ensure smooth project progress.</li>
+                        <li>Prepare construction project Bill of Quantities (BOQ).</li>
+                        <li>Prepare construction project Material of Quantities (MOQ).</li>
+                        <li>Determining project requirements, quotations.</li>
+                        <li>Represent the Specification Unit and participate on committees related to specification document development.</li>
+                        <li>Identifies and compiles from contract documents all quantities and specifications of materials required for the project.</li>
+                        <li>Prepare land feasibility.</li>
+                        <li>Work at ERP software.</li>
                     </ul>
                 </div>
 
                 <div>
-                    <strong class="cv-editable" contenteditable="true" style="font-size: 14px; color: #0f172a;">Site Engineer</strong> 
-                    <span class="cv-editable" contenteditable="true" style="font-size: 12px; color: #64748b;"> – Feb 2020 to Dec 2021</span><br>
-                    <em class="cv-editable" contenteditable="true" style="font-size: 13px; color: #2563eb;">XYZ Builders & Developers, Dhaka.</em>
+                    <strong class="cv-editable" contenteditable="true" style="font-size: 12px; color: #0f172a;">Site Engineer</strong> 
+                    <span class="cv-editable" contenteditable="true" style="font-size: 11px; color: #475569;">– 02 February, 2019 to 28 August, 2020</span><br>
+                    <strong class="cv-editable" contenteditable="true" style="font-size: 11px; color: #0f172a;">Credence Housing Ltd.</strong>, <span class="cv-editable" contenteditable="true" style="font-size: 11px; color: #475569;">House-15, Road-13/A, Dhanmondi, Dhaka.</span>
                     <ul class="cv-list cv-editable" contenteditable="true">
-                        <li>Supervised site activities and maintained project progress reports.</li>
-                        <li>Managed project store and material distribution efficiently.</li>
+                        <li>Act as the assistant technical adviser on a construction site for subcontractors, craftspeople and operatives.</li>
+                        <li>Overall responsible for Store of a Construction project including general store, accessories, raw materials, etc.</li>
+                        <li>Preparing site reports and filling in other paperwork and maintain optimal workflow.</li>
+                        <li>Work with senior Project Engineer to manage high-rise and Fair-face building.</li>
+                        <li>Carry out quality assurance tests to discover errors and optimize usability.</li>
+                        <li>Work at ERP software.</li>
                     </ul>
                 </div>
             </div>
         </div>
 
+        <!-- PAGE 2 -->
         <div class="cv-page" id="cvPage2">
             <div class="cv-sidebar">
                 <div class="cv-title-left">HOBBIES</div>
-                <ul class="cv-list cv-editable" contenteditable="true" style="font-size: 12px;">
-                    <li>Reading Tech Magazines</li>
-                    <li>Travelling</li>
-                    <li>Photography</li>
-                </ul>
+                <p class="cv-editable" contenteditable="true" style="font-size: 11px; color: #0f172a; line-height: 1.5;">
+                    Poetry<br>Guitar playing<br>Photography
+                </p>
 
-                <div class="cv-title-left">REFERENCE</div>
-                <p class="cv-editable" contenteditable="true" style="font-size: 12px; color: #0f172a; line-height: 1.5;">
-                    <strong>Md. Kamrul Hasan</strong><br>
-                    Project Director<br>
-                    ABC Engineering Ltd.<br>
-                    <strong>Mob:</strong> +880 1800-000000
+                <div class="cv-title-left">REFERANCE</div>
+                <p class="cv-editable" contenteditable="true" style="font-size: 11px; color: #0f172a; line-height: 1.4;">
+                    <strong>(1) Md. Asaduzzaman</strong><br>
+                    Manager, Public Relations<br>
+                    Shoyok grihayan limited.<br>
+                    <strong>Mob:</strong> +8801712114940
                 </p>
             </div>
 
             <div class="cv-main">
                 <div class="cv-title-main">Education Qualification</div>
-                <div class="cv-editable" contenteditable="true" style="font-size: 13px; line-height: 1.6; margin-bottom: 15px;">
-                    <strong>B.Sc in Civil / Computer Engineering</strong><br>
-                    Dhaka International University | <em>Passing Year: 2020</em>
-                </div>
-                <div class="cv-editable" contenteditable="true" style="font-size: 13px; line-height: 1.6; margin-bottom: 15px;">
-                    <strong>Diploma in Engineering</strong><br>
-                    Dhaka Polytechnic Institute (BTEB)<br>
-                    Passing Year: 2016 | <em>Result: 3.45 (Out of 4.00)</em>
-                </div>
-
-                <div class="cv-title-main">Personal Information</div>
-                <table style="width: 100%; font-size: 13px; color: #1e293b; border-collapse: collapse;">
-                    <tr><td style="padding: 3px 0;"><strong>Name:</strong></td><td class="cv-editable" contenteditable="true">Md. Ariful Islam</td></tr>
-                    <tr><td style="padding: 3px 0;"><strong>Father's Name:</strong></td><td class="cv-editable" contenteditable="true">Md. Rafiqul Islam</td></tr>
-                    <tr><td style="padding: 3px 0;"><strong>Mother's Name:</strong></td><td class="cv-editable" contenteditable="true">Mst. Rahima Begum</td></tr>
-                    <tr><td style="padding: 3px 0;"><strong>Present Address:</strong></td><td class="cv-editable" contenteditable="true">House #12, Road #05, Dhanmondi, Dhaka-1205</td></tr>
-                    <tr><td style="padding: 3px 0;"><strong>Permanent Address:</strong></td><td class="cv-editable" contenteditable="true">Village: Sadar, P.O: Sadar, District: Bogura</td></tr>
-                    <tr><td style="padding: 3px 0;"><strong>Date of Birth:</strong></td><td class="cv-editable" contenteditable="true">10th October, 1996</td></tr>
-                    <tr><td style="padding: 3px 0;"><strong>Religion & Nationality:</strong></td><td class="cv-editable" contenteditable="true">Islam | Bangladeshi</td></tr>
+                <table style="width: 100%; font-size: 11px; color: #1e293b; border-collapse: collapse; margin-bottom: 15px;">
+                    <tr><td style="width: 30%; padding: 2px 0;">Name of degree</td><td>: <strong class="cv-editable" contenteditable="true">Bachelor of Science in Civil Engineering.</strong></td></tr>
+                    <tr><td style="padding: 2px 0;">Name of institute</td><td>: <span class="cv-editable" contenteditable="true">European University of Bangladesh (EUB)</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Result</td><td>: <span class="cv-editable" contenteditable="true">Running</span></td></tr>
                 </table>
 
-                <p class="cv-editable" contenteditable="true" style="font-size: 11px; color: #64748b; margin-top: 30px; font-style: italic;">
-                    I do hereby declare that all information provided above is accurate to the best of my knowledge.
+                <table style="width: 100%; font-size: 11px; color: #1e293b; border-collapse: collapse; margin-bottom: 15px;">
+                    <tr><td style="width: 30%; padding: 2px 0;">Name of degree</td><td>: <strong class="cv-editable" contenteditable="true">Diploma-in-Civil-Engineering.</strong></td></tr>
+                    <tr><td style="padding: 2px 0;">Name of institute</td><td>: <span class="cv-editable" contenteditable="true">Khulna Polytechnic Institute.</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Name of Board</td><td>: <span class="cv-editable" contenteditable="true">Bangladesh Technical Education Board, Dhaka.</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Passing Year</td><td>: <span class="cv-editable" contenteditable="true">2016.</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Result</td><td>: <span class="cv-editable" contenteditable="true">3.35 (Out of 4.00)</span></td></tr>
+                </table>
+
+                <table style="width: 100%; font-size: 11px; color: #1e293b; border-collapse: collapse; margin-bottom: 15px;">
+                    <tr><td style="width: 30%; padding: 2px 0;">Name of degree</td><td>: <strong class="cv-editable" contenteditable="true">Secondary School Certificate</strong></td></tr>
+                    <tr><td style="padding: 2px 0;">Name of institute</td><td>: <span class="cv-editable" contenteditable="true">Dumuria Pilot High School.</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Status of Board</td><td>: <span class="cv-editable" contenteditable="true">Jessore Board.</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Group</td><td>: <span class="cv-editable" contenteditable="true">Science</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Passing Year</td><td>: <span class="cv-editable" contenteditable="true">2011.</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Result</td><td>: <span class="cv-editable" contenteditable="true">4.03 (Out of 5.00)</span></td></tr>
+                </table>
+
+                <div class="cv-title-main">Personal Information</div>
+                <table style="width: 100%; font-size: 11px; color: #1e293b; border-collapse: collapse;">
+                    <tr><td style="width: 30%; padding: 2px 0;">Name</td><td>: <span class="cv-editable" contenteditable="true">Md. Rezanuzzaman.</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Father's Name</td><td>: <span class="cv-editable" contenteditable="true">Md. Masud Fillah.</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Mother's Name</td><td>: <span class="cv-editable" contenteditable="true">Mst. Jasmin Ara.</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Present Address</td><td>: <span class="cv-editable" contenteditable="true">1/23, Block-B, Humayun Road,<br>Mohammadpur, Dhaka- 1207.</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Permanent Address</td><td>: <span class="cv-editable" contenteditable="true">Village- Gobindapur, P.O- Dumuria, Upazila- Dumuria, Zilla- Khulna.</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Date of Birth</td><td>: <span class="cv-editable" contenteditable="true">14th January, 1995.</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Nationality</td><td>: <span class="cv-editable" contenteditable="true">Bangladeshi (By Birth).</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Religion</td><td>: <span class="cv-editable" contenteditable="true">Islam (Sunni).</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Marital Status</td><td>: <span class="cv-editable" contenteditable="true">Unmarried.</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Blood Group</td><td>: <span class="cv-editable" contenteditable="true">A (+)</span></td></tr>
+                    <tr><td style="padding: 2px 0;">NID No.</td><td>: <span class="cv-editable" contenteditable="true">1934094390</span></td></tr>
+                    <tr><td style="padding: 2px 0;">Passport No.</td><td>: <span class="cv-editable" contenteditable="true">BY0988847</span></td></tr>
+                </table>
+
+                <p class="cv-editable" contenteditable="true" style="font-size: 10px; color: #475569; margin-top: 25px; font-style: italic; line-height: 1.3;">
+                    I do hereby that all information here is true of my knowledge. If required and where applicable this document can be supported by appropriate authentic certificates.
                 </p>
+
+                <!-- SIGNATURE AND DATE SECTION -->
+                <div style="margin-top: 15px;">
+                    <div class="sig-box">
+                        <img id="userSignatureImg" class="sig-img" src="https://via.placeholder.com/100x40?text=Sign+Here" alt="Signature">
+                        <input type="file" class="cv-photo-input" accept="image/*" onchange="uploadSignature(event)" title="Click to upload signature">
+                    </div>
+                    <div style="border-top: 1px solid #0f172a; width: 120px; font-weight: bold; font-size: 11px; padding-top: 2px;">
+                        <u>Signature</u>
+                    </div>
+                    <div style="font-size: 11px; margin-top: 3px;">
+                        Date: <span class="cv-editable" contenteditable="true">____________</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     `;
