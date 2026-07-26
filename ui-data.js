@@ -137,7 +137,9 @@ window.submitFeedback = function() {
     }
 })();
 
-// html2pdf Engine Load
+// ==========================================
+// 1. AUTOMATICALLY LOAD HTML2PDF LIBRARY
+// ==========================================
 (function loadPdfLibrary() {
     if (!document.getElementById('html2pdf-script')) {
         const script = document.createElement('script');
@@ -147,7 +149,101 @@ window.submitFeedback = function() {
     }
 })();
 
-// Group Dynamic Data Structure with Template-1, Template-2 Naming
+// ==========================================
+// 2. INJECT ESSENTIAL CSS STYLES FOR CV
+// ==========================================
+const cvStyle = document.createElement('style');
+cvStyle.innerHTML = `
+    .cv-page {
+        width: 210mm;
+        min-height: 297mm;
+        background: #ffffff;
+        margin: 0 auto 20px auto;
+        box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        display: flex;
+        box-sizing: border-box;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #cbd5e1;
+        font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .cv-sidebar {
+        width: 35%;
+        background-color: #f1f5f9;
+        padding: 25px 15px;
+        box-sizing: border-box;
+        text-align: left;
+    }
+    .cv-main {
+        width: 65%;
+        padding: 30px 20px;
+        box-sizing: border-box;
+        text-align: left;
+    }
+    .cv-photo-box {
+        width: 130px;
+        height: 150px;
+        margin: 0 auto 20px auto;
+        border: 3px solid #ffffff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        position: relative;
+        background: #cbd5e1;
+    }
+    .cv-photo-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .cv-photo-input {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        opacity: 0; cursor: pointer;
+    }
+    .cv-title-left {
+        color: #0284c7;
+        font-size: 14px;
+        font-weight: bold;
+        border-bottom: 2px solid #0284c7;
+        padding-bottom: 3px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+    .cv-title-main {
+        color: #1e293b;
+        font-size: 18px;
+        font-weight: bold;
+        border-bottom: 2px solid #cbd5e1;
+        padding-bottom: 4px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+    .cv-editable {
+        outline: none;
+        padding: 2px 4px;
+        border: 1px dashed transparent;
+        transition: 0.2s;
+    }
+    .cv-editable:hover, .cv-editable:focus {
+        border-color: #2563eb;
+        background-color: #eff6ff;
+        border-radius: 4px;
+    }
+    .cv-list {
+        padding-left: 18px;
+        margin: 5px 0;
+    }
+    .cv-list li {
+        margin-bottom: 5px;
+        font-size: 13px;
+        color: #334155;
+    }
+`;
+document.head.appendChild(cvStyle);
+
+// ==========================================
+// 3. GROUP DATA STRUCTURE
+// ==========================================
 const cvGroupsData = {
     groupA: {
         title: "Group A: Engineering & Tech",
@@ -161,13 +257,15 @@ const cvGroupsData = {
 
 let currentSelectedGroup = '';
 
-// Navigation Functions
+// ==========================================
+// 4. NAVIGATION & CONTROLLER FUNCTIONS
+// ==========================================
 window.openCvSubCategories = function(groupKey) {
     currentSelectedGroup = groupKey;
     const group = cvGroupsData[groupKey];
     
     if (!group) {
-        alert("এই ক্যাটাগরির টেমপ্লেট যুক্ত করা হচ্ছে!");
+        alert("এই ক্যাটাগরির টেমপ্লেট শীঘ্রই আসছে!");
         return;
     }
 
@@ -181,6 +279,7 @@ window.openCvSubCategories = function(groupKey) {
     group.templates.forEach((tpl) => {
         const card = document.createElement('div');
         card.className = 'hub-card';
+        card.style.cursor = 'pointer';
         card.innerHTML = `<span>📂</span> ${tpl.name}`;
         card.onclick = () => renderSelectedCv(tpl.render());
         listContainer.appendChild(card);
@@ -209,7 +308,7 @@ window.uploadCvPhoto = function(event) {
         const output = document.getElementById('userCvPhoto');
         if (output) output.src = reader.result;
     };
-    if (event.target.files[0]) {
+    if (event.target.files && event.target.files[0]) {
         reader.readAsDataURL(event.target.files[0]);
     }
 };
@@ -218,7 +317,7 @@ window.downloadCV = function() {
     const element = document.getElementById('cvTemplateContainer');
     const opt = {
         margin: 0,
-        filename: 'My_CV.pdf',
+        filename: 'My_Professional_CV.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -227,11 +326,13 @@ window.downloadCV = function() {
     if (typeof html2pdf !== 'undefined') {
         html2pdf().set(opt).from(element).save();
     } else {
-        alert("PDF টুল লোড হচ্ছে, কিছুক্ষণ পর আবার চেষ্টা করুন!");
+        alert("PDF ইঞ্জিন লোড হচ্ছে, কিছু মুহূর্ত পর আবার ট্রাই করুন!");
     }
 };
 
-// Template 1 Definition (Realistic Sample Data)
+// ==========================================
+// 5. TEMPLATE DEFINITIONS WITH REALISTIC DATA
+// ==========================================
 function getGroupATemplate1() {
     return `
         <div class="cv-page" id="cvPage1">
@@ -356,12 +457,10 @@ function getGroupATemplate1() {
     `;
 }
 
-// Placeholder Functions for Template 2 & 3
 function getGroupATemplate2() {
-    return `<div class="cv-page"><div class="cv-main" style="width:100%;"><h2>Template-2 (কাজ চলছে...)</h2></div></div>`;
+    return `<div class="cv-page"><div class="cv-main" style="width:100%;"><h2>Template-2 (ডিজাইন যুক্ত করা হচ্ছে...)</h2></div></div>`;
 }
 
 function getGroupATemplate3() {
-    return `<div class="cv-page"><div class="cv-main" style="width:100%;"><h2>Template-3 (কাজ চলছে...)</h2></div></div>`;
-}
+    return `<div class="cv-page"><div class="cv-main" style="width:100%;"><h2>Template-3 (ডিজাইন যুক্ত করা হচ্ছে...)</h2></div></div>`;
 }
