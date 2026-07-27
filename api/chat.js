@@ -19,7 +19,7 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: 'API Key পাওয়া যায়নি!' });
         }
 
-        // এখানে ইউআরএল-এর শেষে ?key=${apiKey} যুক্ত করা হয়েছে
+        // মডেলের নাম সঠিক করে gemini-2.5-flash দেওয়া হয়েছে
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: {
