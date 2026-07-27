@@ -22,7 +22,29 @@
         header h1 { font-size: 28px; margin-bottom: 5px; }
         header p { color: #cbd5e1; font-size: 15px; }
         
-        header nav { display: none !important; }
+        /* নেভিগেশন বাটন ডিজাইন (সংশোধিত) */
+        header nav { 
+            display: flex; 
+            justify-content: center; 
+            gap: 10px; 
+            flex-wrap: wrap; 
+            margin-top: 15px; 
+        }
+
+        .nav-btn {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover, .nav-btn.btn-active {
+            background: #2563eb;
+        }
 
         .container { max-width: 850px; margin: 30px auto; padding: 0 15px; }
         
@@ -295,6 +317,7 @@
             <button class="nav-btn" onclick="showSection('about', this)">আমার সম্পর্কে</button>
             <button class="nav-btn" onclick="showSection('projects', this)">প্রজেক্টসমূহ</button>
             <button class="nav-btn" onclick="showSection('studyHub', this)">জ্ঞান ও শিক্ষা হাব 📚</button>
+            <button class="nav-btn" onclick="showSection('cvBuilder', this)">CV বিল্ডার 📄</button>
             <button class="nav-btn" onclick="showSection('plans', this)">ভবিষ্যৎ প্ল্যান</button>
             <button class="nav-btn" onclick="showSection('gallery', this)">গ্যালারি</button>
             <button class="nav-btn" onclick="showSection('contact', this)">যোগাযোগ</button>
@@ -407,6 +430,35 @@
             <div id="studyHubViews"></div>
         </div>
 
+        <!-- CV Builder Section -->
+        <div id="cvBuilder" class="section">
+            <h2>📄 অনলাইন ফ্রি সি ভি বিল্ডার</h2>
+            <p>আপনার পছন্দের ক্যাটাগরি এবং টেমপ্লেট বেছে নিয়ে এডিট ও ডাউনলোড করুন:</p>
+
+            <div class="grid-container" id="cvCategoryGrid">
+                <div class="hub-card" onclick="openCvSubCategories('groupA')"><span>⚙️</span> Group A: Engineering & Tech</div>
+                <div class="hub-card" onclick="openCvSubCategories('groupB')"><span>💼</span> Group B: Corporate & Office</div>
+                <div class="hub-card" onclick="openCvSubCategories('groupC')"><span>🛒</span> Group C: Service & Retail</div>
+                <div class="hub-card" onclick="openCvSubCategories('groupD')"><span>🎓</span> Group D: Education & Academia</div>
+                <div class="hub-card" onclick="openCvSubCategories('groupE')"><span>🏛️</span> Group E: BD Traditional & Govt</div>
+                <div class="hub-card" onclick="openCvSubCategories('groupF')"><span>🎨</span> Group F: Creative & Media</div>
+            </div>
+
+            <div id="cvSubCategoryView" style="display: none; margin-top: 20px;">
+                <button class="back-btn" onclick="backToCvCategoryGrid()">🔙 ক্যাটাগরি তালিকায় ফিরুন</button>
+                <h3 id="selectedCategoryTitle" style="margin-top: 15px; color: #1e293b;"></h3>
+                <p>নিচে থেকে আপনার পছন্দের ডিজাইনটি বেছে নিন:</p>
+                <div class="grid-container" id="templateListGrid"></div>
+            </div>
+
+            <div id="cvEditorView" style="display: none; margin-top: 20px;">
+                <button class="back-btn" onclick="backToSubCategory()">🔙 টেমপ্লেট তালিকায় ফিরুন</button>
+                <button class="btn-action" style="width: auto; background-color: #16a34a; float: right;" onclick="downloadCV()">📥 PDF ডাউনলোড করুন</button>
+                <div style="clear: both; margin-bottom: 15px;"></div>
+                <div id="cvTemplateContainer"></div>
+            </div>
+        </div>
+
         <!-- ৫. ভবিষ্যৎ প্ল্যান -->
         <div id="plans" class="section">
             <h2>🚀 ভবিষ্যৎ পরিকল্পনা</h2>
@@ -424,35 +476,6 @@
             <h2>📲 সামাজিক যোগাযোগ মাধ্যমে যুক্ত হন</h2>
             <p>আমার সাথে যেকোনো সামাজিক মাধ্যমে যুক্ত হতে পারেন:</p>
             <div class="social-links" id="socialLinksContainer"></div>
-        </div>
-    </div>
-
-    <!-- CV Builder Section Starts Here -->
-    <div id="cvBuilder" class="section">
-        <h2>📄 অনলাইন ফ্রি সি ভি বিল্ডার</h2>
-        <p>আপনার পছন্দের ক্যাটাগরি এবং টেমপ্লেট বেছে নিয়ে এডিট ও ডাউনলোড করুন:</p>
-
-        <div class="grid-container" id="cvCategoryGrid">
-            <div class="hub-card" onclick="openCvSubCategories('groupA')"><span>⚙️</span> Group A: Engineering & Tech</div>
-            <div class="hub-card" onclick="openCvSubCategories('groupB')"><span>💼</span> Group B: Corporate & Office</div>
-            <div class="hub-card" onclick="openCvSubCategories('groupC')"><span>🛒</span> Group C: Service & Retail</div>
-            <div class="hub-card" onclick="openCvSubCategories('groupD')"><span>🎓</span> Group D: Education & Academia</div>
-            <div class="hub-card" onclick="openCvSubCategories('groupE')"><span>🏛️</span> Group E: BD Traditional & Govt</div>
-            <div class="hub-card" onclick="openCvSubCategories('groupF')"><span>🎨</span> Group F: Creative & Media</div>
-        </div>
-
-        <div id="cvSubCategoryView" style="display: none; margin-top: 20px;">
-            <button class="back-btn" onclick="backToCvCategoryGrid()">🔙 ক্যাটাগরি তালিকায় ফিরুন</button>
-            <h3 id="selectedCategoryTitle" style="margin-top: 15px; color: #1e293b;"></h3>
-            <p>নিচে থেকে আপনার পছন্দের ডিজাইনটি বেছে নিন:</p>
-            <div class="grid-container" id="templateListGrid"></div>
-        </div>
-
-        <div id="cvEditorView" style="display: none; margin-top: 20px;">
-            <button class="back-btn" onclick="backToSubCategory()">🔙 টেমপ্লেট তালিকায় ফিরুন</button>
-            <button class="btn-action" style="width: auto; background-color: #16a34a; float: right;" onclick="downloadCV()">📥 PDF ডাউনলোড করুন</button>
-            <div style="clear: both; margin-bottom: 15px;"></div>
-            <div id="cvTemplateContainer"></div>
         </div>
     </div>
 
