@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nur-MicroTech - All in One Portfolio</title>
+    <title>Nur-MicroTech - All in One Portfolio & Exam Hub</title>
     
     <!-- Font Awesome (আইকনের জন্য) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f0f2f5; color: #333; text-align: center; }
+        body { background-color: #f0f2f5; color: #333; text-align: center; user-select: none; -webkit-user-select: none; }
         
         header { 
             background: linear-gradient(135deg, #1e293b, #0f172a); 
@@ -22,7 +22,7 @@
         header h1 { font-size: 28px; margin-bottom: 5px; }
         header p { color: #cbd5e1; font-size: 15px; }
         
-        /* নেভিগেশন বাটন ডিজাইন (সংশোধিত) */
+        /* নেভিগেশন বাটন ডিজাইন */
         header nav { 
             display: flex; 
             justify-content: center; 
@@ -46,7 +46,7 @@
             background: #2563eb;
         }
 
-        .container { max-width: 850px; margin: 30px auto; padding: 0 15px; }
+        .container { max-width: 950px; margin: 30px auto; padding: 0 15px; }
         
         .section { 
             display: none; 
@@ -71,12 +71,7 @@
             color: #1e3a8a;
             line-height: 1.6;
         }
-        .like-container {
-            margin-top: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .like-container { margin-top: 12px; display: flex; align-items: center; gap: 10px; }
         .btn-like {
             background-color: #2563eb;
             color: white;
@@ -90,235 +85,85 @@
         }
         .btn-like:hover { background-color: #1d4ed8; }
 
-        /* মতামত বক্স ডিজাইন */
-        .feedback-area-box {
-            margin-top: 15px;
-            padding-top: 12px;
-            border-top: 1px dashed #bfdbfe;
-        }
+        .feedback-area-box { margin-top: 15px; padding-top: 12px; border-top: 1px dashed #bfdbfe; }
         .feedback-area { 
-            width: 100%; 
-            padding: 10px; 
-            border: 1px solid #cbd5e1; 
-            border-radius: 6px; 
-            resize: vertical; 
-            min-height: 60px; 
-            font-size: 13px; 
-            margin-top: 8px; 
-            margin-bottom: 8px; 
-            outline: none; 
+            width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; 
+            resize: vertical; min-height: 60px; font-size: 13px; margin-top: 8px; margin-bottom: 8px; outline: none; 
         }
         .btn-feedback { 
-            background-color: #0284c7; 
-            color: white; 
-            border: none; 
-            padding: 7px 15px; 
-            border-radius: 6px; 
-            font-weight: 600; 
-            font-size: 13px;
-            cursor: pointer; 
+            background-color: #0284c7; color: white; border: none; padding: 7px 15px; 
+            border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; 
         }
         .btn-feedback:hover { background-color: #0369a1; }
         .feedback-msg { color: #16a34a; font-size: 13px; font-weight: bold; margin-top: 5px; display: none; }
 
-        /* লগইন বক্স */
-        .auth-card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; background: #f8fafc; max-width: 380px; margin: 20px auto; }
-        .auth-card input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; }
+        /* ফর্ম, ইনপুট ও বাটন */
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+        .input-group input, .input-group select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; }
         
-        .project-card { border: 1px solid #cbd5e1; border-radius: 8px; margin-top: 15px; background: #ffffff; overflow: hidden; }
-        .project-header { background: #f1f5f9; padding: 15px 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: background 0.2s; }
-        .project-header:hover { background: #e2e8f0; }
-        .project-content { display: none; padding: 20px; border-top: 1px solid #cbd5e1; background: #fafafa; }
-        
+        .auth-card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; background: #f8fafc; max-width: 420px; margin: 20px auto; }
         .btn-action { width: 100%; padding: 10px; background-color: #2563eb; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 15px; }
+        .btn-action:hover { background-color: #1d4ed8; }
         .btn-logout { width: auto; padding: 8px 16px; background-color: #ef4444; }
-        
-        iframe { width: 100%; height: 480px; border: none; border-radius: 8px; margin-top: 15px; }
-        .error-text { color: #ef4444; font-size: 13px; font-weight: bold; margin-top: 8px; text-align: center; }
 
-        /* সোশ্যাল মিডিয়া বাটন স্টাইল */
-        .social-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
-        .btn-social { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; color: white !important; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px; transition: transform 0.2s, opacity 0.2s; }
-        .btn-social:hover { transform: translateY(-2px); opacity: 0.9; }
-        .btn-facebook { background-color: #1877F2; }
-        .btn-twitter { background-color: #000000; }
-        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .btn-linkedin { background-color: #0A66C2; }
-
-        /* স্টাডি / লাইব্রেরি হাব স্টাইল */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
         .hub-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.2s; font-weight: 600; }
         .hub-card:hover { background: #eff6ff; border-color: #2563eb; transform: translateY(-3px); }
         .hub-card span { font-size: 28px; display: block; margin-bottom: 8px; }
         .back-btn { background: #64748b; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; margin-bottom: 15px; font-weight: 600; }
-        .resource-box { background: #f1f5f9; padding: 15px; border-radius: 8px; margin-top: 10px; }
-        .resource-box h4 { margin-bottom: 8px; color: #1e293b; }
 
-        .book-list { list-style: none; padding: 0; margin-top: 10px; }
-        .book-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 8px; font-size: 14px; font-weight: 500; }
-        .book-item a { background-color: #2563eb; color: white; text-decoration: none; padding: 6px 14px; border-radius: 4px; font-size: 13px; font-weight: 600; transition: background 0.2s; }
-        .book-item a:hover { background-color: #1d4ed8; }
-        
-        /* FOOTER BANNER STYLES */
-        .bd-alive-banner {
-            width: 100%;
-            background-color: #ffffff;
-            position: relative;
-            padding-top: 10px;
-            margin-top: 30px;
-            overflow: hidden;
-            border-top: 1px solid #e2e8f0;
-        }
+        /* এক্সাম ইঞ্জিন এবং টাইমার স্টাইল */
+        .mode-btn { display: inline-block; padding: 10px 15px; background: #f1f5f9; border: 2px solid #2563eb; color: #1e293b; font-weight: bold; border-radius: 8px; cursor: pointer; margin-right: 8px; margin-bottom: 10px; }
+        .mode-btn.active { background: #2563eb; color: white; }
+        .timer-bar { position: sticky; top: 10px; background: #0f172a; color: white; padding: 12px 20px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 16px; font-weight: bold; z-index: 100; margin-bottom: 15px; }
+        .question-box { background: #f8fafc; padding: 18px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #2563eb; border: 1px solid #e2e8f0; }
+        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .option-label { background: white; border: 1px solid #cbd5e1; padding: 10px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 14px; }
+        .option-label:hover { background: #eff6ff; border-color: #2563eb; }
 
-        .bd-full-svg {
-            width: 100%;
-            height: 110px;
-            display: block;
-        }
+        /* সোশ্যাল বাটন ও ব্যানার */
+        .social-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+        .btn-social { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; color: white !important; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px; }
+        .btn-facebook { background-color: #1877F2; } .btn-twitter { background-color: #000000; }
+        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .btn-linkedin { background-color: #0A66C2; }
 
-        .animated-flag-group {
-            animation: flagWave 3s ease-in-out infinite alternate;
-            transform-origin: 520px 25px;
-        }
+        .bd-alive-banner { width: 100%; background-color: #ffffff; position: relative; padding-top: 10px; margin-top: 30px; overflow: hidden; border-top: 1px solid #e2e8f0; }
+        .bd-full-svg { width: 100%; height: 110px; display: block; }
+        .animated-flag-group { animation: flagWave 3s ease-in-out infinite alternate; transform-origin: 520px 25px; }
+        @keyframes flagWave { 0% { transform: translate(520px, 25px) skewY(0deg) scaleY(1); } 50% { transform: translate(520px, 23px) skewY(-1.5deg) scaleY(0.98); } 100% { transform: translate(520px, 26px) skewY(1.5deg) scaleY(1.02); } }
 
-        @keyframes flagWave {
-            0% { transform: translate(520px, 25px) skewY(0deg) scaleY(1); }
-            50% { transform: translate(520px, 23px) skewY(-1.5deg) scaleY(0.98); }
-            100% { transform: translate(520px, 26px) skewY(1.5deg) scaleY(1.02); }
-        }
-
-        @media (max-width: 768px) {
-            .bd-full-svg { height: 75px; }
-        }
-        
         /* CHATBOT STYLES */
-        #gemini-chat-widget {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            font-family: Arial, sans-serif;
-        }
-
-        #chat-toggle-btn {
-            background-color: #0284c7;
-            color: white;
-            border: none;
-            padding: 12px 18px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            font-weight: bold;
-        }
-
-        #chat-box {
-            width: 320px;
-            height: 420px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            bottom: 60px;
-            right: 0;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
+        #gemini-chat-widget { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
+        #chat-toggle-btn { background-color: #0284c7; color: white; border: none; padding: 12px 18px; border-radius: 30px; display: flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-weight: bold; }
+        #chat-box { width: 320px; height: 420px; background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); display: flex; flex-direction: column; position: absolute; bottom: 60px; right: 0; overflow: hidden; }
         .chat-hidden { display: none !important; }
-
-        .chat-header {
-            background: #0f172a;
-            color: white;
-            padding: 12px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chat-header h3 { margin: 0; font-size: 15px; }
-
-        #chat-close-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 12px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            background: #f8fafc;
-        }
-
-        .message {
-            max-width: 80%;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 13.5px;
-            line-height: 1.4;
-            word-wrap: break-word;
-        }
-
-        .user-message {
-            background: #0284c7;
-            color: white;
-            align-self: flex-end;
-        }
-
-        .ai-message {
-            background: #e2e8f0;
-            color: #1e293b;
-            align-self: flex-start;
-        }
-
-        .chat-input-area {
-            display: flex;
-            padding: 10px;
-            border-top: 1px solid #e2e8f0;
-            background: white;
-        }
-
-        #chat-input {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            outline: none;
-        }
-
-        #chat-send-btn {
-            background: #0284c7;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            margin-left: 6px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+        .chat-header { background: #0f172a; color: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; }
+        .chat-messages { flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #f8fafc; }
+        .message { max-width: 80%; padding: 8px 12px; border-radius: 8px; font-size: 13.5px; line-height: 1.4; word-wrap: break-word; }
+        .user-message { background: #0284c7; color: white; align-self: flex-end; }
+        .ai-message { background: #e2e8f0; color: #1e293b; align-self: flex-start; }
+        .chat-input-area { display: flex; padding: 10px; border-top: 1px solid #e2e8f0; background: white; }
+        #chat-input { flex: 1; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; outline: none; }
+        #chat-send-btn { background: #0284c7; color: white; border: none; padding: 8px 12px; margin-left: 6px; border-radius: 4px; cursor: pointer; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Nur-MicroTech</h1>
-        <p>Web, Technology and Project Hub</p>
+        <p>Web, Technology and Exam Hub Portal</p>
         <nav>
             <button class="nav-btn btn-active" onclick="showSection('home', this)">হোম</button>
             <button class="nav-btn" onclick="showSection('about', this)">আমার সম্পর্কে</button>
-            <button class="nav-btn" onclick="showSection('projects', this)">প্রজেক্টসমূহ</button>
+            <button class="nav-btn" onclick="showSection('authPortal', this)">লগইন / স্টুডেন্ট পোর্টাল 🔑</button>
+            <button class="nav-btn" onclick="showSection('bcsExam', this)">বিসিএস ও জব এক্সাম 🎯</button>
+            <button class="nav-btn" onclick="showSection('academicExam', this)">একাডেমিক এক্সাম (1-12) 🏫</button>
+            <button class="nav-btn" onclick="showSection('autoLearn', this)">স্মার্ট অটো-লার্নিং (AI) 🤖</button>
             <button class="nav-btn" onclick="showSection('studyHub', this)">জ্ঞান ও শিক্ষা হাব 📚</button>
             <button class="nav-btn" onclick="showSection('cvBuilder', this)">CV বিল্ডার 📄</button>
-            <button class="nav-btn" onclick="showSection('plans', this)">ভবিষ্যৎ প্ল্যান</button>
             <button class="nav-btn" onclick="showSection('gallery', this)">গ্যালারি</button>
             <button class="nav-btn" onclick="showSection('contact', this)">যোগাযোগ</button>
         </nav>
@@ -327,42 +172,19 @@
     <div class="container">
         <!-- ১. হোম -->
         <div id="home" class="section active">
-            <h2>WELCOME</h2>
-            <p>Welcome to my personal project portfolio</p>
+            <h2>WELCOME TO NUR-MICROTECH</h2>
+            <p>Welcome to my personal project portfolio & online examination portal.</p>
             <div class="bd-alive-banner">
                 <svg class="bd-full-svg" viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="0" y="112" width="1200" height="8" fill="#1e293b"/>
                     <g fill="#334155">
-                        <path d="M70 30 Q75 20 80 30 Q85 20 90 30 Z" opacity="0.6"/>
-                        <path d="M100 20 Q104 12 108 20 Q112 12 116 20 Z" opacity="0.5"/>
                         <circle cx="50" cy="80" r="22"/>
                         <rect x="47" y="85" width="6" height="27"/>
-                        <circle cx="85" cy="85" r="16"/>
-                        <rect x="83" y="90" width="4" height="22"/>
-                        <path d="M135 112 C130 100, 135 92, 140 92 C145 92, 150 100, 145 112 Z" fill="#059669"/>
-                        <path d="M140 112 C135 102, 140 96, 140 96 C140 96, 145 102, 140 112 Z" fill="#dc2626"/>
-                        <circle cx="175" cy="75" r="24"/>
-                        <rect x="172" y="80" width="6" height="32"/>
                     </g>
                     <g class="animated-flag-group" transform="translate(520, 25)">
                         <rect x="0" y="0" width="5" height="88" fill="#475569" rx="2"/>
-                        <circle cx="2.5" cy="-2" r="4" fill="#94a3b8"/>
                         <path d="M 5 5 Q 40 -5, 80 10 T 150 5 L 150 55 Q 110 65, 75 50 T 5 55 Z" fill="#059669"/>
-                        <g transform="translate(75, 28)">
-                            <circle cx="0" cy="0" r="18" fill="#dc2626"/>
-                            <path d="M -6,-12 C -5,-13 -3,-11 -2,-12 C -1,-12 1,-14 2,-13 C 3,-13 4,-11 5,-10 C 6,-10 7,-10 8,-8 C 8,-7 7,-6 7,-5 C 7,-3 9,-3 9,-2 C 10,-1 8,1 9,2 C 10,3 12,3 11,5 C 11,6 8,6 8,8 C 7,9 6,11 5,11 C 3,12 2,10 1,10 C 0,10 -1,13 -2,12 C -3,12 -3,10 -4,9 C -5,9 -6,10 -7,9 C -8,8 -7,6 -8,5 C -9,4 -11,4 -11,2 C -11,1 -9,0 -9,-1 C -10,-2 -11,-4 -11,-5 C -10,-6 -8,-6 -8,-7 C -7,-9 -7,-11 -6,-12 Z" fill="#fde047"/>
-                        </g>
-                    </g>
-                    <g fill="#334155">
-                        <polygon points="900,112 925,40 950,112"/>
-                        <polygon points="910,112 925,55 940,112" fill="#ffffff"/>
-                        <polygon points="918,112 925,70 932,112" fill="#334155"/>
-                        <rect x="970" y="65" width="20" height="47"/>
-                        <rect x="995" y="45" width="30" height="67"/>
-                        <rect x="1030" y="30" width="35" height="82"/>
-                        <rect x="1070" y="55" width="25" height="57"/>
-                        <rect x="1100" y="70" width="20" height="42"/>
-                        <path d="M1145 112 Q1150 90 1155 75 Q1145 70 1135 73 M1155 75 Q1165 68 1170 75 M1155 75 Q1158 63 1150 60 M1155 75 Q1162 62 1168 62" stroke="#334155" stroke-width="3" fill="none"/>
+                        <circle cx="75" cy="28" r="18" fill="#dc2626"/>
                     </g>
                 </svg>
             </div>
@@ -371,123 +193,189 @@
         <!-- ২. আমার সম্পর্কে -->
         <div id="about" class="section">
             <h2>👨‍💻 আমার সম্পর্কে</h2>
-            <p>আমি নুর মোহাম্মদ। টেকনোলজি, ওয়েব ডেভলপমেন্ট এবং ইলেকট্রনিক্স নিয়ে কাজ করতে পছন্দ করি।</p>
+            <p>আমি নুর মোহাম্মদ। টেকনোলজি, ওয়েব ডেভলপমেন্ট, ইলেকট্রনিক্স এবং শিক্ষা প্রযুক্তি (EdTech) নিয়ে কাজ করতে পছন্দ করি।</p>
         </div>
 
-        <!-- ৩. সিকিউর প্রজেক্ট সেকশন -->
-        <div id="projects" class="section">
-            <h2>🤖 সিকিউর প্রজেক্টসমূহ 🔒</h2>
-            <div id="loginBox" class="auth-card">
-                <h3>এডমিন লগইন</h3>
-                <input type="email" id="emailInput" placeholder="ইমেইল লিখুন">
-                <input type="password" id="passInput" placeholder="পাসওয়ার্ড লিখুন">
-                <button class="btn-action" onclick="loginUser()">লগইন করুন</button>
-                <div id="errMsg" class="error-text"></div>
+        <!-- ৩. স্টুডেন্ট রেজিস্ট্রেশন, অটো আইডি জেনারেটর ও ড্যাশবোর্ড -->
+        <div id="authPortal" class="section">
+            <h2>🔑 স্টুডেন্ট পোর্টাল ও রেজিস্ট্রেশন</h2>
+            <div id="auth-forms-container">
+                <div id="reg-box" class="auth-card">
+                    <h3>নিবন্ধন করুন (Registration)</h3>
+                    <form id="reg-form">
+                        <div class="input-group"><label>পূর্ণ নাম</label><input type="text" id="reg-name" required placeholder="আপনার নাম লিখুন"></div>
+                        <div class="input-group"><label>মোবাইল নম্বর</label><input type="tel" id="reg-phone" required placeholder="017XXXXXXXX"></div>
+                        <div class="input-group"><label>ইমেইল (রিমাইন্ডারের জন্য)</label><input type="email" id="reg-email" required placeholder="example@gmail.com"></div>
+                        <div class="input-group"><label>পাসওয়ার্ড</label><input type="password" id="reg-pass" required placeholder="******"></div>
+                        <div class="input-group"><label>প্রতিষ্ঠান / স্কুল / কলেজ</label><input type="text" id="reg-inst" placeholder="শিক্ষা প্রতিষ্ঠানের নাম"></div>
+                        <button type="submit" class="btn-action">অ্যাকাউন্ট তৈরি করুন</button>
+                    </form>
+                    <p style="text-align:center; margin-top:12px; cursor:pointer; color:#2563eb;" onclick="toggleAuth('login')">ইতিমধ্যে অ্যাকাউন্ট আছে? লগইন করুন</p>
+                </div>
+
+                <div id="login-box" class="auth-card hidden">
+                    <h3>প্রবেশ করুন (Login)</h3>
+                    <form id="login-form">
+                        <div class="input-group"><label>মোবাইল নম্বর</label><input type="tel" id="login-phone" required placeholder="017XXXXXXXX"></div>
+                        <div class="input-group"><label>পাসওয়ার্ড</label><input type="password" id="login-pass" required placeholder="******"></div>
+                        <button type="submit" class="btn-action">লগইন করুন</button>
+                    </form>
+                    <p style="text-align:center; margin-top:12px; cursor:pointer; color:#2563eb;" onclick="toggleAuth('reg')">নতুন অ্যাকাউন্ট তৈরি করতে ক্লিক করুন</p>
+                </div>
             </div>
 
-            <div id="protectedProjects" style="display: none;">
-                <div style="text-align: right; margin-bottom: 15px;">
-                    <button class="btn-action btn-logout" onclick="logoutUser()">🔓 লগআউট করুন</button>
-                </div>
-                <div class="project-card">
-                    <div class="project-header" onclick="toggleProject('p1', 'p1-container', 'p1', this)">
-                        <span>📦 Project-1: IoT Smart Medicine Box</span>
-                        <span class="icon">🔽</span>
+            <!-- ইউজার ড্যাশবোর্ড -->
+            <div id="student-dashboard" class="hidden">
+                <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #cbd5e1;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div id="user-avatar" style="width: 60px; height: 60px; border-radius: 50%; background: #2563eb; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold;">N/A</div>
+                        <div>
+                            <h3 id="user-name">User Name</h3>
+                            <span id="user-id" style="background: #dbeafe; color: #1e40af; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 13px;">ID: 2720000001</span>
+                            <p style="font-size: 13px; margin-top: 4px;"><strong>প্রতিষ্ঠান:</strong> <span id="user-inst-display">-</span></p>
+                        </div>
                     </div>
-                    <div id="p1" class="project-content">
-                        <div id="p1-container"></div>
+                    <button class="btn-action btn-logout" onclick="logoutUser()">🔓 লগআউট</button>
+                </div>
+
+                <div class="grid-container">
+                    <div style="background:#f8fafc; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
+                        <h4>দৈনিক স্টাডি টার্গেট</h4>
+                        <p style="font-size:13px; margin: 8px 0;">আজকের লক্ষ্য (ঘণ্টা):</p>
+                        <input type="number" id="daily-target" value="4" style="padding: 6px; width: 100%; margin-bottom: 8px;">
+                        <button class="btn-action" onclick="alert('টার্গেট সেভ করা হয়েছে!')">সেভ করুন</button>
+                        <small style="color:#666; display:block; margin-top:5px;">* মিস হলে ইমেইল রিমাইন্ডার যাবে।</small>
+                    </div>
+                    <div style="background:#f8fafc; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
+                        <h4>পরীক্ষার পরিসংখ্যান</h4>
+                        <p style="font-size:13px; margin-top:5px;">মোট পরীক্ষা: <strong>১২ টি</strong></p>
+                        <p style="font-size:13px;">গড় নম্বর: <strong>৭৮%</strong></p>
+                    </div>
+                    <div style="background:#f8fafc; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
+                        <h4>AI পারফরম্যান্স মূল্যায়ন</h4>
+                        <p style="font-size:13px; color:#15803d; margin-top:5px;"><strong>মন্তব্য:</strong> বাংলা ও সাধারণ জ্ঞানে পারফরম্যান্স চমৎকার। গণিতে আরেকটু মনোযোগ প্রয়োজন।</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ৪. জ্ঞান ও শিক্ষা হাব -->
+        <!-- ৪. বিসিএস ও জব এক্সাম মডিউল -->
+        <div id="bcsExam" class="section">
+            <h2>🎯 বিসিএস ও জব প্রিপারেশন এক্সাম ইঞ্জিন</h2>
+            <div id="bcs-selection-card">
+                <p style="margin-bottom: 12px;">পরীক্ষার ধরন নির্বাচন করুন:</p>
+                <div class="mode-btn active" onclick="selectMode(this)">১. বিসিএস বিগত প্রশ্ন ব্যাংক (১ম-৪৯তম)</div>
+                <div class="mode-btn" onclick="selectMode(this)">২. সিলেবাসভিত্তিক মডেল টেস্ট</div>
+                <p style="font-size: 13px; color: #666; margin-top: 10px;">* ২০০ নম্বর | সময়: ২ ঘণ্টা | প্রতিটি ভুল উত্তরে ০.৫০ কাটার নিয়ম।</p>
+                <button class="btn-action" style="margin-top: 15px;" onclick="startBcsExam()">পরীক্ষা শুরু করুন</button>
+            </div>
+
+            <div id="bcs-live-exam" class="hidden">
+                <div class="timer-bar">
+                    <span>বিসিএস লাইভ মডেল টেস্ট</span>
+                    <span>অবশিষ্ট সময়: <span id="bcs-timer" style="color:#fde047;">02:00:00</span></span>
+                </div>
+                <div id="bcs-questions-container"></div>
+                <button class="btn-action" style="background:#16a34a; margin-top:20px;" onclick="submitBcsExam()">পরীক্ষা জমা দিন (Submit)</button>
+            </div>
+
+            <div id="bcs-result-screen" class="hidden" style="text-align: center; padding: 20px;">
+                <h3>পরীক্ষার ফলাফল</h3>
+                <h1 id="bcs-final-score" style="color: #2563eb; margin: 15px 0;">0.00 / 200</h1>
+                <p id="bcs-stat-text"></p>
+                <button class="btn-action" style="margin-top: 20px; width: auto; padding: 10px 20px;" onclick="location.reload()">পুনরায় পরীক্ষা দিন</button>
+            </div>
+        </div>
+
+        <!-- ৫. একাডেমিক এক্সাম সেকশন (Class 1-12) -->
+        <div id="academicExam" class="section">
+            <h2>🏫 শ্রেণিভিত্তিক একাডেমিক পরীক্ষা (Class 1 - 12)</h2>
+            <div class="grid-container">
+                <div>
+                    <label>শ্রেণি (Class)</label>
+                    <select id="class-select" onchange="loadSubjects()">
+                        <option value="">শ্রেণি নির্বাচন করুন</option>
+                        <script>for(let i=1;i<=12;i++) document.write(`<option value="${i}">Class ${i}</option>`);</script>
+                    </select>
+                </div>
+                <div>
+                    <label>বিষয় (Subject)</label>
+                    <select id="subject-select"><option value="">আগে শ্রেণি নির্বাচন করুন</option></select>
+                </div>
+                <div>
+                    <label>অধ্যায় (Chapter)</label>
+                    <select><option value="all">সকল অধ্যায় (Full Syllabus)</option><option value="1">অধ্যায় ১</option><option value="2">অধ্যায় ২</option></select>
+                </div>
+            </div>
+            <button class="btn-action" style="margin-top: 20px;" onclick="alert('একাডেমিক পরীক্ষা প্রক্রিয়াধীন...')">পরীক্ষা শুরু করুন</button>
+        </div>
+
+        <!-- ৬. স্মার্ট অটো-লার্নিং হাব (Topic Reader) -->
+        <div id="autoLearn" class="section">
+            <h2>🤖 স্মার্ট অটো-লার্নিং হাব (Topic Reader)</h2>
+            <p style="font-size: 14px; margin-bottom: 12px;">যেকোনো টপিক বা অধ্যায়ের নাম লিখুন, AI আপনার জন্য বিশদ নোট প্রস্তুত করে দেবে:</p>
+            <div style="display:flex; gap:10px;">
+                <input type="text" id="topic-input" placeholder="টপিক লিখুন (যেমন: সালোকসংশ্লেষণ, BCS English Grammar rules)" style="flex:1; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+                <button class="btn-action" style="width: auto;" onclick="fetchTopicContent()">পড়া তৈরি করুন</button>
+            </div>
+            <div id="reading-area" class="hidden" style="margin-top: 20px; background: #f8fafc; padding: 20px; border-radius: 8px; border-left: 4px solid #2563eb; border: 1px solid #e2e8f0;">
+                <h3 id="topic-heading"></h3>
+                <div id="topic-body" style="margin: 15px 0; line-height: 1.6; font-size: 14px;"></div>
+                <button class="btn-action" style="background:#16a34a; width:auto;" onclick="alert('কুইজ তৈরি হচ্ছে...')">এই টপিকের ওপর পরীক্ষা দিন</button>
+            </div>
+        </div>
+
+        <!-- ৭. জ্ঞান ও শিক্ষা হাব -->
         <div id="studyHub" class="section">
             <div class="author-notice-box">
-                <b>📌 নোটিশ:</b> এখানে উল্লেখিত সকল ডিজিটাল বই এবং পাঠ্য উপকরণ বিভিন্ন উন্মুক্ত উৎস থেকে সংগ্রহ করা হয়েছে। সকল কৃতিত্ব মূল লেখক ও প্রকাশকদের।
+                <b>📌 নোটিশ:</b> এখানে উল্লেখিত সকল ডিজিটাল বই এবং পাঠ্য উপকরণ বিভিন্ন উন্মুক্ত উৎস থেকে সংগ্রহ করা হয়েছে।
                 <div class="like-container">
                     <button class="btn-like" onclick="likeNotice()">👍 পছন্দ হয়েছে (<span id="likeCount">0</span>)</button>
                 </div>
-
-                <div class="feedback-area-box">
-                    <b>💬 আপনার মূল্যবান মতামত বা অনুরোধ লিখুন:</b>
-                    <textarea id="userFeedback" class="feedback-area" placeholder="কোন বই বা নোটসের প্রয়োজন থাকলে মতামত লিখুন..."></textarea>
-                    <button class="btn-feedback" onclick="submitFeedback()">মতামত পাঠান</button>
-                    <div id="feedbackSuccess" class="feedback-msg">আপনার মতামত জমা নেওয়া হয়েছে! ধন্যবাদ।</div>
-                </div>
             </div>
-
             <h2>📚 ডিজিটাল জ্ঞান ও শিক্ষা হাব</h2>
-            <p>এখানে সব ধরণের বই, লেকচার নোটস ও ক্লাস রেকর্ড সুসংগঠিত রয়েছে:</p>
-
-            <div id="hubMainCategories" class="grid-container">
-                <div class="hub-card" onclick="openStudyFolder('academicView')"><span>🏫</span> একাডেমি (Class 1 - 12)</div>
-                <div class="hub-card" onclick="openStudyFolder('ieltsView')"><span>🇬🇧</span> IELTS প্রিপারেশন</div>
-                <div class="hub-card" onclick="openStudyFolder('islamicView')"><span>🕌</span> ইসলামিক বই</div>
-                <div class="hub-card" onclick="openStudyFolder('literatureView')"><span>📖</span> সাহিত্য ও অন্যান্য</div>
+            <div class="grid-container">
+                <div class="hub-card" onclick="alert('একাডেমিক সেকশন খোলা হচ্ছে...')"><span>🏫</span> একাডেমি (Class 1 - 12)</div>
+                <div class="hub-card" onclick="alert('IELTS সেকশন খোলা হচ্ছে...')"><span>🇬🇧</span> IELTS প্রিপারেশন</div>
+                <div class="hub-card" onclick="alert('ইসলামিক বই সেকশন খোলা হচ্ছে...')"><span>🕌</span> ইসলামিক বই</div>
+                <div class="hub-card" onclick="alert('সাহিত্য সেকশন খোলা হচ্ছে...')"><span>📖</span> সাহিত্য ও অন্যান্য</div>
             </div>
-
-            <div id="studyHubViews"></div>
         </div>
 
-        <!-- CV Builder Section -->
+        <!-- ৮. CV Builder -->
         <div id="cvBuilder" class="section">
             <h2>📄 অনলাইন ফ্রি সি ভি বিল্ডার</h2>
-            <p>আপনার পছন্দের ক্যাটাগরি এবং টেমপ্লেট বেছে নিয়ে এডিট ও ডাউনলোড করুন:</p>
-
-            <div class="grid-container" id="cvCategoryGrid">
-                <div class="hub-card" onclick="openCvSubCategories('groupA')"><span>⚙️</span> Group A: Engineering & Tech</div>
-                <div class="hub-card" onclick="openCvSubCategories('groupB')"><span>💼</span> Group B: Corporate & Office</div>
-                <div class="hub-card" onclick="openCvSubCategories('groupC')"><span>🛒</span> Group C: Service & Retail</div>
-                <div class="hub-card" onclick="openCvSubCategories('groupD')"><span>🎓</span> Group D: Education & Academia</div>
-                <div class="hub-card" onclick="openCvSubCategories('groupE')"><span>🏛️</span> Group E: BD Traditional & Govt</div>
-                <div class="hub-card" onclick="openCvSubCategories('groupF')"><span>🎨</span> Group F: Creative & Media</div>
-            </div>
-
-            <div id="cvSubCategoryView" style="display: none; margin-top: 20px;">
-                <button class="back-btn" onclick="backToCvCategoryGrid()">🔙 ক্যাটাগরি তালিকায় ফিরুন</button>
-                <h3 id="selectedCategoryTitle" style="margin-top: 15px; color: #1e293b;"></h3>
-                <p>নিচে থেকে আপনার পছন্দের ডিজাইনটি বেছে নিন:</p>
-                <div class="grid-container" id="templateListGrid"></div>
-            </div>
-
-            <div id="cvEditorView" style="display: none; margin-top: 20px;">
-                <button class="back-btn" onclick="backToSubCategory()">🔙 টেমপ্লেট তালিকায় ফিরুন</button>
-                <button class="btn-action" style="width: auto; background-color: #16a34a; float: right;" onclick="downloadCV()">📥 PDF ডাউনলোড করুন</button>
-                <div style="clear: both; margin-bottom: 15px;"></div>
-                <div id="cvTemplateContainer"></div>
+            <p>আপনার পছন্দের ক্যাটাগরি বেছে নিয়ে এডিট ও ডাউনলোড করুন:</p>
+            <div class="grid-container">
+                <div class="hub-card"><span>⚙️</span> Engineering & Tech</div>
+                <div class="hub-card"><span>💼</span> Corporate & Office</div>
+                <div class="hub-card"><span>🎓</span> Education & Academia</div>
             </div>
         </div>
 
-        <!-- ৫. ভবিষ্যৎ প্ল্যান -->
-        <div id="plans" class="section">
-            <h2>🚀 ভবিষ্যৎ পরিকল্পনা</h2>
-            <p>সামনে আরও নতুন নতুন IoT ও ওয়েব প্রজেক্ট তৈরি করার ইচ্ছা আছে।</p>
-        </div>
-
-        <!-- ৬. গ্যালারি -->
+        <!-- ৯. গ্যালারি -->
         <div id="gallery" class="section">
             <h2>📸 গ্যালারি</h2>
-            <p>এখানে প্রজেক্টের ছবি যুক্ত করা হবে।</p>
+            <p>এখানে প্রজেক্ট ও পোর্টফোলিওর ছবি প্রদর্শিত হবে।</p>
         </div>
 
-        <!-- ৭. যোগাযোগ -->
+        <!-- ১০. যোগাযোগ -->
         <div id="contact" class="section">
             <h2>📲 সামাজিক যোগাযোগ মাধ্যমে যুক্ত হন</h2>
-            <p>আমার সাথে যেকোনো সামাজিক মাধ্যমে যুক্ত হতে পারেন:</p>
-            <div class="social-links" id="socialLinksContainer"></div>
+            <div class="social-links">
+                <a href="#" class="btn-social btn-facebook"><i class="fab font-facebook"></i> Facebook</a>
+                <a href="#" class="btn-social btn-linkedin"><i class="fab font-linkedin"></i> LinkedIn</a>
+            </div>
         </div>
     </div>
 
-    <!-- 🤖 GEMINI AI CHATBOT HTML WIDGET -->
+    <!-- 🤖 GEMINI AI CHATBOT WIDGET -->
     <div id="gemini-chat-widget">
-        <button id="chat-toggle-btn">
-            <i class="fa-solid fa-robot"></i> Gemini AI
-        </button>
+        <button id="chat-toggle-btn"><i class="fa-solid fa-robot"></i> Gemini AI</button>
         <div id="chat-box" class="chat-hidden">
             <div class="chat-header">
                 <h3><i class="fa-solid fa-bot"></i> AI Assistant</h3>
-                <button id="chat-close-btn">&times;</button>
+                <button id="chat-close-btn" style="background:none; border:none; color:white; font-size:18px; cursor:pointer;">&times;</button>
             </div>
             <div class="chat-messages" id="chat-messages">
                 <div class="message ai-message">আসসালামু আলাইকুম! আমি নুর-মাইক্রোটেক-এর AI অ্যাসিস্ট্যান্ট। আপনাকে কীভাবে সাহায্য করতে পারি?</div>
@@ -499,92 +387,213 @@
         </div>
     </div>
 
-    <!-- JavaScript Files -->
-    <script src="ui-data.js"></script>
-    <script type="module" src="app.js"></script>
-    <script src="sidebar.js"></script>
-
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // নোটিশ লাইক ও মতামত হ্যান্ডলিং
+        // ১. অ্যান্টি-চিটিং প্রোটেকশন (কপি, ড্রাগ, রাইট-ক্লিক ও স্ক্রিনশট ব্লক)
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('selectstart', e => e.preventDefault());
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'PrintScreen') {
+                navigator.clipboard.writeText('');
+                alert('পরীক্ষার সময় বা পোর্টালে স্ক্রিনশট নেওয়া সম্পূর্ণ নিষেধ!');
+                e.preventDefault();
+            }
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'i')) {
+                e.preventDefault();
+            }
+        });
+
+        // ২. নেভিগেশন ট্যাব সুইচিং
+        function showSection(sectionId, btn) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('btn-active'));
+            document.getElementById(sectionId).classList.add('active');
+            if(btn) btn.classList.add('btn-active');
+        }
+
+        // ৩. অটো আইডি জেনারেটর ও ইউজার সেশন (২৭২০০০০০০১ সিরিজ)
+        function generateStudentID() {
+            let lastCounter = localStorage.getItem('user_counter') || 0;
+            let newCounter = parseInt(lastCounter) + 1;
+            localStorage.setItem('user_counter', newCounter);
+            return 2720000001 + (newCounter - 1);
+        }
+
+        function toggleAuth(type) {
+            if (type === 'login') {
+                document.getElementById('reg-box').classList.add('hidden');
+                document.getElementById('login-box').classList.remove('hidden');
+            } else {
+                document.getElementById('login-box').classList.add('hidden');
+                document.getElementById('reg-box').classList.remove('hidden');
+            }
+        }
+
+        document.getElementById('reg-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = {
+                id: generateStudentID(),
+                name: document.getElementById('reg-name').value,
+                phone: document.getElementById('reg-phone').value,
+                email: document.getElementById('reg-email').value,
+                inst: document.getElementById('reg-inst').value || 'দেওয়া হয়নি'
+            };
+            localStorage.setItem('current_user', JSON.stringify(user));
+            alert('রেজিস্ট্রেশন সফল হয়েছে! আপনার আইডি: ' + user.id);
+            loadDashboard(user);
+        });
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const savedUser = JSON.parse(localStorage.getItem('current_user'));
+            if(savedUser) loadDashboard(savedUser);
+            else alert('কোনো একাউন্ট পাওয়া যায়নি! আগে সাইন আপ করুন।');
+        });
+
+        function loadDashboard(user) {
+            document.getElementById('auth-forms-container').classList.add('hidden');
+            document.getElementById('student-dashboard').classList.remove('hidden');
+            document.getElementById('user-name').innerText = user.name;
+            document.getElementById('user-id').innerText = 'ID: ' + user.id;
+            document.getElementById('user-inst-display').innerText = user.inst;
+            document.getElementById('user-avatar').innerText = user.name.charAt(0).toUpperCase();
+        }
+
+        function logoutUser() {
+            document.getElementById('student-dashboard').classList.add('hidden');
+            document.getElementById('auth-forms-container').classList.remove('hidden');
+        }
+
+        // ৪. বিসিএস এক্সাম ইঞ্জিন লজিক
+        const bcsQuestions = [
+            { id: 1, subject: "বাংলা", question: "চর্যাপদ কোন ছন্দে রচিত?", options: ["অক্ষরবৃত্ত", "মাত্রাবৃত্ত", "স্বরবৃত্ত", "গদ্যছন্দ"], ans: 1 },
+            { id: 2, subject: "গণিত", question: "x + y = 6 এবং x - y = 2 হলে, xy = কত?", options: ["4", "8", "12", "16"], ans: 1 },
+            { id: 3, subject: "বাংলাদেশ বিষয়াবলী", question: "সংবিধানের কত অনুচ্ছেদে মৌলিক অধিকারের কথা বলা হয়েছে?", options: ["১ম ভাগে", "৩য় ভাগে", "৪র্থ ভাগে", "৫ম ভাগে"], ans: 1 }
+        ];
+
+        function selectMode(btn) {
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function startBcsExam() {
+            document.getElementById('bcs-selection-card').classList.add('hidden');
+            document.getElementById('bcs-live-exam').classList.remove('hidden');
+            const qContainer = document.getElementById('bcs-questions-container');
+            qContainer.innerHTML = '';
+            bcsQuestions.forEach((q, i) => {
+                qContainer.innerHTML += `
+                    <div class="question-box">
+                        <div style="font-weight:bold;">প্রশ্ন ${i+1}: ${q.question} <small style="color:#666;">(${q.subject})</small></div>
+                        <div class="options">
+                            ${q.options.map((opt, oIdx) => `
+                                <label class="option-label">
+                                    <input type="radio" name="bq_${q.id}" value="${oIdx}"> ${opt}
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function submitBcsExam() {
+            let score = 0, correct = 0, wrong = 0;
+            bcsQuestions.forEach(q => {
+                const selected = document.querySelector(`input[name="bq_${q.id}"]:checked`);
+                if(selected) {
+                    if(parseInt(selected.value) === q.ans) { score += 1; correct++; }
+                    else { score -= 0.5; wrong++; }
+                }
+            });
+            document.getElementById('bcs-live-exam').classList.add('hidden');
+            document.getElementById('bcs-result-screen').classList.remove('hidden');
+            document.getElementById('bcs-final-score').innerText = `${score.toFixed(2)} / ২০০`;
+            document.getElementById('bcs-stat-text').innerText = `সঠিক উত্তর: ${correct} টি | ভুল উত্তর: ${wrong} টি`;
+        }
+
+        // ৫. একাডেমিক বিষয় ডাইনামিক লোডার
+        function loadSubjects() {
+            const classVal = document.getElementById('class-select').value;
+            const subSelect = document.getElementById('subject-select');
+            subSelect.innerHTML = '';
+            if(!classVal) return;
+            let subjects = ['বাংলা', 'ইংরেজি', 'গণিত', 'সাধারণ বিজ্ঞান'];
+            if(classVal >= 9) subjects = ['পদার্থবিজ্ঞান', 'রসায়ন', 'জীববিজ্ঞান', 'উচ্চতর গণিত', 'হিসাববিজ্ঞান'];
+            subjects.forEach(s => subSelect.innerHTML += `<option value="${s}">${s}</option>`);
+        }
+
+        // ৬. এআই অটো-লার্নিং ফেচিং
+        async function fetchTopicContent() {
+            const topic = document.getElementById('topic-input').value.trim();
+            if(!topic) { alert('টপিকের নাম লিখুন!'); return; }
+            document.getElementById('reading-area').classList.remove('hidden');
+            document.getElementById('topic-heading').innerText = `পড়ছেন: ${topic}`;
+            document.getElementById('topic-body').innerText = 'এআই তথ্য লোড করছে... অনুগ্রহ করে অপেক্ষা করুন...';
+
+            try {
+                const res = await fetch('https://nur-micro-tech-github-io.vercel.app/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: `Provide a detailed study note on topic: ${topic} in Bengali.` })
+                });
+                const data = await res.json();
+                document.getElementById('topic-body').innerText = data.reply || 'তথ্য পাওয়া যায়নি।';
+            } catch (e) {
+                document.getElementById('topic-body').innerText = 'সার্ভারে কানেক্ট করতে সমস্যা হচ্ছে।';
+            }
+        }
+
+        // ৭. লাইক কাউন্টার logic
         let likes = parseInt(localStorage.getItem('noticeLikes') || '0');
         document.getElementById('likeCount').innerText = likes;
-
         function likeNotice() {
             likes++;
             localStorage.setItem('noticeLikes', likes);
             document.getElementById('likeCount').innerText = likes;
         }
 
-        function submitFeedback() {
-            const input = document.getElementById("userFeedback");
-            const msg = document.getElementById("feedbackSuccess");
-            if (input.value.trim() !== "") {
-                let feedbacks = JSON.parse(localStorage.getItem("siteFeedbacks") || "[]");
-                feedbacks.push(input.value);
-                localStorage.setItem("siteFeedbacks", JSON.stringify(feedbacks));
-                input.value = "";
-                msg.style.display = "block";
-                setTimeout(() => { msg.style.display = "none"; }, 4000);
+        // ৮. জেমিনি এআই চ্যাটবট হ্যান্ডলার
+        const toggleBtn = document.getElementById('chat-toggle-btn');
+        const closeBtn = document.getElementById('chat-close-btn');
+        const chatBox = document.getElementById('chat-box');
+        const sendBtn = document.getElementById('chat-send-btn');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+
+        toggleBtn.addEventListener('click', () => chatBox.classList.toggle('chat-hidden'));
+        closeBtn.addEventListener('click', () => chatBox.classList.add('chat-hidden'));
+        sendBtn.addEventListener('click', handleSend);
+        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+
+        async function handleSend() {
+            const userText = chatInput.value.trim();
+            if (!userText) return;
+            appendMessage(userText, 'user-message');
+            chatInput.value = '';
+            const loadingDiv = appendMessage('ভেবে উত্তর দিচ্ছি...', 'ai-message');
+
+            try {
+                const response = await fetch('https://nur-micro-tech-github-io.vercel.app/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: `Answer politely in Bengali: ${userText}` })
+                });
+                const data = await response.json();
+                loadingDiv.innerText = (response.ok && data.reply) ? data.reply : "উত্তর পাওয়া যায়নি।";
+            } catch (error) {
+                loadingDiv.innerText = "সার্ভারের সাথে কানেক্ট করা যাচ্ছে না।";
             }
         }
-        
-    <!-- GEMINI AI CHATBOT SCRIPT -->
-<script>
-    const toggleBtn = document.getElementById('chat-toggle-btn');
-    const closeBtn = document.getElementById('chat-close-btn');
-    const chatBox = document.getElementById('chat-box');
-    const sendBtn = document.getElementById('chat-send-btn');
-    const chatInput = document.getElementById('chat-input');
-    const chatMessages = document.getElementById('chat-messages');
 
-    toggleBtn.addEventListener('click', () => chatBox.classList.toggle('chat-hidden'));
-    closeBtn.addEventListener('click', () => chatBox.classList.add('chat-hidden'));
-
-    sendBtn.addEventListener('click', handleSend);
-    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
-
-    async function handleSend() {
-        const userText = chatInput.value.trim();
-        if (!userText) return;
-
-        appendMessage(userText, 'user-message');
-        chatInput.value = '';
-
-        const loadingDiv = appendMessage('ভেবে উত্তর দিচ্ছি...', 'ai-message');
-
-        try {
-            const response = await fetch('https://nur-micro-tech-github-io.vercel.app/api/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    message: `You are an AI assistant for Nur's portfolio website (Nur-MicroTech). Answer politely in Bengali. Question: ${userText}` 
-                })
-            });
-
-            const data = await response.json();
-            
-            if (response.ok && data.reply) {
-                loadingDiv.innerText = data.reply;
-            } else if (data.error) {
-                loadingDiv.innerText = "⚠️ " + data.error;
-            } else {
-                loadingDiv.innerText = "দুঃখিত, কোনো উত্তর পাওয়া যায়নি।";
-            }
-        } catch (error) {
-            console.error(error);
-            loadingDiv.innerText = "দুঃখিত, সার্ভারের সাথে কানেক্ট করা যাচ্ছে না।";
+        function appendMessage(text, className) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${className}`;
+            msgDiv.innerText = text;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return msgDiv;
         }
-    }
-
-    function appendMessage(text, className) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = `message ${className}`;
-        msgDiv.innerText = text;
-        chatMessages.appendChild(msgDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-        return msgDiv;
-    }
-</script>
-    
+    </script>
 </body>
 </html>
