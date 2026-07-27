@@ -16,10 +16,11 @@ export default async function handler(req, res) {
         const apiKey = process.env.GEMINI_API_KEY;
 
         if (!apiKey) {
-            return res.status(500).json({ error: 'API Key পাওয়া যায়নি!' });
+            return res.status(500).json({ error: 'API Key পাওয়া যায়নি!' });
         }
 
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`, {
+        // এখানে ইউআরএল-এর শেষে ?key=${apiKey} যুক্ত করা হয়েছে
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,7 +38,7 @@ export default async function handler(req, res) {
             return res.status(response.status).json({ error: data.error?.message || 'Gemini API Error' });
         }
 
-        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "কোনো উত্তর পাওয়া যায়নি।";
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "কোনো উত্তর পাওয়া যায়নি।";
         return res.status(200).json({ reply });
 
     } catch (error) {
