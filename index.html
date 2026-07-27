@@ -527,64 +527,63 @@
                 setTimeout(() => { msg.style.display = "none"; }, 4000);
             }
         }
-    </script>
+    <!-- GEMINI AI CHATBOT SCRIPT -->
+<script>
+    const toggleBtn = document.getElementById('chat-toggle-btn');
+    const closeBtn = document.getElementById('chat-close-btn');
+    const chatBox = document.getElementById('chat-box');
+    const sendBtn = document.getElementById('chat-send-btn');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
 
-    <!-- GEMINI AI CHATBOT SCRIPT (Vercel Backend Linked) -->
-    <script>
-        const toggleBtn = document.getElementById('chat-toggle-btn');
-        const closeBtn = document.getElementById('chat-close-btn');
-        const chatBox = document.getElementById('chat-box');
-        const sendBtn = document.getElementById('chat-send-btn');
-        const chatInput = document.getElementById('chat-input');
-        const chatMessages = document.getElementById('chat-messages');
+    toggleBtn.addEventListener('click', () => chatBox.classList.toggle('chat-hidden'));
+    closeBtn.addEventListener('click', () => chatBox.classList.add('chat-hidden'));
 
-        toggleBtn.addEventListener('click', () => chatBox.classList.toggle('chat-hidden'));
-        closeBtn.addEventListener('click', () => chatBox.classList.add('chat-hidden'));
+    sendBtn.addEventListener('click', handleSend);
+    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
 
-        sendBtn.addEventListener('click', handleSend);
-        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+    async function handleSend() {
+        const userText = chatInput.value.trim();
+        if (!userText) return;
 
-        async function handleSend() {
-            const userText = chatInput.value.trim();
-            if (!userText) return;
+        appendMessage(userText, 'user-message');
+        chatInput.value = '';
 
-            appendMessage(userText, 'user-message');
-            chatInput.value = '';
+        const loadingDiv = appendMessage('ভেবে উত্তর দিচ্ছি...', 'ai-message');
 
-            const loadingDiv = appendMessage('ভেবে উত্তর দিচ্ছি...', 'ai-message');
+        try {
+            const response = await fetch('https://nur-micro-tech-github-io.vercel.app/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    message: `You are an AI assistant for Nur's portfolio website (Nur-MicroTech). Answer politely in Bengali. Question: ${userText}` 
+                })
+            });
 
-            try {
-                // Vercel-এর ব্যাকএন্ড থেকে রেসপন্স আনা হচ্ছে
-                const response = await fetch('https://nur-micro-tech-github-io.vercel.app/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: `You are an AI assistant for Nur's portfolio website. Answer briefly in Bengali. Question: ${userText}` })
-                });
-
-                const data = await response.json();
-                
-                if (response.ok && data.reply) {
-                    loadingDiv.innerText = data.reply;
-                } else if (data.error) {
-                    loadingDiv.innerText = "Error: " + data.error;
-                } else {
-                    loadingDiv.innerText = "API Response-এ সমস্যা হয়েছে।";
-                }
-            } catch (error) {
-                console.error(error);
-                loadingDiv.innerText = "দুঃখিত, কানেকশনে কোনো সমস্যা হয়েছে।";
+            const data = await response.json();
+            
+            if (response.ok && data.reply) {
+                loadingDiv.innerText = data.reply;
+            } else if (data.error) {
+                loadingDiv.innerText = "⚠️ " + data.error;
+            } else {
+                loadingDiv.innerText = "দুঃখিত, কোনো উত্তর পাওয়া যায়নি।";
             }
+        } catch (error) {
+            console.error(error);
+            loadingDiv.innerText = "দুঃখিত, সার্ভারের সাথে কানেক্ট করা যাচ্ছে না।";
         }
+    }
 
-        function appendMessage(text, className) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `message ${className}`;
-            msgDiv.innerText = text;
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            return msgDiv;
-        }
-    </script>
+    function appendMessage(text, className) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${className}`;
+        msgDiv.innerText = text;
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return msgDiv;
+    }
+</script>
     
 </body>
 </html>
