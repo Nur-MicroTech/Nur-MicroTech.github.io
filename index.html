@@ -3,252 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nur-MicroTech | Education & Engineering Portal</title>
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles.css">
+    <title>নুর মোহাম্মদ - অল-ইন-ওয়ান পোর্টফোলিও</title>
+    
+    <!-- Font Awesome (আইকনের জন্য) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Third Party Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f2f5; color: #333; text-align: center; }
+        
+        header { 
+            background: linear-gradient(135deg, #1e293b, #0f172a); 
+            color: white; 
+            padding: 30px 15px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+            position: relative;
+        }
+        header h1 { font-size: 28px; margin-bottom: 5px; }
+        header p { color: #cbd5e1; font-size: 15px; }
+        
+        header nav { display: none !important; }
+
+        .container { max-width: 850px; margin: 30px auto; padding: 0 15px; }
+        
+        .section { 
+            display: none; 
+            background: #ffffff; 
+            padding: 35px; 
+            border-radius: 12px; 
+            text-align: left; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+        .section.active { display: block !important; }
+        .section h2 { font-size: 22px; color: #0f172a; margin-bottom: 12px; }
+        
+        /* আপনার অরিজিনাল নোটিশ এবং লাইক/মতামত বক্স */
+        .author-notice-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid #2563eb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1e3a8a;
+            line-height: 1.6;
+        }
+        .like-container {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-like {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 7px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        .btn-like:hover { background-color: #1d4ed8; }
+
+        /* মতামত বক্স ডিজাইন */
+        .feedback-area-box {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px dashed #bfdbfe;
+        }
+        .feedback-area { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #cbd5e1; 
+            border-radius: 6px; 
+            resize: vertical; 
+            min-height: 60px; 
+            font-size: 13px; 
+            margin-top: 8px; 
+            margin-bottom: 8px; 
+            outline: none; 
+        }
+        .btn-feedback { 
+            background-color: #0284c7; 
+            color: white; 
+            border: none; 
+            padding: 7px 15px; 
+            border-radius: 6px; 
+            font-weight: 600; 
+            font-size: 13px;
+            cursor: pointer; 
+        }
+        .btn-feedback:hover { background-color: #0369a1; }
+        .feedback-msg { color: #16a34a; font-size: 13px; font-weight: bold; margin-top: 5px; display: none; }
+
+        /* লগইন বক্স */
+        .auth-card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; background: #f8fafc; max-width: 380px; margin: 20px auto; }
+        .auth-card input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; }
+        
+        .project-card { border: 1px solid #cbd5e1; border-radius: 8px; margin-top: 15px; background: #ffffff; overflow: hidden; }
+        .project-header { background: #f1f5f9; padding: 15px 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: background 0.2s; }
+        .project-header:hover { background: #e2e8f0; }
+        .project-content { display: none; padding: 20px; border-top: 1px solid #cbd5e1; background: #fafafa; }
+        
+        .btn-action { width: 100%; padding: 10px; background-color: #2563eb; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 15px; }
+        .btn-logout { width: auto; padding: 8px 16px; background-color: #ef4444; }
+        
+        iframe { width: 100%; height: 480px; border: none; border-radius: 8px; margin-top: 15px; }
+        .error-text { color: #ef4444; font-size: 13px; font-weight: bold; margin-top: 8px; text-align: center; }
+
+        /* সোশ্যাল মিডিয়া বাটন স্টাইল */
+        .social-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+        .btn-social { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; color: white !important; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px; transition: transform 0.2s, opacity 0.2s; }
+        .btn-social:hover { transform: translateY(-2px); opacity: 0.9; }
+        .btn-facebook { background-color: #1877F2; }
+        .btn-twitter { background-color: #000000; }
+        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .btn-linkedin { background-color: #0A66C2; }
+
+        /* স্টাডি / লাইব্রেরি হাব স্টাইল */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
+        .hub-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.2s; font-weight: 600; }
+        .hub-card:hover { background: #eff6ff; border-color: #2563eb; transform: translateY(-3px); }
+        .hub-card span { font-size: 28px; display: block; margin-bottom: 8px; }
+        .back-btn { background: #64748b; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; margin-bottom: 15px; font-weight: 600; }
+        .resource-box { background: #f1f5f9; padding: 15px; border-radius: 8px; margin-top: 10px; }
+        .resource-box h4 { margin-bottom: 8px; color: #1e293b; }
+
+        .book-list { list-style: none; padding: 0; margin-top: 10px; }
+        .book-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 8px; font-size: 14px; font-weight: 500; }
+        .book-item a { background-color: #2563eb; color: white; text-decoration: none; padding: 6px 14px; border-radius: 4px; font-size: 13px; font-weight: 600; transition: background 0.2s; }
+        .book-item a:hover { background-color: #1d4ed8; }
+    </style>
 </head>
 <body>
 
-    <!-- Anti-Cheating Warning Overlay Modal -->
-    <div id="antiCheatModal" class="modal-overlay hidden">
-        <div class="modal-box alert">
-            <i class="fa-solid fa-triangle-exclamation modal-icon red"></i>
-            <h2>সতর্কতা: অ্যান্টি-চিটিং অল্যার্ট!</h2>
-            <p>পরীক্ষা চলাকালীন অন্য ট্যাবে যাওয়া বা স্ক্রিন মিনিমাইজ করা সম্পূর্ণ নিষেধ। পুনরায় করলে পরীক্ষা স্বয়ংক্রিয়ভাবে বাতিল ও জমা হয়ে যাবে।</p>
-            <p class="warning-count">সতর্কতা সংখ্যা: <span id="cheatCount">0</span>/2</p>
-            <button onclick="closeCheatModal()" class="btn btn-danger">আমি বুঝেছি</button>
+    <header>
+        <h1>নুর মোহাম্মদ 👋</h1>
+        <p>ওয়েব, টেকনোলজি ও প্রজেক্ট হাব</p>
+        <nav>
+            <button class="nav-btn btn-active" onclick="showSection('home', this)">হোম</button>
+            <button class="nav-btn" onclick="showSection('about', this)">আমার সম্পর্কে</button>
+            <button class="nav-btn" onclick="showSection('projects', this)">প্রজেক্টসমূহ</button>
+            <button class="nav-btn" onclick="showSection('studyHub', this)">জ্ঞান ও শিক্ষা হাব 📚</button>
+            <button class="nav-btn" onclick="showSection('plans', this)">ভবিষ্যৎ প্ল্যান</button>
+            <button class="nav-btn" onclick="showSection('gallery', this)">গ্যালারি</button>
+            <button class="nav-btn" onclick="showSection('contact', this)">যোগাযোগ</button>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- ১. হোম -->
+        <div id="home" class="section active">
+            <h2>🏠 স্বাগতম!</h2>
+            <p>আমার ব্যক্তিগত প্রজেক্ট পোর্টফোলিওতে আপনাকে স্বাগতম।</p>
+        </div>
+
+        <!-- ২. আমার সম্পর্কে -->
+        <div id="about" class="section">
+            <h2>👨‍💻 আমার সম্পর্কে</h2>
+            <p>আমি নুর মোহাম্মদ। টেকনোলজি, ওয়েব ডেভলপমেন্ট এবং ইলেকট্রনিক্স নিয়ে কাজ করতে পছন্দ করি।</p>
+        </div>
+
+        <!-- ৩. সিকিউর প্রজেক্ট সেকশন -->
+        <div id="projects" class="section">
+            <h2>🤖 সিকিউর প্রজেক্টসমূহ 🔒</h2>
+            
+            <div id="loginBox" class="auth-card">
+                <h3>এডমিন লগইন</h3>
+                <input type="email" id="emailInput" placeholder="ইমেইল লিখুন">
+                <input type="password" id="passInput" placeholder="পাসওয়ার্ড লিখুন">
+                <button class="btn-action" onclick="loginUser()">লগইন করুন</button>
+                <div id="errMsg" class="error-text"></div>
+            </div>
+
+            <div id="protectedProjects" style="display: none;">
+                <div style="text-align: right; margin-bottom: 15px;">
+                    <button class="btn-action btn-logout" onclick="logoutUser()">🔓 লগআউট করুন</button>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header" onclick="toggleProject('p1', 'p1-container', 'p1', this)">
+                        <span>📦 Project-1: IoT Smart Medicine Box</span>
+                        <span class="icon">🔽</span>
+                    </div>
+                    <div id="p1" class="project-content">
+                        <div id="p1-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ৪. জ্ঞান ও শিক্ষা হাব -->
+        <div id="studyHub" class="section">
+            
+            <!-- অরিজিনাল লেখকদের নোটিশ ও পছন্দ বাটন -->
+            <div class="author-notice-box">
+                <b>📌 নোটিশ:</b> এখানে উল্লেখিত সকল ডিজিটাল বই এবং পাঠ্য উপকরণ বিভিন্ন উন্মুক্ত উৎস থেকে সংগ্রহ করা হয়েছে। সকল কৃতিত্ব মূল লেখক ও প্রকাশকদের।
+                <div class="like-container">
+                    <button class="btn-like" onclick="likeNotice()">👍 পছন্দ হয়েছে (<span id="likeCount">0</span>)</button>
+                </div>
+
+                <!-- আপনার চাওয়া মতামত জানানোর অপশন -->
+                <div class="feedback-area-box">
+                    <b>💬 আপনার মূল্যবান মতামত বা অনুরোধ লিখুন:</b>
+                    <textarea id="userFeedback" class="feedback-area" placeholder="কোন বই বা নোটসের প্রয়োজন থাকলে মতামত লিখুন..."></textarea>
+                    <button class="btn-feedback" onclick="submitFeedback()">মতামত পাঠান</button>
+                    <div id="feedbackSuccess" class="feedback-msg">আপনার মতামত জমা নেওয়া হয়েছে! ধন্যবাদ।</div>
+                </div>
+            </div>
+
+            <h2>📚 ডিজিটাল জ্ঞান ও শিক্ষা হাব</h2>
+            <p>এখানে সব ধরণের বই, লেকচার নোটস ও ক্লাস রেকর্ড সুসংগঠিত রয়েছে:</p>
+
+            <!-- অরিজিনাল ক্যাটাগরি -->
+            <div id="hubMainCategories" class="grid-container">
+                <div class="hub-card" onclick="openStudyFolder('academicView')"><span>🏫</span> একাডেমি (Class 1 - 12)</div>
+                <div class="hub-card" onclick="openStudyFolder('ieltsView')"><span>🇬🇧</span> IELTS প্রিপারেশন</div>
+                <div class="hub-card" onclick="openStudyFolder('islamicView')"><span>🕌</span> ইসলামিক বই</div>
+                <div class="hub-card" onclick="openStudyFolder('literatureView')"><span>📖</span> সাহিত্য ও অন্যান্য</div>
+            </div>
+
+            <!-- ui-data.js থেকে বই লোড হওয়ার জায়গা -->
+            <div id="studyHubViews"></div>
+        </div>
+
+        <!-- ৫. ভবিষ্যৎ প্ল্যান -->
+        <div id="plans" class="section">
+            <h2>🚀 ভবিষ্যৎ পরিকল্পনা</h2>
+            <p>সামনে আরও নতুন নতুন IoT ও ওয়েব প্রজেক্ট তৈরি করার ইচ্ছা আছে।</p>
+        </div>
+
+        <!-- ৬. গ্যালারি -->
+        <div id="gallery" class="section">
+            <h2>📸 গ্যালারি</h2>
+            <p>এখানে প্রজেক্টের ছবি যুক্ত করা হবে।</p>
+        </div>
+
+        <!-- ৭. যোগাযোগ -->
+        <div id="contact" class="section">
+            <h2>📲 সামাজিক যোগাযোগ মাধ্যমে যুক্ত হন</h2>
+            <p>আমার সাথে যেকোনো সামাজিক মাধ্যমে যুক্ত হতে পারেন:</p>
+
+            <div class="social-links" id="socialLinksContainer"></div>
         </div>
     </div>
 
-    <!-- App Layout -->
-    <div class="app-layout">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="brand">
-                <i class="fa-solid fa-microchip brand-icon"></i>
-                <h2>Nur-MicroTech</h2>
-            </div>
-            
-            <div class="user-badge" id="sidebarUserBadge">
-                <i class="fa-solid fa-circle-user"></i>
-                <span id="userDisplayName">গেস্ট ইউজার</span>
-            </div>
+    <!-- JavaScript Files -->
+    <script src="ui-data.js"></script>
+    <script type="module" src="app.js"></script>
+    <script src="sidebar.js"></script>
 
-            <nav class="nav-menu">
-                <button class="nav-link active" onclick="switchSection('dashboard', event)">
-                    <i class="fa-solid fa-chart-pie"></i> ড্যাশবোর্ড
-                </button>
-                <button class="nav-link" onclick="switchSection('student-portal', event)">
-                    <i class="fa-solid fa-id-card"></i> স্টুডেন্ট পোর্টাল
-                </button>
-                <button class="nav-link" onclick="switchSection('exam-engine', event)">
-                    <i class="fa-solid fa-graduation-cap"></i> বিসিএস ও এক্সাম হাব
-                </button>
-                <button class="nav-link" onclick="switchSection('study-hub', event)">
-                    <i class="fa-solid fa-book-open"></i> স্টাডি হাব & লাইব্রেরি
-                </button>
-                <button class="nav-link" onclick="switchSection('ai-reader', event)">
-                    <i class="fa-solid fa-robot"></i> AI টপিক রিডার & চ্যাট
-                </button>
-                <button class="nav-link" onclick="switchSection('cv-builder', event)">
-                    <i class="fa-solid fa-file-invoice"></i> সিভি বিল্ডার
-                </button>
-                <button class="nav-link" onclick="switchSection('wokwi-viewer', event)">
-                    <i class="fa-solid fa-bolt"></i> সার্কিট সিমুলেটর
-                </button>
-            </nav>
-        </aside>
+    <script>
+        // নোটিশ লাইক ও মতামত হ্যান্ডলিং
+        let likes = parseInt(localStorage.getItem('noticeLikes') || '0');
+        document.getElementById('likeCount').innerText = likes;
 
-        <!-- Main Content Area -->
-        <main class="content-area">
+        function likeNotice() {
+            likes++;
+            localStorage.setItem('noticeLikes', likes);
+            document.getElementById('likeCount').innerText = likes;
+        }
 
-            <!-- Dashboard -->
-            <section id="dashboard" class="content-section active">
-                <div class="hero-banner">
-                    <h1>স্বাগতম, Nur-MicroTech এআই এডুকেশনাল পোর্টালে</h1>
-                    <p>আপনার বিসিএস প্রস্তুতি, একাডেমিক পড়ালেখা এবং প্রফেশনাল স্কিল ডেভেলপমেন্টের অল-ইন-ওয়ান হাব।</p>
-                </div>
-                <div class="grid-cards">
-                    <div class="card" onclick="switchSection('exam-engine', event)">
-                        <i class="fa-solid fa-pen-ruler card-icon"></i>
-                        <h3>অনলাইন এক্সাম সেন্টার</h3>
-                        <p>বিসিএস ও অন্যান্য একাডেমিক পরীক্ষার অ্যান্টি-চিটিং মক টেস্ট দিন।</p>
-                    </div>
-                    <div class="card" onclick="switchSection('study-hub', event)">
-                        <i class="fa-solid fa-book card-icon"></i>
-                        <h3>ডিজিটাল লাইব্রেরি</h3>
-                        <p>১ম-১২শ শ্রেণির মূল বই, গাইড ও অডিও বুক এক জায়গায়।</p>
-                    </div>
-                    <div class="card" onclick="switchSection('ai-reader', event)">
-                        <i class="fa-solid fa-brain card-icon"></i>
-                        <h3>AI স্মার্ট অ্যাসিস্ট্যান্ট</h3>
-                        <p>Gemini AI চালিত টপিক রিডার ও প্রশ্নের তাৎক্ষণিক সমাধান।</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Student Portal -->
-            <section id="student-portal" class="content-section">
-                <h2>স্টুডেন্ট রেজিস্টার ও ডিজিটাল আইডি কার্ড</h2>
-                <div class="portal-grid">
-                    <div class="card-form">
-                        <h3>শিক্ষার্থী নিবন্ধন ফরম</h3>
-                        <form id="studentRegisterForm" onsubmit="handleStudentRegister(event)">
-                            <input type="text" id="stdName" placeholder="আপনার পূর্ণ নাম" required>
-                            <input type="email" id="stdEmail" placeholder="আপনার ইমেইল" required>
-                            <select id="stdClass" required>
-                                <option value="">শ্রেণি/পরীক্ষা নির্বাচন করুন</option>
-                                <option value="Class 1-5">১ম - ৫মি শ্রেণি</option>
-                                <option value="Class 6-8">৬ষ্ঠ - ৮ম শ্রেণি</option>
-                                <option value="Class 9-10">৯ম - ১০ম শ্রেণি</option>
-                                <option value="HSC">একাদশ - দ্বাদশ শ্রেণি (HSC)</option>
-                                <option value="BCS Candidate">বিসিএস পরীক্ষার্থী</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary">ডিজিটাল কার্ড তৈরি করুন</button>
-                        </form>
-                    </div>
-                    <div class="id-card-preview" id="idCardPreview">
-                        <div class="id-header">
-                            <h4>NUR-MICROTECH ACADEMY</h4>
-                            <p>STUDENT IDENTIFICATION CARD</p>
-                        </div>
-                        <div class="id-body">
-                            <p><strong>নাম:</strong> <span id="cardName">---</span></p>
-                            <p><strong>আইডি:</strong> <span id="cardID">NMT-000000</span></p>
-                            <p><strong>শ্রেণি:</strong> <span id="cardClass">---</span></p>
-                            <p><strong>ইমেইল:</strong> <span id="cardEmail">---</span></p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Exam Engine -->
-            <section id="exam-engine" class="content-section">
-                <h2>বিসিএস ও একাডেমিক অনলাইন এক্সাম হাব</h2>
-                
-                <div id="examSelectView">
-                    <p>আপনার পছন্দের পরীক্ষাটি নির্বাচন করে শুরু করুন:</p>
-                    <div class="grid-cards">
-                        <div class="card" onclick="startExam('bcs46')">
-                            <h3>৪৬তম বিসিএস প্রিলিমিনারি মডেল টেস্ট</h3>
-                            <p>বিষয়: বাংলা, ইংরেজি, গণিত, বিজ্ঞান ও সাধারণ জ্ঞান</p>
-                            <p><strong>সময়: ১০ মিনিট | পূর্ণমান: ২০</strong></p>
-                            <button class="btn btn-primary">পরীক্ষা শুরু করুন</button>
-                        </div>
-                        <div class="card" onclick="startExam('bcs45')">
-                            <h3>৪৫তম বিসিএস বিগত বছরের প্রশ্ন সমাধান</h3>
-                            <p>বিষয়: মডেল টেস্ট বিসিএস ও পিএসসি স্পেশাল</p>
-                            <p><strong>সময়: ১০ মিনিট | পূর্ণমান: ২০</strong></p>
-                            <button class="btn btn-primary">পরীক্ষা শুরু করুন</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="activeExamView" class="hidden">
-                    <div class="exam-header-bar">
-                        <div id="examTimerBadge" class="timer-badge">অবশিষ্ট সময়: <span id="timerText">10:00</span></div>
-                        <button class="btn btn-danger" onclick="submitExam()">পরীক্ষা জমা দিন</button>
-                    </div>
-                    <div id="quizQuestionsContainer" class="questions-wrapper">
-                        <!-- Questions will load dynamically -->
-                    </div>
-                </div>
-
-                <div id="examResultView" class="hidden">
-                    <div class="result-box">
-                        <i class="fa-solid fa-trophy trophy-icon"></i>
-                        <h3>পরীক্ষার ফলাফল</h3>
-                        <p class="score-display">আপনার প্রাপ্ত নম্বর: <span id="userScore">0</span> / <span id="totalScore">0</span></p>
-                        <p id="resultStatusText"></p>
-                        <button class="btn btn-secondary" onclick="resetExam()">পুনরায় পরীক্ষা দিন</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Study Hub -->
-            <section id="study-hub" class="content-section">
-                <h2>স্টাডি হাব, ই-বুক ও অডিও বুক লাইব্রেরি</h2>
-                <div class="filter-bar">
-                    <select id="bookClassFilter" onchange="filterBooks()">
-                        <option value="all">সকল শ্রেণি/ক্যাটাগরি</option>
-                        <option value="primary">১ম - ৫মি শ্রেণি</option>
-                        <option value="jsc">৬ষ্ঠ - ৮ম শ্রেণি</option>
-                        <option value="ssc">৯ম - ১০ম শ্রেণি</option>
-                        <option value="hsc">একাদশ - দ্বাদশ শ্রেণি (HSC)</option>
-                        <option value="bcs">বিসিএস ও চাকরির প্রস্তুতি</option>
-                    </select>
-                </div>
-                <div class="grid-cards" id="booksGrid">
-                    <!-- Books Rendered Here -->
-                </div>
-            </section>
-
-            <!-- AI Reader & Chat -->
-            <section id="ai-reader" class="content-section">
-                <h2>Gemini AI টপিক রিডার & লার্নিং অ্যাসিস্ট্যান্ট</h2>
-                <div class="chat-container">
-                    <div class="chat-messages" id="chatMessages">
-                        <div class="message ai">
-                            আসসালামু আলাইকুম! আমি Nur-MicroTech AI। যেকোনো বিষয় বুঝতে বা প্রশ্ন সমাধান করতে এখানে লিখুন।
-                        </div>
-                    </div>
-                    <div class="chat-input-wrapper">
-                        <input type="text" id="chatInput" placeholder="এখানে আপনার প্রশ্নটি লিখুন..." onkeypress="handleKeyPress(event)">
-                        <button class="btn btn-primary" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CV Builder -->
-            <section id="cv-builder" class="content-section">
-                <h2>স্মার্ট প্রফেশনাল সিভি বিল্ডার</h2>
-                <div class="cv-layout">
-                    <div class="cv-form">
-                        <h3>তথ্য প্রদান করুন</h3>
-                        <input type="text" id="cvFullName" placeholder="পূর্ণ নাম" oninput="updateCvPreview()">
-                        <input type="text" id="cvTitle" placeholder="প্রফেশনাল টাইটেল (যেমন: সফটওয়্যার ইঞ্জিনিয়ার)" oninput="updateCvPreview()">
-                        <input type="email" id="cvEmail" placeholder="ইমেইল এড্রেস" oninput="updateCvPreview()">
-                        <input type="text" id="cvPhone" placeholder="মোবাইল নম্বর" oninput="updateCvPreview()">
-                        <textarea id="cvSummary" placeholder="ক্যারিয়ার সামারি/উদ্দেশ্য" oninput="updateCvPreview()"></textarea>
-                        <button class="btn btn-success" onclick="downloadPDF()"><i class="fa-solid fa-file-pdf"></i> PDF ডাউনলোড করুন</button>
-                    </div>
-                    <div class="cv-preview-container">
-                        <div id="cvPaper" class="cv-paper">
-                            <h1 id="pvName">আপনার নাম</h1>
-                            <p class="pv-title" id="pvTitle">প্রফেশনাল টাইটেল</p>
-                            <hr>
-                            <div class="pv-contact">
-                                <span id="pvEmail">email@example.com</span> | <span id="pvPhone">+8801700000000</span>
-                            </div>
-                            <h3 style="margin-top:15px;">প্রোফাইল সামারি</h3>
-                            <p id="pvSummary">আপনার সংক্ষেপ বিবরণী এখানে রিয়েল-টাইমে প্রদর্শিত হবে।</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Wokwi Circuit Viewer -->
-            <section id="wokwi-viewer" class="content-section">
-                <h2>এমবেডেড সার্কিট সিমুলেটর (Wokwi Engine)</h2>
-                <div class="circuit-box">
-                    <p>সার্কিট সিমুলেশন রান করতে প্রজেক্ট সিলেক্ট করুন:</p>
-                    <button class="btn btn-primary" onclick="loadWokwiProject('esp32')">ESP32 প্রজেক্ট</button>
-                    <button class="btn btn-secondary" onclick="loadWokwiProject('uno')">Arduino Uno প্রজেক্ট</button>
-                    <div id="wokwiContainer" class="wokwi-frame" style="margin-top: 20px;"></div>
-                </div>
-            </section>
-
-        </main>
-    </div>
-
-    <!-- Main JavaScript File -->
-    <script src="app.js"></script>
+        function submitFeedback() {
+            const input = document.getElementById("userFeedback");
+            const msg = document.getElementById("feedbackSuccess");
+            if (input.value.trim() !== "") {
+                let feedbacks = JSON.parse(localStorage.getItem("siteFeedbacks") || "[]");
+                feedbacks.push(input.value);
+                localStorage.setItem("siteFeedbacks", JSON.stringify(feedbacks));
+                input.value = "";
+                msg.style.display = "block";
+                setTimeout(() => { msg.style.display = "none"; }, 4000);
+            }
+        }
+    </script>
 </body>
 </html>
+
